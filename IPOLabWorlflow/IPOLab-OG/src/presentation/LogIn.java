@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.border.BevelBorder;
 import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 
 public class LogIn extends JFrame {
 
@@ -43,10 +44,11 @@ public class LogIn extends JFrame {
 	 * Create the frame.
 	 */
 	public LogIn() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(LogIn.class.getResource("/presentation/Icons/icon.png")));
 		setTitle("ProjectOS (Login)");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 345, 213);
+		setBounds(100, 100, 367, 212);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -55,20 +57,21 @@ public class LogIn extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{0, 78, 85, 0, 67, 0, 0, 0};
+		gbl_panel.columnWidths = new int[]{0, 101, 66, -23, 67, 0, 0, 0};
 		gbl_panel.rowHeights = new int[]{27, 21, 0, 0, 0, 0};
 		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
-		JLabel lblPhoto = new JLabel("Photo");
-		lblPhoto.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		JLabel lblPhoto = new JLabel("");
+		lblPhoto.setIcon(new ImageIcon(LogIn.class.getResource("/presentation/Icons/logox64.png")));
 		lblPhoto.setBackground(Color.WHITE);
 		GridBagConstraints gbc_lblPhoto = new GridBagConstraints();
-		gbc_lblPhoto.fill = GridBagConstraints.BOTH;
+		gbc_lblPhoto.gridwidth = 2;
+		gbc_lblPhoto.fill = GridBagConstraints.VERTICAL;
 		gbc_lblPhoto.gridheight = 3;
 		gbc_lblPhoto.insets = new Insets(0, 0, 5, 5);
-		gbc_lblPhoto.gridx = 1;
+		gbc_lblPhoto.gridx = 0;
 		gbc_lblPhoto.gridy = 1;
 		panel.add(lblPhoto, gbc_lblPhoto);
 		
