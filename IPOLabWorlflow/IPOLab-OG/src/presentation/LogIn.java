@@ -16,13 +16,14 @@ import java.awt.Color;
 import javax.swing.border.BevelBorder;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
+import javax.swing.JPasswordField;
 
 public class LogIn extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtUsuario;
-	private JTextField txtPassword;
 	private final JLabel lblConfig = new JLabel("");
+	private JPasswordField passwordField;
 
 	/**
 	 * Launch the application.
@@ -118,15 +119,14 @@ public class LogIn extends JFrame {
 		gbc_lblContrasea.gridy = 3;
 		panel.add(lblContrasea, gbc_lblContrasea);
 		
-		txtPassword = new JTextField();
-		GridBagConstraints gbc_txtPassword = new GridBagConstraints();
-		gbc_txtPassword.gridwidth = 3;
-		gbc_txtPassword.insets = new Insets(0, 0, 5, 5);
-		gbc_txtPassword.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtPassword.gridx = 3;
-		gbc_txtPassword.gridy = 3;
-		panel.add(txtPassword, gbc_txtPassword);
-		txtPassword.setColumns(10);
+		passwordField = new JPasswordField();
+		GridBagConstraints gbc_passwordField = new GridBagConstraints();
+		gbc_passwordField.gridwidth = 3;
+		gbc_passwordField.insets = new Insets(0, 0, 5, 5);
+		gbc_passwordField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_passwordField.gridx = 3;
+		gbc_passwordField.gridy = 3;
+		panel.add(passwordField, gbc_passwordField);
 		
 		JButton btnLogin = new JButton("Login");
 		GridBagConstraints gbc_btnLogin = new GridBagConstraints();
