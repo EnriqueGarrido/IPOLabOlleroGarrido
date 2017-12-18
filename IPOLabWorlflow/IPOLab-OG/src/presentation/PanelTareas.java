@@ -7,6 +7,8 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 public class PanelTareas extends JPanel {
 	private final JTree arbolTareas = new JTree();
@@ -31,6 +33,31 @@ public class PanelTareas extends JPanel {
 		gbc_arbolTareas.fill = GridBagConstraints.BOTH;
 		gbc_arbolTareas.gridx = 0;
 		gbc_arbolTareas.gridy = 0;
+		arbolTareas.setModel(new DefaultTreeModel(
+			new DefaultMutableTreeNode("Proyecto de Ejemplo") {
+				{
+					DefaultMutableTreeNode node_1;
+					node_1 = new DefaultMutableTreeNode("Tarea de tipo 1");
+						node_1.add(new DefaultMutableTreeNode("subtarea-1-1"));
+						node_1.add(new DefaultMutableTreeNode("subtarea-1-2"));
+						node_1.add(new DefaultMutableTreeNode("subtarea-1-3"));
+						node_1.add(new DefaultMutableTreeNode("subtarea-1-3"));
+					add(node_1);
+					node_1 = new DefaultMutableTreeNode("Tarea de tipo 2");
+						node_1.add(new DefaultMutableTreeNode("subtarea-2-1"));
+						node_1.add(new DefaultMutableTreeNode("subtarea-2-2"));
+						node_1.add(new DefaultMutableTreeNode("subtarea-2-3"));
+						node_1.add(new DefaultMutableTreeNode("subtarea-2-4"));
+					add(node_1);
+					node_1 = new DefaultMutableTreeNode("Tarea de tipo 3");
+						node_1.add(new DefaultMutableTreeNode("subtarea-3-1"));
+						node_1.add(new DefaultMutableTreeNode("subtarea-3-2"));
+						node_1.add(new DefaultMutableTreeNode("rsubtarea-3-3"));
+						node_1.add(new DefaultMutableTreeNode("subtarea-3-4"));
+					add(node_1);
+				}
+			}
+		));
 		add(arbolTareas, gbc_arbolTareas);
 		
 		GridBagConstraints gbc_panel = new GridBagConstraints();

@@ -38,6 +38,12 @@ public class ProjectOS {
 	private final JLabel lblLogo = new JLabel("");
 	private final JLabel lblUsuario = new JLabel("");
 	private final JLabel lblNombre = new JLabel("Alvario Noli");
+	private final JLabel lblUsuarios = new JLabel("Usuarios:");
+	private final JTextArea textArea = new JTextArea();
+	private final JLabel lblAddUser = new JLabel("");
+	private final JLabel lblRemoveUser = new JLabel("");
+	private final JPanel pnlInformacionUsuarios = new PanelInformacionUsuario();
+	private final JPanel pnlChat = new PanelChat();
 
 	/**
 	 * Launch the application.
@@ -125,6 +131,57 @@ public class ProjectOS {
 		pnlTabSmall.addTab("Tareas", null, pnlTareas, null);
 		
 		pnlTabMain.addTab("Usuarios", new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/multiple-users-silhouette.png")), pnlUsers, null);
+		GridBagLayout gbl_pnlUsers = new GridBagLayout();
+		gbl_pnlUsers.columnWidths = new int[]{0, 0, 194, 0, 0, 236, 0, 244, 0, 0};
+		gbl_pnlUsers.rowHeights = new int[]{56, 0, 0, 0};
+		gbl_pnlUsers.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_pnlUsers.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
+		pnlUsers.setLayout(gbl_pnlUsers);
+		
+		GridBagConstraints gbc_lblUsuarios = new GridBagConstraints();
+		gbc_lblUsuarios.anchor = GridBagConstraints.SOUTH;
+		gbc_lblUsuarios.insets = new Insets(0, 0, 5, 5);
+		gbc_lblUsuarios.gridx = 1;
+		gbc_lblUsuarios.gridy = 0;
+		pnlUsers.add(lblUsuarios, gbc_lblUsuarios);
+		
+		GridBagConstraints gbc_lblAddUser = new GridBagConstraints();
+		gbc_lblAddUser.anchor = GridBagConstraints.SOUTHEAST;
+		gbc_lblAddUser.insets = new Insets(0, 0, 5, 5);
+		gbc_lblAddUser.gridx = 2;
+		gbc_lblAddUser.gridy = 0;
+		lblAddUser.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/addition-sign.png")));
+		pnlUsers.add(lblAddUser, gbc_lblAddUser);
+		
+		GridBagConstraints gbc_lblRemoveUser = new GridBagConstraints();
+		gbc_lblRemoveUser.anchor = GridBagConstraints.SOUTH;
+		gbc_lblRemoveUser.insets = new Insets(0, 0, 5, 5);
+		gbc_lblRemoveUser.gridx = 3;
+		gbc_lblRemoveUser.gridy = 0;
+		lblRemoveUser.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/trash-can.png")));
+		pnlUsers.add(lblRemoveUser, gbc_lblRemoveUser);
+		
+		GridBagConstraints gbc_textArea = new GridBagConstraints();
+		gbc_textArea.gridwidth = 3;
+		gbc_textArea.insets = new Insets(0, 0, 5, 5);
+		gbc_textArea.fill = GridBagConstraints.BOTH;
+		gbc_textArea.gridx = 1;
+		gbc_textArea.gridy = 1;
+		pnlUsers.add(textArea, gbc_textArea);
+		
+		GridBagConstraints gbc_pnlInformacionUsuarios = new GridBagConstraints();
+		gbc_pnlInformacionUsuarios.insets = new Insets(0, 0, 5, 5);
+		gbc_pnlInformacionUsuarios.fill = GridBagConstraints.BOTH;
+		gbc_pnlInformacionUsuarios.gridx = 5;
+		gbc_pnlInformacionUsuarios.gridy = 1;
+		pnlUsers.add(pnlInformacionUsuarios, gbc_pnlInformacionUsuarios);
+		
+		GridBagConstraints gbc_pnlChat = new GridBagConstraints();
+		gbc_pnlChat.insets = new Insets(0, 0, 5, 5);
+		gbc_pnlChat.fill = GridBagConstraints.BOTH;
+		gbc_pnlChat.gridx = 7;
+		gbc_pnlChat.gridy = 1;
+		pnlUsers.add(pnlChat, gbc_pnlChat);
 		
 		frame.getContentPane().add(pnlUser, BorderLayout.NORTH);
 		GridBagLayout gbl_pnlUser = new GridBagLayout();

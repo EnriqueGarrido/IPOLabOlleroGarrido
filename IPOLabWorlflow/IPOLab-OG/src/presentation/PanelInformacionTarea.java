@@ -88,7 +88,7 @@ public class PanelInformacionTarea extends JPanel {
 		add(ftxtFechaInicial, gbc_ftxtFechaInicial);
 		
 		GridBagConstraints gbc_scrollPaneMiembtos = new GridBagConstraints();
-		gbc_scrollPaneMiembtos.gridheight = 4;
+		gbc_scrollPaneMiembtos.gridheight = 3;
 		gbc_scrollPaneMiembtos.gridwidth = 3;
 		gbc_scrollPaneMiembtos.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPaneMiembtos.fill = GridBagConstraints.BOTH;
@@ -120,19 +120,21 @@ public class PanelInformacionTarea extends JPanel {
 		add(lblPrioridad, gbc_lblPrioridad);
 		
 		GridBagConstraints gbc_sliderPrioridad = new GridBagConstraints();
+		gbc_sliderPrioridad.anchor = GridBagConstraints.NORTH;
 		gbc_sliderPrioridad.insets = new Insets(0, 0, 5, 5);
 		gbc_sliderPrioridad.gridx = 2;
 		gbc_sliderPrioridad.gridy = 3;
 		add(sliderPrioridad, gbc_sliderPrioridad);
 		
 		GridBagConstraints gbc_lblResponsable = new GridBagConstraints();
-		gbc_lblResponsable.anchor = GridBagConstraints.EAST;
+		gbc_lblResponsable.anchor = GridBagConstraints.NORTHEAST;
 		gbc_lblResponsable.insets = new Insets(0, 0, 5, 5);
 		gbc_lblResponsable.gridx = 1;
 		gbc_lblResponsable.gridy = 4;
 		add(lblResponsable, gbc_lblResponsable);
 		
 		GridBagConstraints gbc_comboBoxResponsable = new GridBagConstraints();
+		gbc_comboBoxResponsable.anchor = GridBagConstraints.NORTH;
 		gbc_comboBoxResponsable.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBoxResponsable.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxResponsable.gridx = 2;
