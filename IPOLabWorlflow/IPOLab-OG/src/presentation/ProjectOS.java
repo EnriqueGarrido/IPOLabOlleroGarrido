@@ -16,6 +16,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
+import javax.swing.border.TitledBorder;
 
 public class ProjectOS {
 
@@ -52,6 +53,9 @@ public class ProjectOS {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					LogIn login = new LogIn();
+					login.checkLogIn();
+					
 					ProjectOS window = new ProjectOS();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -181,6 +185,7 @@ public class ProjectOS {
 		gbc_pnlChat.fill = GridBagConstraints.BOTH;
 		gbc_pnlChat.gridx = 7;
 		gbc_pnlChat.gridy = 1;
+		pnlChat.setBorder(new TitledBorder(null, "Mensajes con ...", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		pnlUsers.add(pnlChat, gbc_pnlChat);
 		
 		frame.getContentPane().add(pnlUser, BorderLayout.NORTH);

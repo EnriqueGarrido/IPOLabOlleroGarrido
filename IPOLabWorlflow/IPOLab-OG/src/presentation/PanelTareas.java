@@ -14,7 +14,7 @@ public class PanelTareas extends JPanel {
 	private final JTree arbolTareas = new JTree();
 	private final JLabel lblAddTarea = new JLabel("");
 	private final JLabel lblRemoveTarea = new JLabel("");
-	private final JPanel panel = new PanelInformacionTarea();
+	private final JPanel pnlInformacionTareas = new PanelInformacionTarea();
 
 	/**
 	 * Create the panel.
@@ -60,12 +60,12 @@ public class PanelTareas extends JPanel {
 		));
 		add(arbolTareas, gbc_arbolTareas);
 		
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.insets = new Insets(0, 0, 5, 0);
-		gbc_panel.fill = GridBagConstraints.BOTH;
-		gbc_panel.gridx = 2;
-		gbc_panel.gridy = 0;
-		add(panel, gbc_panel);
+		GridBagConstraints gbc_pnlInformacionTareas = new GridBagConstraints();
+		gbc_pnlInformacionTareas.insets = new Insets(0, 0, 5, 0);
+		gbc_pnlInformacionTareas.fill = GridBagConstraints.BOTH;
+		gbc_pnlInformacionTareas.gridx = 2;
+		gbc_pnlInformacionTareas.gridy = 0;
+		add(pnlInformacionTareas, gbc_pnlInformacionTareas);
 		
 		GridBagConstraints gbc_lblAddTarea = new GridBagConstraints();
 		gbc_lblAddTarea.anchor = GridBagConstraints.EAST;

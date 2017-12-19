@@ -13,10 +13,11 @@ import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
-import javax.swing.border.BevelBorder;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 import javax.swing.JPasswordField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class LogIn extends JFrame {
 
@@ -24,6 +25,8 @@ public class LogIn extends JFrame {
 	private JTextField txtUsuario;
 	private final JLabel lblConfig = new JLabel("");
 	private JPasswordField passwordField;
+	
+	boolean noLogin = true;
 
 	/**
 	 * Launch the application.
@@ -59,9 +62,9 @@ public class LogIn extends JFrame {
 		contentPane.add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{0, 101, 66, -23, 67, 0, 0, 0};
-		gbl_panel.rowHeights = new int[]{27, 21, 0, 0, 0, 0};
+		gbl_panel.rowHeights = new int[]{27, 21, 0, 0, 0, 0, 0};
 		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
 		JLabel lblPhoto = new JLabel("");
@@ -129,14 +132,40 @@ public class LogIn extends JFrame {
 		panel.add(passwordField, gbc_passwordField);
 		
 		JButton btnLogin = new JButton("Login");
+		btnLogin.addActionListener(new BtnLoginActionListener());
 		GridBagConstraints gbc_btnLogin = new GridBagConstraints();
 		gbc_btnLogin.anchor = GridBagConstraints.EAST;
 		gbc_btnLogin.gridwidth = 2;
-		gbc_btnLogin.insets = new Insets(0, 0, 0, 5);
+		gbc_btnLogin.insets = new Insets(0, 0, 5, 5);
 		gbc_btnLogin.gridx = 4;
 		gbc_btnLogin.gridy = 4;
 		panel.add(btnLogin, gbc_btnLogin);
+<<<<<<< HEAD
+		
+		JLabel lblUsuarioManolitoContasea = new JLabel("Usuario: manolito87 Contase\u00F1a: 1234");
+		lblUsuarioManolitoContasea.setEnabled(false);
+		GridBagConstraints gbc_lblUsuarioManolitoContasea = new GridBagConstraints();
+		gbc_lblUsuarioManolitoContasea.gridwidth = 3;
+		gbc_lblUsuarioManolitoContasea.insets = new Insets(0, 0, 0, 5);
+		gbc_lblUsuarioManolitoContasea.gridx = 1;
+		gbc_lblUsuarioManolitoContasea.gridy = 5;
+		panel.add(lblUsuarioManolitoContasea, gbc_lblUsuarioManolitoContasea);
+	}
+	
+	public void checkLogIn() {
+		LogIn frame = new LogIn();
+		frame.setVisible(true);
+		//while(noLogin);
+		//frame.setVisible(false);
+=======
 		////ygsadfygdsf
+>>>>>>> 90e17d51497e9dcfe15b5753f65dd7b090d62276
 	}
 
+	private class BtnLoginActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			if(txtUsuario.getText().equals("manolito87") && passwordField.getPassword().equals("1234"))
+				noLogin = false;
+		}
+	}
 }

@@ -5,6 +5,8 @@ import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.Hashtable;
+
 import javax.swing.JTextField;
 import javax.swing.JSlider;
 import javax.swing.JComboBox;
@@ -45,9 +47,9 @@ public class PanelInformacionTarea extends JPanel {
 	public PanelInformacionTarea() {
 		txtNombre.setColumns(10);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 66, 116, 0, 0, 0, 0, 24, 0, 0};
+		gridBagLayout.columnWidths = new int[]{0, 66, 142, 0, 0, 0, 0, 24, 0, 0};
 		gridBagLayout.rowHeights = new int[]{41, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
@@ -59,6 +61,7 @@ public class PanelInformacionTarea extends JPanel {
 		add(lblNombre, gbc_lblNombre);
 		
 		GridBagConstraints gbc_txtNombre = new GridBagConstraints();
+		gbc_txtNombre.gridwidth = 2;
 		gbc_txtNombre.anchor = GridBagConstraints.SOUTH;
 		gbc_txtNombre.insets = new Insets(0, 0, 5, 5);
 		gbc_txtNombre.fill = GridBagConstraints.HORIZONTAL;
@@ -112,25 +115,18 @@ public class PanelInformacionTarea extends JPanel {
 		gbc_ftxtFechaFinal.gridx = 2;
 		gbc_ftxtFechaFinal.gridy = 2;
 		add(ftxtFechaFinal, gbc_ftxtFechaFinal);
-		
-		GridBagConstraints gbc_lblPrioridad = new GridBagConstraints();
-		gbc_lblPrioridad.insets = new Insets(0, 0, 5, 5);
-		gbc_lblPrioridad.gridx = 1;
-		gbc_lblPrioridad.gridy = 3;
-		add(lblPrioridad, gbc_lblPrioridad);
-		
-		GridBagConstraints gbc_sliderPrioridad = new GridBagConstraints();
-		gbc_sliderPrioridad.anchor = GridBagConstraints.NORTH;
-		gbc_sliderPrioridad.insets = new Insets(0, 0, 5, 5);
-		gbc_sliderPrioridad.gridx = 2;
-		gbc_sliderPrioridad.gridy = 3;
-		add(sliderPrioridad, gbc_sliderPrioridad);
+		//// Crear la tabla de las etiquetas personalizadas
+		Hashtable<Integer, JLabel> sliderLabels = new Hashtable<Integer, JLabel>();
+		sliderLabels.put(0, new JLabel("Baja"));
+		sliderLabels.put(1, new JLabel("Media"));
+		sliderLabels.put(2, new JLabel("Alta"));
+		sliderLabels.put(3, new JLabel("Crítica"));
 		
 		GridBagConstraints gbc_lblResponsable = new GridBagConstraints();
 		gbc_lblResponsable.anchor = GridBagConstraints.NORTHEAST;
 		gbc_lblResponsable.insets = new Insets(0, 0, 5, 5);
 		gbc_lblResponsable.gridx = 1;
-		gbc_lblResponsable.gridy = 4;
+		gbc_lblResponsable.gridy = 3;
 		add(lblResponsable, gbc_lblResponsable);
 		
 		GridBagConstraints gbc_comboBoxResponsable = new GridBagConstraints();
@@ -138,8 +134,28 @@ public class PanelInformacionTarea extends JPanel {
 		gbc_comboBoxResponsable.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBoxResponsable.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxResponsable.gridx = 2;
-		gbc_comboBoxResponsable.gridy = 4;
+		gbc_comboBoxResponsable.gridy = 3;
 		add(comboBoxResponsable, gbc_comboBoxResponsable);
+		
+		GridBagConstraints gbc_lblPrioridad = new GridBagConstraints();
+		gbc_lblPrioridad.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPrioridad.gridx = 1;
+		gbc_lblPrioridad.gridy = 4;
+		add(lblPrioridad, gbc_lblPrioridad);
+		
+		GridBagConstraints gbc_sliderPrioridad = new GridBagConstraints();
+		gbc_sliderPrioridad.gridwidth = 2;
+		gbc_sliderPrioridad.fill = GridBagConstraints.BOTH;
+		gbc_sliderPrioridad.insets = new Insets(0, 0, 5, 5);
+		gbc_sliderPrioridad.gridx = 2;
+		gbc_sliderPrioridad.gridy = 4;
+		sliderPrioridad.setValue(0);
+		sliderPrioridad.setSnapToTicks(true);
+		sliderPrioridad.setPaintTicks(true);
+		sliderPrioridad.setPaintLabels(true);
+		sliderPrioridad.setMaximum(3);
+		sliderPrioridad.setLabelTable(sliderLabels);
+		add(sliderPrioridad, gbc_sliderPrioridad);
 		
 		GridBagConstraints gbc_lblDescripcion = new GridBagConstraints();
 		gbc_lblDescripcion.insets = new Insets(0, 0, 5, 5);
@@ -170,7 +186,7 @@ public class PanelInformacionTarea extends JPanel {
 		add(lblEditImagen, gbc_lblEditImagen);
 		
 		GridBagConstraints gbc_txtAreaDescripcion = new GridBagConstraints();
-		gbc_txtAreaDescripcion.gridwidth = 3;
+		gbc_txtAreaDescripcion.gridwidth = 4;
 		gbc_txtAreaDescripcion.insets = new Insets(0, 0, 5, 5);
 		gbc_txtAreaDescripcion.fill = GridBagConstraints.BOTH;
 		gbc_txtAreaDescripcion.gridx = 1;
