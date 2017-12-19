@@ -52,10 +52,7 @@ public class ProjectOS {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
-					LogIn login = new LogIn();
-					login.checkLogIn();
-					
+				try {					
 					ProjectOS window = new ProjectOS();
 					window.frame.setVisible(true);
 				} catch (Exception e) {

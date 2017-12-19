@@ -25,8 +25,6 @@ public class LogIn extends JFrame {
 	private JTextField txtUsuario;
 	private final JLabel lblConfig = new JLabel("");
 	private JPasswordField passwordField;
-	
-	boolean noLogin = true;
 
 	/**
 	 * Launch the application.
@@ -140,7 +138,7 @@ public class LogIn extends JFrame {
 		gbc_btnLogin.gridx = 4;
 		gbc_btnLogin.gridy = 4;
 		panel.add(btnLogin, gbc_btnLogin);
-<<<<<<< HEAD
+
 		
 		JLabel lblUsuarioManolitoContasea = new JLabel("Usuario: manolito87 Contase\u00F1a: 1234");
 		lblUsuarioManolitoContasea.setEnabled(false);
@@ -151,21 +149,13 @@ public class LogIn extends JFrame {
 		gbc_lblUsuarioManolitoContasea.gridy = 5;
 		panel.add(lblUsuarioManolitoContasea, gbc_lblUsuarioManolitoContasea);
 	}
-	
-	public void checkLogIn() {
-		LogIn frame = new LogIn();
-		frame.setVisible(true);
-		//while(noLogin);
-		//frame.setVisible(false);
-=======
-		////ygsadfygdsf
->>>>>>> 90e17d51497e9dcfe15b5753f65dd7b090d62276
-	}
 
 	private class BtnLoginActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
-			if(txtUsuario.getText().equals("manolito87") && passwordField.getPassword().equals("1234"))
-				noLogin = false;
+			if(txtUsuario.getText().equals("manolito87") && passwordField.getPassword().equals("1234")) {
+				ProjectOS projectos = new ProjectOS();
+				//Hacer visible la ventana projectos 
+			}		
 		}
 	}
 }
