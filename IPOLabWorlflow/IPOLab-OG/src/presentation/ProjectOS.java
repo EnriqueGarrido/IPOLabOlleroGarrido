@@ -18,9 +18,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JList;
 import javax.swing.border.TitledBorder;
 
-public class ProjectOS {
+public class ProjectOS extends JFrame {
 
-	private JFrame frame;
+	private static JFrame frmProyectos;
 	private final JTabbedPane pnlTabMain = new JTabbedPane(JTabbedPane.TOP);
 	private final JPanel pnlUser = new JPanel();
 	private final JPanel pnlAjustes = new JPanel();
@@ -49,18 +49,18 @@ public class ProjectOS {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {					
-					ProjectOS window = new ProjectOS();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {					
+//					ProjectOS window = new ProjectOS();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the application.
@@ -73,12 +73,13 @@ public class ProjectOS {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 1008, 673);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new BorderLayout(0, 0));
+		frmProyectos = new JFrame();
+		frmProyectos.setTitle("ProyectOS");
+		frmProyectos.setBounds(100, 100, 1008, 673);
+		frmProyectos.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmProyectos.getContentPane().setLayout(new BorderLayout(0, 0));
 		
-		frame.getContentPane().add(pnlTabMain, BorderLayout.CENTER);
+		frmProyectos.getContentPane().add(pnlTabMain, BorderLayout.CENTER);
 		
 		pnlTabMain.addTab("Proyectos", new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/business-presentation.png")), pnlProjects, null);
 		GridBagLayout gbl_pnlProjects = new GridBagLayout();
@@ -185,7 +186,7 @@ public class ProjectOS {
 		pnlChat.setBorder(new TitledBorder(null, "Mensajes con ...", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		pnlUsers.add(pnlChat, gbc_pnlChat);
 		
-		frame.getContentPane().add(pnlUser, BorderLayout.NORTH);
+		frmProyectos.getContentPane().add(pnlUser, BorderLayout.NORTH);
 		GridBagLayout gbl_pnlUser = new GridBagLayout();
 		gbl_pnlUser.columnWidths = new int[]{0, 0, 0, 0};
 		gbl_pnlUser.rowHeights = new int[]{0, 0};
@@ -205,7 +206,7 @@ public class ProjectOS {
 		lblUsuario.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/user.png")));
 		pnlUser.add(lblUsuario, gbc_lblUsuario);
 		
-		frame.getContentPane().add(pnlAjustes, BorderLayout.SOUTH);
+		frmProyectos.getContentPane().add(pnlAjustes, BorderLayout.SOUTH);
 		GridBagLayout gbl_pnlAjustes = new GridBagLayout();
 		gbl_pnlAjustes.columnWidths = new int[]{57, 0, 0, 96, 0};
 		gbl_pnlAjustes.rowHeights = new int[]{0, 0};
@@ -235,5 +236,6 @@ public class ProjectOS {
 		gbc_lblLogo.gridy = 0;
 		lblLogo.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/logox32.png")));
 		pnlAjustes.add(lblLogo, gbc_lblLogo);
+		frmProyectos.setVisible(true);
 	}
 }

@@ -16,6 +16,12 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.JFormattedTextField;
+import java.awt.Component;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class PanelInformacionTarea extends JPanel {
 	private final JLabel lblNombre = new JLabel("Nombre:");
@@ -47,9 +53,9 @@ public class PanelInformacionTarea extends JPanel {
 	public PanelInformacionTarea() {
 		txtNombre.setColumns(10);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 66, 142, 0, 0, 0, 0, 24, 0, 0};
+		gridBagLayout.columnWidths = new int[]{0, 66, 142, 0, 0, 0, 22, 24, 24, 0, 0};
 		gridBagLayout.rowHeights = new int[]{41, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
@@ -92,7 +98,7 @@ public class PanelInformacionTarea extends JPanel {
 		
 		GridBagConstraints gbc_scrollPaneMiembtos = new GridBagConstraints();
 		gbc_scrollPaneMiembtos.gridheight = 3;
-		gbc_scrollPaneMiembtos.gridwidth = 3;
+		gbc_scrollPaneMiembtos.gridwidth = 4;
 		gbc_scrollPaneMiembtos.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPaneMiembtos.fill = GridBagConstraints.BOTH;
 		gbc_scrollPaneMiembtos.gridx = 5;
@@ -173,14 +179,15 @@ public class PanelInformacionTarea extends JPanel {
 		GridBagConstraints gbc_lblAddImagen = new GridBagConstraints();
 		gbc_lblAddImagen.anchor = GridBagConstraints.EAST;
 		gbc_lblAddImagen.insets = new Insets(0, 0, 5, 5);
-		gbc_lblAddImagen.gridx = 6;
+		gbc_lblAddImagen.gridx = 7;
 		gbc_lblAddImagen.gridy = 5;
+		lblAddImagen.setForeground(Color.BLACK);
 		lblAddImagen.setIcon(new ImageIcon(PanelInformacionTarea.class.getResource("/presentation/Icons/addition-sign.png")));
 		add(lblAddImagen, gbc_lblAddImagen);
 		
 		GridBagConstraints gbc_lblEditImagen = new GridBagConstraints();
 		gbc_lblEditImagen.insets = new Insets(0, 0, 5, 5);
-		gbc_lblEditImagen.gridx = 7;
+		gbc_lblEditImagen.gridx = 8;
 		gbc_lblEditImagen.gridy = 5;
 		lblEditImagen.setIcon(new ImageIcon(PanelInformacionTarea.class.getResource("/presentation/Icons/pencil-edit-button.png")));
 		add(lblEditImagen, gbc_lblEditImagen);
@@ -191,10 +198,11 @@ public class PanelInformacionTarea extends JPanel {
 		gbc_txtAreaDescripcion.fill = GridBagConstraints.BOTH;
 		gbc_txtAreaDescripcion.gridx = 1;
 		gbc_txtAreaDescripcion.gridy = 6;
+		txtAreaDescripcion.setLineWrap(true);
 		add(txtAreaDescripcion, gbc_txtAreaDescripcion);
 		
 		GridBagConstraints gbc_scrollPaneImagen = new GridBagConstraints();
-		gbc_scrollPaneImagen.gridwidth = 3;
+		gbc_scrollPaneImagen.gridwidth = 4;
 		gbc_scrollPaneImagen.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPaneImagen.fill = GridBagConstraints.BOTH;
 		gbc_scrollPaneImagen.gridx = 5;
@@ -207,16 +215,32 @@ public class PanelInformacionTarea extends JPanel {
 		gbc_btnAadirSubtarea.insets = new Insets(0, 0, 0, 5);
 		gbc_btnAadirSubtarea.gridx = 5;
 		gbc_btnAadirSubtarea.gridy = 7;
+		btnAadirSubtarea.addMouseListener(new BtnAadirSubtareaMouseListener());
+		//btnAadirSubtarea.addActionListener(new BtnAadirSubtareaActionListener());
 		btnAadirSubtarea.setIcon(new ImageIcon(PanelInformacionTarea.class.getResource("/presentation/Icons/task-complete.png")));
 		add(btnAadirSubtarea, gbc_btnAadirSubtarea);
 		
 		GridBagConstraints gbc_btnGuardar = new GridBagConstraints();
+		gbc_btnGuardar.gridwidth = 2;
 		gbc_btnGuardar.insets = new Insets(0, 0, 0, 5);
 		gbc_btnGuardar.gridx = 6;
 		gbc_btnGuardar.gridy = 7;
 		btnGuardar.setIcon(new ImageIcon(PanelInformacionTarea.class.getResource("/presentation/Icons/save.png")));
 		add(btnGuardar, gbc_btnGuardar);
+		
 
 	}
 
+//	private class BtnAadirSubtareaActionListener implements ActionListener {
+//		public void actionPerformed(ActionEvent arg0) {
+//			PanelSubtarea pnlSub = new PanelSubtarea();
+//		}
+//	}
+	private class BtnAadirSubtareaMouseListener extends MouseAdapter {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			FrameSubtarea pnlSub = new FrameSubtarea();
+			pnlSub.setVisible(true);	//No se ve
+		}
+	}
 }

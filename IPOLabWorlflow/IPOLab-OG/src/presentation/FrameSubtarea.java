@@ -15,6 +15,7 @@ import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 
+@SuppressWarnings("serial")
 public class FrameSubtarea extends JFrame {
 
 	private JPanel contentPane;
@@ -27,18 +28,18 @@ public class FrameSubtarea extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FrameSubtarea frame = new FrameSubtarea();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					FrameSubtarea frame = new FrameSubtarea();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
@@ -86,6 +87,7 @@ public class FrameSubtarea extends JFrame {
 		gbc_txtaDetalles.fill = GridBagConstraints.BOTH;
 		gbc_txtaDetalles.gridx = 1;
 		gbc_txtaDetalles.gridy = 3;
+		txtaDetalles.setLineWrap(true);
 		contentPane.add(txtaDetalles, gbc_txtaDetalles);
 		
 		GridBagConstraints gbc_btnSave = new GridBagConstraints();
@@ -94,6 +96,20 @@ public class FrameSubtarea extends JFrame {
 		gbc_btnSave.gridy = 4;
 		btnSave.setIcon(new ImageIcon(FrameSubtarea.class.getResource("/presentation/Icons/save.png")));
 		contentPane.add(btnSave, gbc_btnSave);
+//		setVisible(true);
+	}
+	
+	public static void initialize() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FrameSubtarea frame = new FrameSubtarea();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 }

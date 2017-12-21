@@ -18,13 +18,20 @@ import java.awt.Toolkit;
 import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+@SuppressWarnings("serial")
 public class LogIn extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtUsuario;
 	private final JLabel lblConfig = new JLabel("");
 	private JPasswordField passwordField;
+	JLabel lblInformacion = new JLabel("");
+	//JPanel pnlInformacion = new JPanel();
+
+
 
 	/**
 	 * Launch the application.
@@ -103,6 +110,7 @@ public class LogIn extends JFrame {
 		panel.add(lblUsuario, gbc_lblUsuario);
 		
 		txtUsuario = new JTextField();
+		txtUsuario.addMouseListener(new TxtUsuarioMouseListener());
 		GridBagConstraints gbc_txtUsuario = new GridBagConstraints();
 		gbc_txtUsuario.gridwidth = 3;
 		gbc_txtUsuario.insets = new Insets(0, 0, 5, 5);
@@ -121,6 +129,7 @@ public class LogIn extends JFrame {
 		panel.add(lblContrasea, gbc_lblContrasea);
 		
 		passwordField = new JPasswordField();
+		passwordField.addMouseListener(new TxtUsuarioMouseListener());
 		GridBagConstraints gbc_passwordField = new GridBagConstraints();
 		gbc_passwordField.gridwidth = 3;
 		gbc_passwordField.insets = new Insets(0, 0, 5, 5);
@@ -140,7 +149,7 @@ public class LogIn extends JFrame {
 		panel.add(btnLogin, gbc_btnLogin);
 
 		
-		JLabel lblUsuarioManolitoContasea = new JLabel("Usuario: manolito87 Contase\u00F1a: 1234");
+		JLabel lblUsuarioManolitoContasea = new JLabel("Usuario: manolito87 Contasea: 1234");
 		lblUsuarioManolitoContasea.setEnabled(false);
 		GridBagConstraints gbc_lblUsuarioManolitoContasea = new GridBagConstraints();
 		gbc_lblUsuarioManolitoContasea.gridwidth = 3;
@@ -148,14 +157,34 @@ public class LogIn extends JFrame {
 		gbc_lblUsuarioManolitoContasea.gridx = 1;
 		gbc_lblUsuarioManolitoContasea.gridy = 5;
 		panel.add(lblUsuarioManolitoContasea, gbc_lblUsuarioManolitoContasea);
+		
+//		contentPane.add(pnlInformacion, BorderLayout.SOUTH);
+//		
+//		pnlInformacion.add(lblInformacion);
 	}
 
 	private class BtnLoginActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
-			if(txtUsuario.getText().equals("manolito87") && passwordField.getPassword().equals("1234")) {
+			if(txtUsuario.getText().equals("manolito87") && String.valueOf(passwordField.getPassword()).equals("1234")) {
+				@SuppressWarnings("unused")
 				ProjectOS projectos = new ProjectOS();
+				dispose();
+				//projectos.setVisible(true);
 				//Hacer visible la ventana projectos 
-			}		
+			}else {
+				lblInformacion.setText("Error de autenticación");
+				lblInformacion.setForeground(Color.RED);
+				txtUsuario.setBackground(Color.RED);
+				passwordField.setBackground(Color.RED);
+			}
+		}
+	}
+	private class TxtUsuarioMouseListener extends MouseAdapter {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			passwordField.setText("");
+			txtUsuario.setBackground(Color.WHITE);
+			passwordField.setBackground(Color.WHITE);
 		}
 	}
 }
