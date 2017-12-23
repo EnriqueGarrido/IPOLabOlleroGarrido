@@ -29,7 +29,7 @@ public class LogIn extends JFrame {
 	private final JLabel lblConfig = new JLabel("");
 	private JPasswordField passwordField;
 	JLabel lblInformacion = new JLabel("");
-	//JPanel pnlInformacion = new JPanel();
+	JPanel pnlInformacion = new JPanel();
 
 
 
@@ -158,9 +158,9 @@ public class LogIn extends JFrame {
 		gbc_lblUsuarioManolitoContasea.gridy = 5;
 		panel.add(lblUsuarioManolitoContasea, gbc_lblUsuarioManolitoContasea);
 		
-//		contentPane.add(pnlInformacion, BorderLayout.SOUTH);
-//		
-//		pnlInformacion.add(lblInformacion);
+		contentPane.add(pnlInformacion, BorderLayout.SOUTH);
+		
+		pnlInformacion.add(lblInformacion);
 	}
 
 	private class BtnLoginActionListener implements ActionListener {
