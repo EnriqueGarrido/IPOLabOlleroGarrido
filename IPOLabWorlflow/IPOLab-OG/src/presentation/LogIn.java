@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import dominio.Usuario;
+
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
@@ -20,6 +23,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 
 @SuppressWarnings("serial")
 public class LogIn extends JFrame {
@@ -149,10 +153,10 @@ public class LogIn extends JFrame {
 		panel.add(btnLogin, gbc_btnLogin);
 
 		
-		JLabel lblUsuarioManolitoContasea = new JLabel("Usuario: manolito87 Contasea: 1234");
+		JLabel lblUsuarioManolitoContasea = new JLabel("UsuarioPruebas: 12345678p Contaseña: 1234");
 		lblUsuarioManolitoContasea.setEnabled(false);
 		GridBagConstraints gbc_lblUsuarioManolitoContasea = new GridBagConstraints();
-		gbc_lblUsuarioManolitoContasea.gridwidth = 3;
+		gbc_lblUsuarioManolitoContasea.gridwidth = 5;
 		gbc_lblUsuarioManolitoContasea.insets = new Insets(0, 0, 0, 5);
 		gbc_lblUsuarioManolitoContasea.gridx = 1;
 		gbc_lblUsuarioManolitoContasea.gridy = 5;
@@ -162,19 +166,22 @@ public class LogIn extends JFrame {
 		
 		pnlInformacion.add(lblInformacion);
 	}
-
+	
+	///// Listeners ////
 	private class BtnLoginActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
-			if(txtUsuario.getText().equals("manolito87") && String.valueOf(passwordField.getPassword()).equals("1234")) {
+			Usuario u = new Usuario(txtUsuario.getText());
+			try {
+				u.logIn();
+				if(!u.getPassword().equals(String.valueOf(passwordField.getPassword()))) throw new Exception();
 				@SuppressWarnings("unused")
 				ProjectOS projectos = new ProjectOS();
 				dispose();
-				//projectos.setVisible(true);
-				//Hacer visible la ventana projectos 
-			}else {
+			}catch(SQLException eSql) {
+				lblInformacion.setText("Error. SQL exception");
+			}catch(Exception authE) {
 				lblInformacion.setText("Error de autenticación");
 				lblInformacion.setForeground(Color.RED);
-				txtUsuario.setBackground(Color.RED);
 				passwordField.setBackground(Color.RED);
 			}
 		}
@@ -187,4 +194,5 @@ public class LogIn extends JFrame {
 			passwordField.setBackground(Color.WHITE);
 		}
 	}
+	
 }

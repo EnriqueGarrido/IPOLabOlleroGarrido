@@ -17,6 +17,7 @@ import javax.swing.JTextPane;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
 import javax.swing.border.TitledBorder;
+import java.awt.Toolkit;
 
 public class ProjectOS extends JFrame {
 
@@ -74,6 +75,7 @@ public class ProjectOS extends JFrame {
 	 */
 	private void initialize() {
 		frmProyectos = new JFrame();
+		frmProyectos.setIconImage(Toolkit.getDefaultToolkit().getImage(ProjectOS.class.getResource("/presentation/Icons/icon.png")));
 		frmProyectos.setTitle("ProyectOS");
 		frmProyectos.setBounds(100, 100, 1008, 673);
 		frmProyectos.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
