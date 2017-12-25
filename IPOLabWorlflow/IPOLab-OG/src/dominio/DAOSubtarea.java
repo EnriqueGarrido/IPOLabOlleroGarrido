@@ -21,4 +21,8 @@ public class DAOSubtarea {
 	public void read(Subtarea s) {
 		
 	}
+
+	public ArrayList<Subtarea> getSubtareasList() {
+		return subtareasList;
+	}
 }

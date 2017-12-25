@@ -173,16 +173,19 @@ public class LogIn extends JFrame {
 			Usuario u = new Usuario(txtUsuario.getText());
 			try {
 				u.logIn();
-				if(!u.getPassword().equals(String.valueOf(passwordField.getPassword()))) throw new Exception();
-				@SuppressWarnings("unused")
+				if(!u.getPassword().equals(String.valueOf(passwordField.getPassword()))) throw new SQLException();
 				ProjectOS projectos = new ProjectOS();
 				dispose();
 			}catch(SQLException eSql) {
 				lblInformacion.setText("Error. SQL exception");
-			}catch(Exception authE) {
-				lblInformacion.setText("Error de autenticación");
-				lblInformacion.setForeground(Color.RED);
-				passwordField.setBackground(Color.RED);
+//			}catch(Exception authE) {
+//				lblInformacion.setText("Error de autenticación");
+//				lblInformacion.setForeground(Color.RED);
+//				passwordField.setBackground(Color.RED);
+//				txtUsuario.setBackground(Color.RED);
+//				//////////// DEBUG ///////////////
+//				System.out.println(authE.getMessage());
+//				System.out.println(authE);
 			}
 		}
 	}

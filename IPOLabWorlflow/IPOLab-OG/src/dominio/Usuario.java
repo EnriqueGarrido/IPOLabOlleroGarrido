@@ -18,6 +18,15 @@ public class Usuario {
 	}
 	
 	
+	public Usuario() {
+		daoUsuario = new DAOUsuario();
+	}
+
+	
+	public void readAll() throws SQLException {
+		daoUsuario.readAll();
+	}
+	
 	public void logIn() throws SQLException {
 		daoUsuario.logIn(this);
 	}
@@ -66,6 +75,10 @@ public class Usuario {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public DAOUsuario getDaoUsuario() {
+		return daoUsuario;
+	}
+
 	
 	
 }

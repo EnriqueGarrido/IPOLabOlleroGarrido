@@ -28,11 +28,20 @@ public class DAOUsuario {
 		ResultSet rs = DBBroker.getInstancia().read("SELECT * FROM usuario WHERE dni='" + u.getDNI()+"'");
 		///////	
 		//System.out.println(rs.getCursorName());
-		while(rs.next()) //System.out.println(rs.getString(7));
-			u.setPassword(rs.getString(7)); 
+		while(rs.next()) {
+			u.setPassword(rs.getString("password")); 
+		}
 	}
 	
-	public void readAll() {
-		
+	public void readAll() throws SQLException {
+		ResultSet rs = DBBroker.getInstancia().read("SELECT * FROM usuario");
+		userList = new ArrayList<Usuario>();
+		while(rs.next()) {
+			userList.add(new Usuario(rs.getString("DNI")));
+		}
+	}
+
+	public ArrayList<Usuario> getUserList() {
+		return userList;
 	}
 }

@@ -31,4 +31,10 @@ public class DAOTarea {
 		
 	}
 
+	public ArrayList<Tarea> getTareasList() {
+		return tareasList;
+	}
+	
+	
+
 }

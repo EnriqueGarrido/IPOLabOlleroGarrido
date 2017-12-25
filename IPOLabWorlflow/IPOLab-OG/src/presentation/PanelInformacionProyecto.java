@@ -5,6 +5,8 @@ import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.ArrayList;
+
 import javax.swing.JTextField;
 import javax.swing.JFormattedTextField;
 import javax.swing.JCheckBox;
@@ -13,6 +15,10 @@ import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import presentation.renders.ComboBox_projectIcon;
+import presentation.renders.ComboBox_projectIcon_render;
+
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 
@@ -28,12 +34,15 @@ public class PanelInformacionProyecto extends JPanel {
 	private final JComboBox cbResponsable = new JComboBox();
 	private final JLabel lblDescripcin = new JLabel("Descripci\u00F3n");
 	private final JTextArea txtDescripcion = new JTextArea();
-	private final JComboBox cb = new JComboBox();
 	private final JLabel lblMiembros = new JLabel("Miembros");
 	private final JScrollPane scrollPane = new JScrollPane();
 	private final JTable tableMiembros = new JTable();
 	private final JButton btnGuardar = new JButton("");
-
+	
+	private final int numIconos = 10;
+	private ArrayList<ImageIcon> iconosProyecto;
+	
+	private final JComboBox cbIconoProyecto = new ComboBox_projectIcon(numIconos);
 	/**
 	 * Create the panel.
 	 */
@@ -62,12 +71,12 @@ public class PanelInformacionProyecto extends JPanel {
 		gbc_txtNombre.gridy = 0;
 		add(txtNombre, gbc_txtNombre);
 		
-		GridBagConstraints gbc_cb = new GridBagConstraints();
-		gbc_cb.anchor = GridBagConstraints.SOUTHWEST;
-		gbc_cb.insets = new Insets(0, 0, 5, 5);
-		gbc_cb.gridx = 4;
-		gbc_cb.gridy = 0;
-		add(cb, gbc_cb);
+		GridBagConstraints gbc_cbIconoProyecto = new GridBagConstraints();
+		gbc_cbIconoProyecto.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_cbIconoProyecto.insets = new Insets(0, 0, 5, 5);
+		gbc_cbIconoProyecto.gridx = 4;
+		gbc_cbIconoProyecto.gridy = 0;
+		add(cbIconoProyecto, gbc_cbIconoProyecto);
 		
 		GridBagConstraints gbc_lblFechaInicio = new GridBagConstraints();
 		gbc_lblFechaInicio.anchor = GridBagConstraints.EAST;
@@ -181,7 +190,21 @@ public class PanelInformacionProyecto extends JPanel {
 		gbc_btnGuardar.gridy = 7;
 		btnGuardar.setIcon(new ImageIcon(PanelInformacionProyecto.class.getResource("/presentation/Icons/save.png")));
 		add(btnGuardar, gbc_btnGuardar);
+		
+		crearIconos();
+		cbIconoProyecto.setRenderer(new ComboBox_projectIcon_render(iconosProyecto));
 
+	}
+	
+	private void crearIconos() {
+		iconosProyecto =  new ArrayList<ImageIcon>();
+		for(int i = 1; i<=numIconos; i++) {
+			String pathIcon = "/presentation/Icons/proyecto";
+			if(i<=9) pathIcon+="0"+i; else pathIcon+=i;
+			pathIcon+=".png";
+			System.out.println(pathIcon);
+			iconosProyecto.add(new ImageIcon(getClass().getResource(pathIcon)));
+		}
 	}
 
 }

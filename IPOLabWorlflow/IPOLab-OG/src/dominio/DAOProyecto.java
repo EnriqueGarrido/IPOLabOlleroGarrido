@@ -1,6 +1,10 @@
 package dominio;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import persistencia.DBBroker;
 
 public class DAOProyecto {
 	
@@ -30,7 +34,16 @@ public class DAOProyecto {
 		
 	}
 	
-	public void readAll() {
-		
+	public void readAll() throws SQLException {
+		ResultSet rs = DBBroker.getInstancia().read("SELECT * FROM proyecto");
+		proyectList = new ArrayList<Proyecto>();
+		while(rs.next()) {
+			proyectList.add(new Proyecto(rs.getString("Nombre")));
+		}
 	}
+
+	public ArrayList<Proyecto> getProyectList() {
+		return proyectList;
+	}
+	
 }

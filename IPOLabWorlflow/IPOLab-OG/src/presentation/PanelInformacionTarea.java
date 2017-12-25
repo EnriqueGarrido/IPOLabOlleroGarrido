@@ -53,9 +53,9 @@ public class PanelInformacionTarea extends JPanel {
 	public PanelInformacionTarea() {
 		txtNombre.setColumns(10);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 66, 142, 0, 0, 0, 22, 24, 24, 0, 0};
+		gridBagLayout.columnWidths = new int[]{0, 66, 142, 60, 0, 0, 22, 24, 24, 0, 0};
 		gridBagLayout.rowHeights = new int[]{41, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
@@ -150,7 +150,7 @@ public class PanelInformacionTarea extends JPanel {
 		add(lblPrioridad, gbc_lblPrioridad);
 		
 		GridBagConstraints gbc_sliderPrioridad = new GridBagConstraints();
-		gbc_sliderPrioridad.gridwidth = 2;
+		gbc_sliderPrioridad.gridwidth = 3;
 		gbc_sliderPrioridad.fill = GridBagConstraints.BOTH;
 		gbc_sliderPrioridad.insets = new Insets(0, 0, 5, 5);
 		gbc_sliderPrioridad.gridx = 2;

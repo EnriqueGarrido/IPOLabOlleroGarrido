@@ -1,5 +1,6 @@
 package dominio;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Proyecto {
@@ -14,6 +15,15 @@ public class Proyecto {
 	private ArrayList<Tarea> tareas;
 	
 	private DAOProyecto daoProyecto;
+
+	public Proyecto(String nombre) {
+		this.nombre = nombre;
+		daoProyecto =  new DAOProyecto();
+	}
+
+	public Proyecto() {
+		daoProyecto = new DAOProyecto();
+	}
 
 	public void update() {
 		
@@ -31,8 +41,8 @@ public class Proyecto {
 		
 	}
 	
-	public void readAll() {
-		
+	public void readAll() throws SQLException {
+		daoProyecto.readAll();
 	}
 	
 	public void readTareas() {
