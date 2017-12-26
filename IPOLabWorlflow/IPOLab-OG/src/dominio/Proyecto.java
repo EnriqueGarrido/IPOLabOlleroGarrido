@@ -10,6 +10,7 @@ public class Proyecto {
 	private String fechaInicio;
 	private String fechaFinal;
 	private String icono;
+	private String descripcion;
 	private Usuario responsable;
 	private ArrayList<Usuario> miembros;
 	private ArrayList<Tarea> tareas;
@@ -25,6 +26,7 @@ public class Proyecto {
 		daoProyecto = new DAOProyecto();
 	}
 
+
 	public void update() {
 		
 	}
@@ -37,10 +39,11 @@ public class Proyecto {
 		
 	}
 	
-	public void read() {
-		
+	public void read() throws SQLException {
+		daoProyecto.read(this);
 	}
 	
+
 	public void readAll() throws SQLException {
 		daoProyecto.readAll();
 	}
@@ -118,6 +121,15 @@ public class Proyecto {
 	public ArrayList<Tarea> getTareas() {
 		return tareas;
 	}
+	
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
 	
 	public String toString() {
 		return nombre;

@@ -73,6 +73,7 @@ public class PanelTareas extends JPanel {
 		gbc_lblAddTarea.gridx = 0;
 		gbc_lblAddTarea.gridy = 1;
 		lblAddTarea.setIcon(new ImageIcon(PanelTareas.class.getResource("/presentation/Icons/addition-sign.png")));
+		lblAddTarea.addMouseListener(new IconMouseListener(lblAddTarea));
 		add(lblAddTarea, gbc_lblAddTarea);
 		
 		GridBagConstraints gbc_lblRemoveTarea = new GridBagConstraints();
@@ -81,6 +82,7 @@ public class PanelTareas extends JPanel {
 		gbc_lblRemoveTarea.gridx = 1;
 		gbc_lblRemoveTarea.gridy = 1;
 		lblRemoveTarea.setIcon(new ImageIcon(PanelTareas.class.getResource("/presentation/Icons/trash-can.png")));
+		lblRemoveTarea.addMouseListener(new IconMouseListener(lblRemoveTarea));
 		add(lblRemoveTarea, gbc_lblRemoveTarea);
 
 	}

@@ -1,7 +1,6 @@
 package presentation.renders;
 
 import java.awt.Component;
-import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -9,14 +8,14 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-@SuppressWarnings({ "serial", "rawtypes" })
-public class ComboBox_projectIcon_render extends JLabel implements ListCellRenderer {
+@SuppressWarnings("rawtypes")
+public class ComboResponsablesRender extends JLabel implements ListCellRenderer {
 
-	private ImageIcon[] items;
+	private String[] items;
 
-	public ComboBox_projectIcon_render(ArrayList<ImageIcon> items) {
+	public ComboResponsablesRender(ArrayList<String> items) {
 		setOpaque(true);
-		this.items = new ImageIcon[items.size()];
+		this.items = new String[items.size()];
 		for(int i = 0; i<this.items.length; i++) {
 			this.items[i] = items.get(i);
 		}
@@ -25,9 +24,8 @@ public class ComboBox_projectIcon_render extends JLabel implements ListCellRende
 	@Override
 	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
 			boolean cellHasFocused) {
-
 		int selectedIndex = ((Integer) value).intValue();
-		
+
 		if (isSelected) {
 			setBackground(list.getSelectionBackground());
 			setForeground(list.getSelectionForeground());
@@ -35,9 +33,7 @@ public class ComboBox_projectIcon_render extends JLabel implements ListCellRende
 			setBackground(list.getBackground());
 			setForeground(list.getForeground());
 		}
-
-		ImageIcon icon = this.items[selectedIndex];
-		setIcon(icon);
+		setText(this.items[selectedIndex]);
 		return this;
 	}
 }

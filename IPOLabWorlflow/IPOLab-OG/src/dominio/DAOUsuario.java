@@ -24,10 +24,15 @@ public class DAOUsuario {
 		
 	}
 	
+	public void readName(Usuario u) throws SQLException {
+		ResultSet rs = DBBroker.getInstancia().read("SELECT * FROM usuario WHERE dni='" + u.getDNI()+"'");
+		while(rs.next()) {
+			u.setNombre(rs.getString("nombre"));
+		}
+	}
+	
 	public void logIn(Usuario u) throws SQLException {
 		ResultSet rs = DBBroker.getInstancia().read("SELECT * FROM usuario WHERE dni='" + u.getDNI()+"'");
-		///////	
-		//System.out.println(rs.getCursorName());
 		while(rs.next()) {
 			u.setPassword(rs.getString("password")); 
 		}

@@ -44,7 +44,6 @@ public class PanelInformacionTarea extends JPanel {
 	private final JLabel lblEditorImagen = new JLabel("Editor Imagen:");
 	private final JScrollPane scrollPaneImagen = new JScrollPane();
 	private final JPanel pnlImagen = new JPanel();
-	private final JLabel lblAddImagen = new JLabel("");
 	private final JLabel lblEditImagen = new JLabel("");
 
 	/**
@@ -153,7 +152,7 @@ public class PanelInformacionTarea extends JPanel {
 		
 		GridBagConstraints gbc_sliderPrioridad = new GridBagConstraints();
 		gbc_sliderPrioridad.gridwidth = 3;
-		gbc_sliderPrioridad.fill = GridBagConstraints.BOTH;
+		gbc_sliderPrioridad.fill = GridBagConstraints.HORIZONTAL;
 		gbc_sliderPrioridad.insets = new Insets(0, 0, 5, 5);
 		gbc_sliderPrioridad.gridx = 2;
 		gbc_sliderPrioridad.gridy = 4;
@@ -178,21 +177,13 @@ public class PanelInformacionTarea extends JPanel {
 		gbc_lblEditorImagen.gridy = 5;
 		add(lblEditorImagen, gbc_lblEditorImagen);
 		
-		GridBagConstraints gbc_lblAddImagen = new GridBagConstraints();
-		gbc_lblAddImagen.anchor = GridBagConstraints.EAST;
-		gbc_lblAddImagen.insets = new Insets(0, 0, 5, 5);
-		gbc_lblAddImagen.gridx = 7;
-		gbc_lblAddImagen.gridy = 5;
-		lblAddImagen.setForeground(Color.BLACK);
-		lblAddImagen.setIcon(new ImageIcon(PanelInformacionTarea.class.getResource("/presentation/Icons/addition-sign.png")));
-		add(lblAddImagen, gbc_lblAddImagen);
-		
 		GridBagConstraints gbc_lblEditImagen = new GridBagConstraints();
 		gbc_lblEditImagen.insets = new Insets(0, 0, 5, 5);
 		gbc_lblEditImagen.gridx = 8;
 		gbc_lblEditImagen.gridy = 5;
 		lblEditImagen.addMouseListener(new LblEditImagenMouseListener());
 		lblEditImagen.setIcon(new ImageIcon(PanelInformacionTarea.class.getResource("/presentation/Icons/pencil-edit-button.png")));
+		lblEditImagen.addMouseListener(new IconMouseListener(lblEditImagen));
 		add(lblEditImagen, gbc_lblEditImagen);
 		
 		GridBagConstraints gbc_txtAreaDescripcion = new GridBagConstraints();

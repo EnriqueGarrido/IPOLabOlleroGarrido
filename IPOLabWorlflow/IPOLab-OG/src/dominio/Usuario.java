@@ -22,6 +22,9 @@ public class Usuario {
 		daoUsuario = new DAOUsuario();
 	}
 
+	public void readName() throws SQLException {
+		daoUsuario.readName(this);
+	}
 	
 	public void readAll() throws SQLException {
 		daoUsuario.readAll();
@@ -77,6 +80,10 @@ public class Usuario {
 	}
 	public DAOUsuario getDaoUsuario() {
 		return daoUsuario;
+	}
+	
+	public String toString() {
+		return nombre;
 	}
 
 	

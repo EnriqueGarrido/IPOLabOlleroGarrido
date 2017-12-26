@@ -13,6 +13,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
@@ -25,6 +26,7 @@ import dominio.DAOProyecto;
 import dominio.Proyecto;
 import dominio.Usuario;
 import presentation.renders.ListaProjectosRender;
+import presentation.renders.ComboResponsablesRender;
 
 import java.awt.Toolkit;
 import java.sql.SQLException;
@@ -32,6 +34,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ProjectOS extends JFrame {
 
@@ -47,7 +51,7 @@ public class ProjectOS extends JFrame {
 	private final JScrollPane scrollPaneProjects = new JScrollPane();
 	private final JList listProjects = new JList();
 	private final JTabbedPane pnlTabSmall = new JTabbedPane(JTabbedPane.TOP);
-	private final JPanel pnlInformacionProjectos = new PanelInformacionProyecto();
+	private final PanelInformacionProyecto pnlInformacionProjectos = new PanelInformacionProyecto();
 	private final JPanel pnlTareas = new PanelTareas();
 	private final JLabel lblAyuda = new JLabel("");
 	private final JLabel lblAjustes = new JLabel("");
@@ -120,6 +124,7 @@ public class ProjectOS extends JFrame {
 		gbc_lblAddProjectIcon.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAddProjectIcon.gridx = 2;
 		gbc_lblAddProjectIcon.gridy = 1;
+		lblAddProjectIcon.addMouseListener(new IconMouseListener(lblAddProjectIcon));
 		lblAddProjectIcon.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/addition-sign.png")));
 		pnlProjects.add(lblAddProjectIcon, gbc_lblAddProjectIcon);
 
@@ -128,6 +133,7 @@ public class ProjectOS extends JFrame {
 		gbc_lblRemoveProjectIcon.insets = new Insets(0, 0, 5, 5);
 		gbc_lblRemoveProjectIcon.gridx = 3;
 		gbc_lblRemoveProjectIcon.gridy = 1;
+		lblRemoveProjectIcon.addMouseListener(new IconMouseListener(lblRemoveProjectIcon));
 		lblRemoveProjectIcon.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/trash-can.png")));
 		pnlProjects.add(lblRemoveProjectIcon, gbc_lblRemoveProjectIcon);
 
@@ -176,6 +182,7 @@ public class ProjectOS extends JFrame {
 		gbc_lblAddUser.gridx = 2;
 		gbc_lblAddUser.gridy = 0;
 		lblAddUser.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/addition-sign.png")));
+		lblAddUser.addMouseListener(new IconMouseListener(lblAddUser));
 		pnlUsers.add(lblAddUser, gbc_lblAddUser);
 
 		GridBagConstraints gbc_lblRemoveUser = new GridBagConstraints();
@@ -184,6 +191,7 @@ public class ProjectOS extends JFrame {
 		gbc_lblRemoveUser.gridx = 3;
 		gbc_lblRemoveUser.gridy = 0;
 		lblRemoveUser.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/trash-can.png")));
+		lblRemoveUser.addMouseListener(new IconMouseListener(lblRemoveUser));
 		pnlUsers.add(lblRemoveUser, gbc_lblRemoveUser);
 
 		GridBagConstraints gbc_scrollPaneUsers = new GridBagConstraints();
@@ -246,6 +254,7 @@ public class ProjectOS extends JFrame {
 		gbc_lblAyuda.gridx = 0;
 		gbc_lblAyuda.gridy = 0;
 		lblAyuda.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/question (2).png")));
+		lblAyuda.addMouseListener(new IconMouseListener(lblAyuda));
 		pnlAjustes.add(lblAyuda, gbc_lblAyuda);
 
 		GridBagConstraints gbc_lblAjustes = new GridBagConstraints();
@@ -254,6 +263,7 @@ public class ProjectOS extends JFrame {
 		gbc_lblAjustes.gridx = 1;
 		gbc_lblAjustes.gridy = 0;
 		lblAjustes.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/gear (1).png")));
+		lblAjustes.addMouseListener(new IconMouseListener(lblAjustes));
 		pnlAjustes.add(lblAjustes, gbc_lblAjustes);
 
 		GridBagConstraints gbc_lblLogo = new GridBagConstraints();
@@ -281,39 +291,45 @@ public class ProjectOS extends JFrame {
 				modeloProyectos.addElement(proyectoLeido);
 			}
 			listProjects.setModel(modeloProyectos);
-			////////////
 			listProjects.setCellRenderer(new ListaProjectosRender());
-			//////////////
-			
-			//////////////////// SOLO TEST //////////////////////
-			
-			////////////////////////////////////////////////////
 		} catch (SQLException e) {
-			// TODO Controlar excepcion
-			System.out.println("Aqui esta el error");
+			System.out.println(e.getMessage());
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private void loadUsuarios() {
 		Usuario u = new Usuario();
 		try {
 			u.readAll();
 			Iterator<Usuario> it = u.getDaoUsuario().getUserList().iterator();
-			//
-			//////////////////// SOLO TEST //////////////////////
+			DefaultListModel<Usuario> modeloUsuarios = new DefaultListModel<Usuario>();
+			ArrayList<String> listaResponsables = new ArrayList<String>();
 			while (it.hasNext()) {
-				System.out.println(it.next().getDNI());
+				Usuario usuarioLeido = it.next();
+				usuarioLeido.readName();
+				modeloUsuarios.addElement(usuarioLeido);
+				listaResponsables.add(usuarioLeido.getNombre());
 			}
+			listUsuarios.setModel(modeloUsuarios);
+			ComboResponsablesRender render = new ComboResponsablesRender(listaResponsables);
+			//////// COMENTARIO RENDER /////////////////////////
+			pnlInformacionProjectos.getCbResponsable().setRenderer(render);
 			////////////////////////////////////////////////////
 		} catch (SQLException e) {
-			// TODO Controlar excepcion
-			System.out.println("Aqui esta el error");
+			System.out.println(e.getMessage());
 		}
 	}
 	private class ListProjectsListSelectionListener implements ListSelectionListener {
 		public void valueChanged(ListSelectionEvent arg0) {
-			//Proyecto
-			System.out.println(listProjects.getSelectedValue());
+			Proyecto p = new Proyecto(listProjects.getSelectedValue().toString());
+			try {
+				p.read();
+				pnlInformacionProjectos.setInformacionProyecto(p);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
+
 }

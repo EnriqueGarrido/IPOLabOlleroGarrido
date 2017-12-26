@@ -22,8 +22,17 @@ public class DAOProyecto {
 		
 	}
 	
-	public void read(Proyecto p) {
-		
+	public void read(Proyecto p) throws SQLException {
+		ResultSet rs = DBBroker.getInstancia().read("SELECT * FROM proyecto WHERE nombre = '"+p.getNombre()+"'");
+		while(rs.next()) {
+			p.setIcono(rs.getString("icono"));
+			p.setNombre(rs.getString("nombre"));
+			p.setFechaInicio(rs.getString("fechainicio"));
+			p.setFechaFinal(rs.getString("fechaFinal"));
+			p.setResponsable(new Usuario(rs.getString("responsable")));
+			p.setDescripcion(rs.getString("descripción"));
+		}
+			
 	}
 	
 	public void readTareas(Proyecto p) {

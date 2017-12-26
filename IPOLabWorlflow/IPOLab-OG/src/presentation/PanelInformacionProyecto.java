@@ -16,10 +16,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import dominio.Proyecto;
+import dominio.Usuario;
 import presentation.renders.ComboBox_projectIcon;
 import presentation.renders.ComboBox_projectIcon_render;
 
 import javax.swing.JButton;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 
 public class PanelInformacionProyecto extends JPanel {
@@ -31,7 +35,6 @@ public class PanelInformacionProyecto extends JPanel {
 	private final JFormattedTextField ftxtFechaFinal = new JFormattedTextField();
 	private final JCheckBox chboxFechaFinal = new JCheckBox("Establecer Fecha Final");
 	private final JLabel lblResponsable = new JLabel("Responsable:");
-	private final JComboBox cbResponsable = new JComboBox();
 	private final JLabel lblDescripcin = new JLabel("Descripción");
 	private final JTextArea txtDescripcion = new JTextArea();
 	private final JLabel lblMiembros = new JLabel("Miembros");
@@ -43,6 +46,7 @@ public class PanelInformacionProyecto extends JPanel {
 	private ArrayList<ImageIcon> iconosProyecto;
 	
 	private final JComboBox cbIconoProyecto = new ComboBox_projectIcon(numIconos);
+	private final JComboBox cbResponsable = new ComboBox_projectIcon(2);
 	/**
 	 * Create the panel.
 	 */
@@ -50,9 +54,9 @@ public class PanelInformacionProyecto extends JPanel {
 	public PanelInformacionProyecto() {
 		txtNombre.setColumns(10);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{27, 0, 143, 42, 51, 24, 201, 0, 0};
+		gridBagLayout.columnWidths = new int[]{27, 0, 143, 42, 30, 24, 201, 0, 0};
 		gridBagLayout.rowHeights = new int[]{44, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
@@ -176,7 +180,7 @@ public class PanelInformacionProyecto extends JPanel {
 		add(lblDescripcin, gbc_lblDescripcin);
 		
 		GridBagConstraints gbc_txtDescripcion = new GridBagConstraints();
-		gbc_txtDescripcion.gridwidth = 4;
+		gbc_txtDescripcion.gridwidth = 5;
 		gbc_txtDescripcion.insets = new Insets(0, 0, 5, 5);
 		gbc_txtDescripcion.fill = GridBagConstraints.BOTH;
 		gbc_txtDescripcion.gridx = 1;
@@ -194,6 +198,7 @@ public class PanelInformacionProyecto extends JPanel {
 		add(btnGuardar, gbc_btnGuardar);
 		
 		crearIconos();
+		//////////////////// COMENTARIO DEL RENDER //////////////////////
 		cbIconoProyecto.setRenderer(new ComboBox_projectIcon_render(iconosProyecto));
 
 	}
@@ -206,6 +211,24 @@ public class PanelInformacionProyecto extends JPanel {
 			pathIcon+=".png";
 			iconosProyecto.add(new ImageIcon(getClass().getResource(pathIcon)));
 		}
+	}
+	
+	public void setInformacionProyecto(Proyecto p) {
+		txtNombre.setText(p.getNombre());
+		ftxtFechaInicial.setText(p.getFechaInicio());
+		ftxtFechaFinal.setText(p.getFechaFinal());
+		cbResponsable.setSelectedIndex(1);
+		txtDescripcion.setText(p.getDescripcion());
+	}
+
+	@SuppressWarnings("unchecked")
+	public void setComboResponsables(ComboBoxModel<String> modeloUsuarios) {
+		cbResponsable.setModel(modeloUsuarios);
+		
+	}
+
+	public JComboBox getCbResponsable() {
+		return cbResponsable;
 	}
 
 }
