@@ -37,8 +37,6 @@ public class ComboBox_projectIcon_render extends JLabel implements ListCellRende
 
 		ImageIcon icon = this.items[selectedIndex];
 		setIcon(icon);
-		File f = new File(items[selectedIndex].toString());
-//		setText(f.getName());
 		return this;
 	}
 }

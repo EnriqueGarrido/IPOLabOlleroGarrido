@@ -80,6 +80,7 @@ public class PanelInformacionTarea extends JPanel {
 		gbc_lblMiembros.insets = new Insets(0, 0, 5, 5);
 		gbc_lblMiembros.gridx = 5;
 		gbc_lblMiembros.gridy = 0;
+		lblMiembros.setEnabled(false);
 		add(lblMiembros, gbc_lblMiembros);
 		
 		GridBagConstraints gbc_lblFechaIn = new GridBagConstraints();
@@ -97,12 +98,13 @@ public class PanelInformacionTarea extends JPanel {
 		add(ftxtFechaInicial, gbc_ftxtFechaInicial);
 		
 		GridBagConstraints gbc_scrollPaneMiembtos = new GridBagConstraints();
-		gbc_scrollPaneMiembtos.gridheight = 3;
+		gbc_scrollPaneMiembtos.gridheight = 4;
 		gbc_scrollPaneMiembtos.gridwidth = 4;
 		gbc_scrollPaneMiembtos.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPaneMiembtos.fill = GridBagConstraints.BOTH;
 		gbc_scrollPaneMiembtos.gridx = 5;
 		gbc_scrollPaneMiembtos.gridy = 1;
+		scrollPaneMiembtos.setEnabled(false);
 		add(scrollPaneMiembtos, gbc_scrollPaneMiembtos);
 		
 		scrollPaneMiembtos.setViewportView(tableMiembros);
@@ -189,6 +191,7 @@ public class PanelInformacionTarea extends JPanel {
 		gbc_lblEditImagen.insets = new Insets(0, 0, 5, 5);
 		gbc_lblEditImagen.gridx = 8;
 		gbc_lblEditImagen.gridy = 5;
+		lblEditImagen.addMouseListener(new LblEditImagenMouseListener());
 		lblEditImagen.setIcon(new ImageIcon(PanelInformacionTarea.class.getResource("/presentation/Icons/pencil-edit-button.png")));
 		add(lblEditImagen, gbc_lblEditImagen);
 		
@@ -241,6 +244,15 @@ public class PanelInformacionTarea extends JPanel {
 		public void mouseClicked(MouseEvent e) {
 			FrameSubtarea pnlSub = new FrameSubtarea();
 			pnlSub.setVisible(true);	//No se ve
+		}
+	}
+	private class LblEditImagenMouseListener extends MouseAdapter {
+		@Override
+		public void mouseClicked(MouseEvent arg0) {
+			EditorImagenes editor = new EditorImagenes();
+			editor.setVisible(true);
+			//System.out.println(editor);
+			//Deshabilitar panel debajo
 		}
 	}
 }

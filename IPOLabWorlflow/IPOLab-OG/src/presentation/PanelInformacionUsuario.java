@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.border.BevelBorder;
 import java.awt.Component;
 import javax.swing.JList;
+import javax.swing.JScrollPane;
 
 public class PanelInformacionUsuario extends JPanel {
 	private final JLabel lblNombre = new JLabel("Nombre:");
@@ -24,6 +25,7 @@ public class PanelInformacionUsuario extends JPanel {
 	private final JTextField txtContacto = new JTextField();
 	private final JLabel lblFoto = new JLabel("");
 	private final JList listTareas = new JList();
+	private final JScrollPane scrollPaneTareasUsuario = new JScrollPane();
 
 	/**
 	 * Create the panel.
@@ -113,13 +115,14 @@ public class PanelInformacionUsuario extends JPanel {
 		gbc_lblTareas.gridy = 5;
 		add(lblTareas, gbc_lblTareas);
 		
-		GridBagConstraints gbc_listTareas = new GridBagConstraints();
-		gbc_listTareas.gridwidth = 4;
-		gbc_listTareas.insets = new Insets(0, 0, 5, 5);
-		gbc_listTareas.fill = GridBagConstraints.BOTH;
-		gbc_listTareas.gridx = 1;
-		gbc_listTareas.gridy = 6;
-		add(listTareas, gbc_listTareas);
+		GridBagConstraints gbc_scrollPaneTareasUsuario = new GridBagConstraints();
+		gbc_scrollPaneTareasUsuario.gridwidth = 4;
+		gbc_scrollPaneTareasUsuario.insets = new Insets(0, 0, 5, 0);
+		gbc_scrollPaneTareasUsuario.fill = GridBagConstraints.BOTH;
+		gbc_scrollPaneTareasUsuario.gridx = 1;
+		gbc_scrollPaneTareasUsuario.gridy = 6;
+		add(scrollPaneTareasUsuario, gbc_scrollPaneTareasUsuario);
+		scrollPaneTareasUsuario.setViewportView(listTareas);
 
 	}
 

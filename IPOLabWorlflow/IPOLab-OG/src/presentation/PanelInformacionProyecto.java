@@ -32,7 +32,7 @@ public class PanelInformacionProyecto extends JPanel {
 	private final JCheckBox chboxFechaFinal = new JCheckBox("Establecer Fecha Final");
 	private final JLabel lblResponsable = new JLabel("Responsable:");
 	private final JComboBox cbResponsable = new JComboBox();
-	private final JLabel lblDescripcin = new JLabel("Descripci\u00F3n");
+	private final JLabel lblDescripcin = new JLabel("Descripción");
 	private final JTextArea txtDescripcion = new JTextArea();
 	private final JLabel lblMiembros = new JLabel("Miembros");
 	private final JScrollPane scrollPane = new JScrollPane();
@@ -46,6 +46,7 @@ public class PanelInformacionProyecto extends JPanel {
 	/**
 	 * Create the panel.
 	 */
+	@SuppressWarnings("unchecked")
 	public PanelInformacionProyecto() {
 		txtNombre.setColumns(10);
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -180,6 +181,7 @@ public class PanelInformacionProyecto extends JPanel {
 		gbc_txtDescripcion.fill = GridBagConstraints.BOTH;
 		gbc_txtDescripcion.gridx = 1;
 		gbc_txtDescripcion.gridy = 6;
+		txtDescripcion.setLineWrap(true);
 		add(txtDescripcion, gbc_txtDescripcion);
 		
 		GridBagConstraints gbc_btnGuardar = new GridBagConstraints();
@@ -202,7 +204,6 @@ public class PanelInformacionProyecto extends JPanel {
 			String pathIcon = "/presentation/Icons/proyecto";
 			if(i<=9) pathIcon+="0"+i; else pathIcon+=i;
 			pathIcon+=".png";
-			System.out.println(pathIcon);
 			iconosProyecto.add(new ImageIcon(getClass().getResource(pathIcon)));
 		}
 	}

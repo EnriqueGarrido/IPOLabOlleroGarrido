@@ -34,6 +34,12 @@ public class DAOProyecto {
 		
 	}
 	
+	public void readIcon(Proyecto p) throws SQLException {
+		ResultSet rs = DBBroker.getInstancia().read("SELECT * FROM proyecto WHERE nombre = '"+p.getNombre()+"'");
+		while(rs.next())	
+			p.setIcono(rs.getString("icono"));
+	}
+	
 	public void readAll() throws SQLException {
 		ResultSet rs = DBBroker.getInstancia().read("SELECT * FROM proyecto");
 		proyectList = new ArrayList<Proyecto>();

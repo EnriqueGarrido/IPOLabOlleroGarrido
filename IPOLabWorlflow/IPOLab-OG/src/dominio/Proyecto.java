@@ -53,6 +53,10 @@ public class Proyecto {
 		
 	}
 	
+	public void readIcon() throws SQLException {
+		daoProyecto.readIcon(this);
+	}
+	
 	
 	//////////// Getters y setters //////////////
 	public String getNombre() {
@@ -113,6 +117,10 @@ public class Proyecto {
 
 	public ArrayList<Tarea> getTareas() {
 		return tareas;
+	}
+	
+	public String toString() {
+		return nombre;
 	}
 	
 	

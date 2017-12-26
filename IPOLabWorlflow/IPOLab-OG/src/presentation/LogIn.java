@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import dominio.AuthenticationException;
 import dominio.Usuario;
 
 import java.awt.GridBagLayout;
@@ -169,23 +170,21 @@ public class LogIn extends JFrame {
 	
 	///// Listeners ////
 	private class BtnLoginActionListener implements ActionListener {
+		@SuppressWarnings("unused")
 		public void actionPerformed(ActionEvent arg0) {
 			Usuario u = new Usuario(txtUsuario.getText());
 			try {
 				u.logIn();
-				if(!u.getPassword().equals(String.valueOf(passwordField.getPassword()))) throw new SQLException();
+				if(!u.getPassword().equals(String.valueOf(passwordField.getPassword()))) throw new AuthenticationException();
 				ProjectOS projectos = new ProjectOS();
 				dispose();
 			}catch(SQLException eSql) {
 				lblInformacion.setText("Error. SQL exception");
-//			}catch(Exception authE) {
-//				lblInformacion.setText("Error de autenticación");
-//				lblInformacion.setForeground(Color.RED);
-//				passwordField.setBackground(Color.RED);
-//				txtUsuario.setBackground(Color.RED);
-//				//////////// DEBUG ///////////////
-//				System.out.println(authE.getMessage());
-//				System.out.println(authE);
+			}catch(AuthenticationException authE) {
+				lblInformacion.setText("Error de autenticación");
+				lblInformacion.setForeground(Color.RED);
+				passwordField.setBackground(Color.RED);
+				txtUsuario.setBackground(Color.RED);
 			}
 		}
 	}

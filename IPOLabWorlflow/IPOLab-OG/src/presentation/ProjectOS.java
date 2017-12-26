@@ -12,6 +12,8 @@ import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
@@ -22,10 +24,14 @@ import javax.swing.border.TitledBorder;
 import dominio.DAOProyecto;
 import dominio.Proyecto;
 import dominio.Usuario;
+import presentation.renders.ListaProjectosRender;
 
 import java.awt.Toolkit;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 
 public class ProjectOS extends JFrame {
 
@@ -53,23 +59,24 @@ public class ProjectOS extends JFrame {
 	private final JLabel lblRemoveUser = new JLabel("");
 	private final JPanel pnlInformacionUsuarios = new PanelInformacionUsuario();
 	private final JPanel pnlChat = new PanelChat();
+	private final JScrollPane scrollPaneUsers = new JScrollPane();
 	private final JList listUsuarios = new JList();
 
 	/**
 	 * Launch the application.
 	 */
-	// public static void main(String[] args) {
-	// EventQueue.invokeLater(new Runnable() {
-	// public void run() {
-	// try {
-	// ProjectOS window = new ProjectOS();
-	// frame.setVisible(true);
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	// }
-	// });
-	// }
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ProjectOS window = new ProjectOS();
+					frmProyectos.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Create the application.
@@ -86,7 +93,7 @@ public class ProjectOS extends JFrame {
 		frmProyectos.setIconImage(
 				Toolkit.getDefaultToolkit().getImage(ProjectOS.class.getResource("/presentation/Icons/icon.png")));
 		frmProyectos.setTitle("ProyectOS");
-		frmProyectos.setBounds(100, 100, 1008, 673);
+		frmProyectos.setBounds(100, 100, 1084, 709);
 		frmProyectos.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmProyectos.getContentPane().setLayout(new BorderLayout(0, 0));
 
@@ -96,10 +103,10 @@ public class ProjectOS extends JFrame {
 				new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/business-presentation.png")),
 				pnlProjects, null);
 		GridBagLayout gbl_pnlProjects = new GridBagLayout();
-		gbl_pnlProjects.columnWidths = new int[] { 37, 0, 175, 0, 0, 0, 0, 0 };
-		gbl_pnlProjects.rowHeights = new int[] { 17, 0, 0, 0 };
+		gbl_pnlProjects.columnWidths = new int[] { 10, 0, 175, 0, 0, 0, 0, 0 };
+		gbl_pnlProjects.rowHeights = new int[] { 8, 0, 0, 5, 0 };
 		gbl_pnlProjects.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
-		gbl_pnlProjects.rowWeights = new double[] { 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		gbl_pnlProjects.rowWeights = new double[] { 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
 		pnlProjects.setLayout(gbl_pnlProjects);
 
 		GridBagConstraints gbc_lblProyectos = new GridBagConstraints();
@@ -126,16 +133,17 @@ public class ProjectOS extends JFrame {
 
 		GridBagConstraints gbc_scrollPaneProjects = new GridBagConstraints();
 		gbc_scrollPaneProjects.gridwidth = 3;
-		gbc_scrollPaneProjects.insets = new Insets(0, 0, 0, 5);
+		gbc_scrollPaneProjects.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPaneProjects.fill = GridBagConstraints.BOTH;
 		gbc_scrollPaneProjects.gridx = 1;
 		gbc_scrollPaneProjects.gridy = 2;
 		pnlProjects.add(scrollPaneProjects, gbc_scrollPaneProjects);
+		listProjects.addListSelectionListener(new ListProjectsListSelectionListener());
 
 		scrollPaneProjects.setViewportView(listProjects);
 
 		GridBagConstraints gbc_pnlTabSmall = new GridBagConstraints();
-		gbc_pnlTabSmall.insets = new Insets(0, 0, 0, 5);
+		gbc_pnlTabSmall.insets = new Insets(0, 0, 5, 5);
 		gbc_pnlTabSmall.fill = GridBagConstraints.BOTH;
 		gbc_pnlTabSmall.gridx = 5;
 		gbc_pnlTabSmall.gridy = 2;
@@ -149,9 +157,9 @@ public class ProjectOS extends JFrame {
 				new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/multiple-users-silhouette.png")),
 				pnlUsers, null);
 		GridBagLayout gbl_pnlUsers = new GridBagLayout();
-		gbl_pnlUsers.columnWidths = new int[] { 0, 0, 117, 0, 0, 236, 0, 244, 0, 0 };
-		gbl_pnlUsers.rowHeights = new int[] { 56, 0, 0, 0 };
-		gbl_pnlUsers.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
+		gbl_pnlUsers.columnWidths = new int[] { 10, 0, 144, 0, 2, 236, 0, 244, 0, 0 };
+		gbl_pnlUsers.rowHeights = new int[] { 36, 0, 0, 0 };
+		gbl_pnlUsers.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
 		gbl_pnlUsers.rowWeights = new double[] { 0.0, 1.0, 0.0, Double.MIN_VALUE };
 		pnlUsers.setLayout(gbl_pnlUsers);
 
@@ -178,13 +186,15 @@ public class ProjectOS extends JFrame {
 		lblRemoveUser.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/trash-can.png")));
 		pnlUsers.add(lblRemoveUser, gbc_lblRemoveUser);
 
-		GridBagConstraints gbc_listUsuarios = new GridBagConstraints();
-		gbc_listUsuarios.gridwidth = 3;
-		gbc_listUsuarios.insets = new Insets(0, 0, 5, 5);
-		gbc_listUsuarios.fill = GridBagConstraints.BOTH;
-		gbc_listUsuarios.gridx = 1;
-		gbc_listUsuarios.gridy = 1;
-		pnlUsers.add(listUsuarios, gbc_listUsuarios);
+		GridBagConstraints gbc_scrollPaneUsers = new GridBagConstraints();
+		gbc_scrollPaneUsers.gridwidth = 3;
+		gbc_scrollPaneUsers.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPaneUsers.fill = GridBagConstraints.BOTH;
+		gbc_scrollPaneUsers.gridx = 1;
+		gbc_scrollPaneUsers.gridy = 1;
+		pnlUsers.add(scrollPaneUsers, gbc_scrollPaneUsers);
+
+		scrollPaneUsers.setViewportView(listUsuarios);
 
 		GridBagConstraints gbc_pnlInformacionUsuarios = new GridBagConstraints();
 		gbc_pnlInformacionUsuarios.insets = new Insets(0, 0, 5, 5);
@@ -259,20 +269,24 @@ public class ProjectOS extends JFrame {
 		frmProyectos.setVisible(true);
 	}
 
+	@SuppressWarnings("unchecked")
 	private void loadProyectos() {
 		Proyecto p = new Proyecto();
 		try {
 			p.readAll();
 			Iterator<Proyecto> it = p.getDaoProyecto().getProyectList().iterator();
-			//
-			// while(it.hasNext()) {
-			// Proyecto proyectoLeido = it.next();
-			// //listProjects.getModel().;
-			// }
-			//////////////////// SOLO TEST //////////////////////
+			DefaultListModel<Proyecto> modeloProyectos = new DefaultListModel<Proyecto>();
 			while (it.hasNext()) {
-				System.out.println(it.next().getNombre());
+				Proyecto proyectoLeido = it.next();
+				modeloProyectos.addElement(proyectoLeido);
 			}
+			listProjects.setModel(modeloProyectos);
+			////////////
+			listProjects.setCellRenderer(new ListaProjectosRender());
+			//////////////
+			
+			//////////////////// SOLO TEST //////////////////////
+			
 			////////////////////////////////////////////////////
 		} catch (SQLException e) {
 			// TODO Controlar excepcion
@@ -294,6 +308,12 @@ public class ProjectOS extends JFrame {
 		} catch (SQLException e) {
 			// TODO Controlar excepcion
 			System.out.println("Aqui esta el error");
+		}
+	}
+	private class ListProjectsListSelectionListener implements ListSelectionListener {
+		public void valueChanged(ListSelectionEvent arg0) {
+			//Proyecto
+			System.out.println(listProjects.getSelectedValue());
 		}
 	}
 }
