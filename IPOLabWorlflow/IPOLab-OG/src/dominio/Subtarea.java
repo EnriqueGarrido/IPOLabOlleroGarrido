@@ -5,8 +5,13 @@ public class Subtarea {
 	private String nombre;
 	private String descripcion;
 	
-	private DAOSubtarea daoSubtarea;
 	
+	public Subtarea(String nombre, String descripcion) {
+		super();
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+	}
+
 	public void update() {
 		
 	}
@@ -42,13 +47,6 @@ public class Subtarea {
 		this.descripcion = descripcion;
 	}
 
-	public DAOSubtarea getDaoSubtarea() {
-		return daoSubtarea;
-	}
-
-	public void setDaoSubtarea(DAOSubtarea daoSubtarea) {
-		this.daoSubtarea = daoSubtarea;
-	}
 	
 	
 

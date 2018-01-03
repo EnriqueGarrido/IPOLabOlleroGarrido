@@ -10,35 +10,18 @@ public class Usuario {
 	private String contacto;
 	private String foto;
 	private String password;
-	private DAOUsuario daoUsuario;
 	
-	public Usuario(String dni) {
-		DNI = dni;
-		daoUsuario = new DAOUsuario();
+	public Usuario(String dNI, String nombre, String rol, String conocimientos, String contacto, String foto,
+			String password) {
+		super();
+		DNI = dNI;
+		this.nombre = nombre;
+		this.rol = rol;
+		this.conocimientos = conocimientos;
+		this.contacto = contacto;
+		this.foto = foto;
+		this.password = password;
 	}
-	
-	
-	public Usuario() {
-		daoUsuario = new DAOUsuario();
-	}
-
-	public void readName() throws SQLException {
-		daoUsuario.readName(this);
-	}
-	
-	public void readAll() throws SQLException {
-		daoUsuario.readAll();
-	}
-	
-	public void read() throws SQLException{
-		daoUsuario.read(this);
-	}
-	
-	public void logIn() throws SQLException {
-		daoUsuario.logIn(this);
-	}
-	
-	
 	/////////////////// getters y setters /////////////////////////
 	public String getDNI() {
 		return DNI;
@@ -81,9 +64,6 @@ public class Usuario {
 	}
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	public DAOUsuario getDaoUsuario() {
-		return daoUsuario;
 	}
 	
 	public String toString() {
