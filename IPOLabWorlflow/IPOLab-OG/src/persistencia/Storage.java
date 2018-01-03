@@ -23,6 +23,9 @@ public class Storage {
 	}
 	
 	private void initialize() {
+		Usuario u1= new Usuario("12345678p", "Adrián", "Diseñador", "UML", "email@mail.me", null, "1234");
+		Usuario u2= new Usuario("98765432o", "Enrique", "Programador", "Java", "mi@contacto.es", null, "9876");
+		
 		//Inicializar varios proyectos
 			//Inicializar varias tareas para cada proyecto
 		
