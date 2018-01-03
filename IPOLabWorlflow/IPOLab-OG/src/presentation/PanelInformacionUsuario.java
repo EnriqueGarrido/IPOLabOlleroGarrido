@@ -9,6 +9,9 @@ import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.ImageIcon;
 import javax.swing.border.BevelBorder;
+
+import dominio.Usuario;
+
 import java.awt.Component;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
@@ -124,6 +127,13 @@ public class PanelInformacionUsuario extends JPanel {
 		add(scrollPaneTareasUsuario, gbc_scrollPaneTareasUsuario);
 		scrollPaneTareasUsuario.setViewportView(listTareas);
 
+	}
+	
+	public void setInformacionUsuario(Usuario u) {
+		txtNombre.setText(u.getNombre());
+		txtConocimientos.setText(u.getConocimientos());
+		txtContacto.setText(u.getContacto());
+		txtRol.setText(u.getRol());
 	}
 
 }

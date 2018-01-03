@@ -20,8 +20,14 @@ public class DAOUsuario {
 		
 	}
 	
-	public void read(Usuario u) {
-		
+	public void read(Usuario u) throws SQLException {
+		ResultSet rs = DBBroker.getInstancia().read("SELECT * FROM usuario WHERE dni='" + u.getDNI()+"'");
+		while(rs.next()) {
+			u.setNombre(rs.getString("nombre"));
+			u.setConocimientos(rs.getString("conocimientos"));
+			u.setContacto(rs.getString("contacto"));
+			u.setRol(rs.getString("rol"));
+		}
 	}
 	
 	public void readName(Usuario u) throws SQLException {

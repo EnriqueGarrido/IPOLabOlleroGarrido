@@ -30,6 +30,10 @@ public class Usuario {
 		daoUsuario.readAll();
 	}
 	
+	public void read() throws SQLException{
+		daoUsuario.read(this);
+	}
+	
 	public void logIn() throws SQLException {
 		daoUsuario.logIn(this);
 	}

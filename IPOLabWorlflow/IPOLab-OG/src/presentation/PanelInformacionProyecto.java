@@ -5,9 +5,12 @@ import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JTextField;
+import javax.swing.MutableComboBoxModel;
 import javax.swing.JFormattedTextField;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -15,6 +18,7 @@ import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 
 import dominio.Proyecto;
 import dominio.Usuario;
@@ -25,14 +29,17 @@ import javax.swing.JButton;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.DefaultComboBoxModel;
 
 public class PanelInformacionProyecto extends JPanel {
 	private final JLabel lblNombre = new JLabel("Nombre:");
 	private final JTextField txtNombre = new JTextField();
 	private final JLabel lblFechaInicio = new JLabel("Fecha Inicio:");
-	private final JFormattedTextField ftxtFechaInicial = new JFormattedTextField();
+	private JFormattedTextField ftxtFechaInicial;
 	private final JLabel lblFechaFinal = new JLabel("Fecha Final:");
-	private final JFormattedTextField ftxtFechaFinal = new JFormattedTextField();
+	private JFormattedTextField ftxtFechaFinal;
 	private final JCheckBox chboxFechaFinal = new JCheckBox("Establecer Fecha Final");
 	private final JLabel lblResponsable = new JLabel("Responsable:");
 	private final JLabel lblDescripcin = new JLabel("Descripción");
@@ -46,7 +53,7 @@ public class PanelInformacionProyecto extends JPanel {
 	private ArrayList<ImageIcon> iconosProyecto;
 	
 	private final JComboBox cbIconoProyecto = new ComboBox_projectIcon(numIconos);
-	private final JComboBox cbResponsable = new ComboBox_projectIcon(2);
+	private final JComboBox<String> cbResponsable = new JComboBox<String>();
 	/**
 	 * Create the panel.
 	 */
@@ -96,7 +103,17 @@ public class PanelInformacionProyecto extends JPanel {
 		gbc_ftxtFechaInicial.fill = GridBagConstraints.HORIZONTAL;
 		gbc_ftxtFechaInicial.gridx = 2;
 		gbc_ftxtFechaInicial.gridy = 1;
-		add(ftxtFechaInicial, gbc_ftxtFechaInicial);
+		ftxtFechaInicial = null;
+		try {
+			MaskFormatter formatoFecha = new MaskFormatter("##/##/####");
+			formatoFecha.setPlaceholderCharacter('#');
+			ftxtFechaInicial = new JFormattedTextField(formatoFecha);
+			add(ftxtFechaInicial, gbc_ftxtFechaInicial);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		GridBagConstraints gbc_lblFechaFinal = new GridBagConstraints();
 		gbc_lblFechaFinal.anchor = GridBagConstraints.EAST;
@@ -113,8 +130,18 @@ public class PanelInformacionProyecto extends JPanel {
 		gbc_ftxtFechaFinal.fill = GridBagConstraints.HORIZONTAL;
 		gbc_ftxtFechaFinal.gridx = 2;
 		gbc_ftxtFechaFinal.gridy = 2;
-		ftxtFechaFinal.setEnabled(false);
-		add(ftxtFechaFinal, gbc_ftxtFechaFinal);
+		ftxtFechaFinal = null;
+		try {
+			MaskFormatter formatoFecha = new MaskFormatter("##/##/####");
+			formatoFecha.setPlaceholderCharacter('#');
+			ftxtFechaFinal = new JFormattedTextField(formatoFecha);
+			ftxtFechaFinal.setEnabled(false);
+			add(ftxtFechaFinal, gbc_ftxtFechaFinal);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		
 		GridBagConstraints gbc_lblMiembros = new GridBagConstraints();
 		gbc_lblMiembros.fill = GridBagConstraints.HORIZONTAL;
@@ -129,6 +156,7 @@ public class PanelInformacionProyecto extends JPanel {
 		gbc_chboxFechaFinal.insets = new Insets(0, 0, 5, 5);
 		gbc_chboxFechaFinal.gridx = 2;
 		gbc_chboxFechaFinal.gridy = 3;
+		chboxFechaFinal.addActionListener(new ChboxFechaFinalActionListener());
 		add(chboxFechaFinal, gbc_chboxFechaFinal);
 		
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
@@ -171,6 +199,7 @@ public class PanelInformacionProyecto extends JPanel {
 		gbc_cbResponsable.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cbResponsable.gridx = 2;
 		gbc_cbResponsable.gridy = 4;
+		cbResponsable.setModel(new DefaultComboBoxModel(new String[] {"Adri\u00E1n", "Enrique"}));
 		add(cbResponsable, gbc_cbResponsable);
 		
 		GridBagConstraints gbc_lblDescripcin = new GridBagConstraints();
@@ -199,7 +228,7 @@ public class PanelInformacionProyecto extends JPanel {
 		
 		crearIconos();
 		//////////////////// COMENTARIO DEL RENDER //////////////////////
-		cbIconoProyecto.setRenderer(new ComboBox_projectIcon_render(iconosProyecto));
+		//cbIconoProyecto.setRenderer(new ComboBox_projectIcon_render(iconosProyecto));
 
 	}
 	
@@ -217,9 +246,23 @@ public class PanelInformacionProyecto extends JPanel {
 		txtNombre.setText(p.getNombre());
 		ftxtFechaInicial.setText(p.getFechaInicio());
 		ftxtFechaFinal.setText(p.getFechaFinal());
-		cbResponsable.setSelectedIndex(1);
+		//cbResponsable.getIndexOf();
 		txtDescripcion.setText(p.getDescripcion());
 	}
+	
+//	public void setComboResponsables(ArrayList<String> list) {
+//		Iterator<String> it = list.iterator();
+//		MutableComboBoxModel<String> modelo = null;
+//		while(it.hasNext()) {
+//			modelo.addElement(it.next());
+//		}
+//	}
+//	private int getIndex(Usuario u) {
+//		int index = 0;
+//		Iterator <String> it = cbResponsable.getModel();
+//		return ;
+//		//p.getResponsable().getNombre()
+//	}
 
 	@SuppressWarnings("unchecked")
 	public void setComboResponsables(ComboBoxModel<String> modeloUsuarios) {
@@ -231,4 +274,10 @@ public class PanelInformacionProyecto extends JPanel {
 		return cbResponsable;
 	}
 
+	private class ChboxFechaFinalActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			ftxtFechaFinal.setEnabled(chboxFechaFinal.isSelected());
+			lblFechaFinal.setEnabled(chboxFechaFinal.isSelected());
+		}
+	}
 }

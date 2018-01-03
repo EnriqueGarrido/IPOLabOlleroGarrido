@@ -8,17 +8,21 @@ import java.awt.Insets;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PanelChat extends JPanel {
 	private final JTextArea txtaChat = new JTextArea();
 	private final JTextArea txtaMensajee = new JTextArea();
 	private final JButton btnEnviarMensaje = new JButton("Enviar");
 	private final JScrollPane scrollPaneMensajes = new JScrollPane();
-
+	
+	private String usuarioLogIn;
 	/**
 	 * Create the panel.
 	 */
-	public PanelChat() {
+	public PanelChat(String usuarioLogIn) {
+		this.usuarioLogIn = usuarioLogIn;
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{28, 58, 0, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{35, 0, 45, 0, 0};
@@ -51,8 +55,17 @@ public class PanelChat extends JPanel {
 		gbc_btnEnviarMensaje.insets = new Insets(0, 0, 5, 5);
 		gbc_btnEnviarMensaje.gridx = 2;
 		gbc_btnEnviarMensaje.gridy = 2;
+		btnEnviarMensaje.addActionListener(new BtnEnviarMensajeActionListener());
 		add(btnEnviarMensaje, gbc_btnEnviarMensaje);
 
 	}
 
+	private class BtnEnviarMensajeActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			if(!txtaMensajee.getText().equals("")) {
+				txtaChat.setText(txtaChat.getText() + "\n" + usuarioLogIn + ": " + txtaMensajee.getText());
+				txtaMensajee.setText("");
+			}
+		}
+	}
 }

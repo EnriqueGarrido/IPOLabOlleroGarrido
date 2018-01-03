@@ -31,7 +31,10 @@ import presentation.renders.ComboResponsablesRender;
 import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
+import java.util.Random;
+
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import java.awt.event.MouseAdapter;
@@ -57,14 +60,17 @@ public class ProjectOS extends JFrame {
 	private final JLabel lblAjustes = new JLabel("");
 	private final JLabel lblLogo = new JLabel("");
 	private final JLabel lblUsuario = new JLabel("");
-	private final JLabel lblNombre = new JLabel("Alvario Noli");
+	private final JLabel lblNombreUsuarioLogin = new JLabel("Alvario Noli");
 	private final JLabel lblUsuarios = new JLabel("Usuarios:");
 	private final JLabel lblAddUser = new JLabel("");
 	private final JLabel lblRemoveUser = new JLabel("");
-	private final JPanel pnlInformacionUsuarios = new PanelInformacionUsuario();
-	private final JPanel pnlChat = new PanelChat();
+	private final PanelInformacionUsuario pnlInformacionUsuarios = new PanelInformacionUsuario();
+	private final JPanel pnlChat = new PanelChat(lblNombreUsuarioLogin.getText());
 	private final JScrollPane scrollPaneUsers = new JScrollPane();
 	private final JList listUsuarios = new JList();
+	private final JLabel lblltimaConexin = new JLabel("\u00DAltima conexi\u00F3n:");
+	private final JLabel lblHora = new JLabel("hora");
+	
 
 	/**
 	 * Launch the application.
@@ -97,7 +103,7 @@ public class ProjectOS extends JFrame {
 		frmProyectos.setIconImage(
 				Toolkit.getDefaultToolkit().getImage(ProjectOS.class.getResource("/presentation/Icons/icon.png")));
 		frmProyectos.setTitle("ProyectOS");
-		frmProyectos.setBounds(100, 100, 1084, 709);
+		frmProyectos.setBounds(100, 100, 1125, 753);
 		frmProyectos.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmProyectos.getContentPane().setLayout(new BorderLayout(0, 0));
 
@@ -124,6 +130,7 @@ public class ProjectOS extends JFrame {
 		gbc_lblAddProjectIcon.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAddProjectIcon.gridx = 2;
 		gbc_lblAddProjectIcon.gridy = 1;
+		lblAddProjectIcon.addMouseListener(new LblAddProjectIconMouseListener());
 		lblAddProjectIcon.addMouseListener(new IconMouseListener(lblAddProjectIcon));
 		lblAddProjectIcon.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/addition-sign.png")));
 		pnlProjects.add(lblAddProjectIcon, gbc_lblAddProjectIcon);
@@ -201,6 +208,7 @@ public class ProjectOS extends JFrame {
 		gbc_scrollPaneUsers.gridx = 1;
 		gbc_scrollPaneUsers.gridy = 1;
 		pnlUsers.add(scrollPaneUsers, gbc_scrollPaneUsers);
+		listUsuarios.addListSelectionListener(new ListUsuariosListSelectionListener());
 
 		scrollPaneUsers.setViewportView(listUsuarios);
 
@@ -222,23 +230,42 @@ public class ProjectOS extends JFrame {
 
 		frmProyectos.getContentPane().add(pnlUser, BorderLayout.NORTH);
 		GridBagLayout gbl_pnlUser = new GridBagLayout();
-		gbl_pnlUser.columnWidths = new int[] { 0, 0, 0, 0 };
-		gbl_pnlUser.rowHeights = new int[] { 0, 0 };
+		gbl_pnlUser.columnWidths = new int[] { 0, 0, 31, 0 };
+		gbl_pnlUser.rowHeights = new int[] { 23, 0, 0 };
 		gbl_pnlUser.columnWeights = new double[] { 1.0, 0.0, 0.0, Double.MIN_VALUE };
-		gbl_pnlUser.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
+		gbl_pnlUser.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
 		pnlUser.setLayout(gbl_pnlUser);
 
 		GridBagConstraints gbc_lblNombre = new GridBagConstraints();
-		gbc_lblNombre.insets = new Insets(0, 0, 0, 5);
+		gbc_lblNombre.anchor = GridBagConstraints.SOUTHEAST;
+		gbc_lblNombre.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNombre.gridx = 1;
 		gbc_lblNombre.gridy = 0;
-		pnlUser.add(lblNombre, gbc_lblNombre);
+		pnlUser.add(lblNombreUsuarioLogin, gbc_lblNombre);
 
 		GridBagConstraints gbc_lblUsuario = new GridBagConstraints();
+		gbc_lblUsuario.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_lblUsuario.insets = new Insets(0, 0, 5, 0);
 		gbc_lblUsuario.gridx = 2;
 		gbc_lblUsuario.gridy = 0;
 		lblUsuario.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/user.png")));
 		pnlUser.add(lblUsuario, gbc_lblUsuario);
+		
+		GridBagConstraints gbc_lblltimaConexin = new GridBagConstraints();
+		gbc_lblltimaConexin.anchor = GridBagConstraints.EAST;
+		gbc_lblltimaConexin.insets = new Insets(0, 0, 0, 5);
+		gbc_lblltimaConexin.gridx = 0;
+		gbc_lblltimaConexin.gridy = 1;
+		pnlUser.add(lblltimaConexin, gbc_lblltimaConexin);
+		
+		GridBagConstraints gbc_lblHora = new GridBagConstraints();
+		gbc_lblHora.gridwidth = 2;
+		gbc_lblHora.anchor = GridBagConstraints.WEST;
+		gbc_lblHora.gridx = 1;
+		gbc_lblHora.gridy = 1;
+		pnlUser.add(lblHora, gbc_lblHora);
+		setHora();
+		
 
 		frmProyectos.getContentPane().add(pnlAjustes, BorderLayout.SOUTH);
 		GridBagLayout gbl_pnlAjustes = new GridBagLayout();
@@ -278,6 +305,21 @@ public class ProjectOS extends JFrame {
 		////////////////////////////////////////////
 		frmProyectos.setVisible(true);
 	}
+	
+	public void setHora() {
+		Random rd = new Random(System.currentTimeMillis());
+		Calendar cal = Calendar.getInstance();
+		int hora = (cal.get(Calendar.HOUR_OF_DAY));
+		int minutos = cal.get(Calendar.MINUTE);
+		hora = Math.abs((hora - rd.nextInt()) % 24);
+		minutos = Math.abs((minutos - rd.nextInt()) % 60);
+		String hoyayer = (cal.get(Calendar.HOUR_OF_DAY) < hora && cal.get(Calendar.MINUTE) < minutos) ? "Ayer" : "Hoy";
+		lblHora.setText(hoyayer + " a las " + ((hora<10) ? "0" : "")+ hora + ":"+ ((minutos<10) ? "0" : "") + minutos);
+	}
+	
+	public String getUsuarioLogin() {
+		return lblNombreUsuarioLogin.getText();
+	}
 
 	@SuppressWarnings("unchecked")
 	private void loadProyectos() {
@@ -303,19 +345,19 @@ public class ProjectOS extends JFrame {
 		try {
 			u.readAll();
 			Iterator<Usuario> it = u.getDaoUsuario().getUserList().iterator();
-			DefaultListModel<Usuario> modeloUsuarios = new DefaultListModel<Usuario>();
+			DefaultListModel<String> modeloUsuarios = new DefaultListModel<String>();
 			ArrayList<String> listaResponsables = new ArrayList<String>();
 			while (it.hasNext()) {
 				Usuario usuarioLeido = it.next();
 				usuarioLeido.readName();
-				modeloUsuarios.addElement(usuarioLeido);
+				modeloUsuarios.addElement(usuarioLeido.getDNI());
 				listaResponsables.add(usuarioLeido.getNombre());
 			}
 			listUsuarios.setModel(modeloUsuarios);
-			ComboResponsablesRender render = new ComboResponsablesRender(listaResponsables);
-			//////// COMENTARIO RENDER /////////////////////////
-			pnlInformacionProjectos.getCbResponsable().setRenderer(render);
-			////////////////////////////////////////////////////
+			//ComboResponsablesRender render = new ComboResponsablesRender(listaResponsables);
+			//////////////// COMENTARIO RENDER /////////////////////////
+			//pnlInformacionProjectos.getCbResponsable().setRenderer(render);
+			////////////////////////////////////////////////////////////
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
@@ -329,6 +371,25 @@ public class ProjectOS extends JFrame {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+		}
+	}
+	private class ListUsuariosListSelectionListener implements ListSelectionListener {
+		public void valueChanged(ListSelectionEvent arg0) {
+			Usuario u = new Usuario(listUsuarios.getSelectedValue().toString());
+			try {
+				u.read();
+				pnlInformacionUsuarios.setInformacionUsuario(u);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	//Código para añadir un nuevo proyecto
+	private class LblAddProjectIconMouseListener extends MouseAdapter {
+		@Override
+		public void mouseClicked(MouseEvent arg0) {
+			
 		}
 	}
 
