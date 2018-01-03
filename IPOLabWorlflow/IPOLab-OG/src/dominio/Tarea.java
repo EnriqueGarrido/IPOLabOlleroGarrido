@@ -11,8 +11,18 @@ public class Tarea {
 	private String descripcion;
 	private ArrayList<Subtarea> subtareas;
 	private ArrayList<Usuario> miembrosTarea;
-
-	private DAOTarea daoTarea;
+	
+	public Tarea(String nombre, String fechaInicial, String fechaFinal, int prioridad, String descripcion,
+			ArrayList<Subtarea> subtareas, ArrayList<Usuario> miembrosTarea) {
+		super();
+		this.nombre = nombre;
+		this.fechaInicial = fechaInicial;
+		this.fechaFinal = fechaFinal;
+		this.prioridad = prioridad;
+		this.descripcion = descripcion;
+		this.subtareas = subtareas;
+		this.miembrosTarea = miembrosTarea;
+	}
 
 	public void update() {
 
@@ -86,10 +96,6 @@ public class Tarea {
 
 	public ArrayList<Usuario> getMiembrosTarea() {
 		return miembrosTarea;
-	}
-
-	public DAOTarea getDaoTarea() {
-		return daoTarea;
 	}
 
 }

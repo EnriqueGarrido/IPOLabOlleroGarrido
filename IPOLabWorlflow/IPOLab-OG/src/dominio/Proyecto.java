@@ -5,27 +5,36 @@ import java.util.ArrayList;
 
 public class Proyecto {
 	
-	private int id;
 	private String nombre;
 	private String fechaInicio;
 	private String fechaFinal;
 	private String icono;
 	private String descripcion;
 	private Usuario responsable;
+	
 	private ArrayList<Usuario> miembros;
 	private ArrayList<Tarea> tareas;
 	
-	private DAOProyecto daoProyecto;
 
 	public Proyecto(String nombre) {
 		this.nombre = nombre;
-		daoProyecto =  new DAOProyecto();
 	}
 
 	public Proyecto() {
-		daoProyecto = new DAOProyecto();
+		
 	}
-
+	
+	public Proyecto(String nombre, String fechaInicio, String fechaFinal, String icono, String descripcion,
+			Usuario responsable, ArrayList<Usuario> miembros, ArrayList<Tarea> tareas) {
+		this.nombre = nombre;
+		this.fechaInicio = fechaInicio;
+		this.fechaFinal = fechaFinal;
+		this.icono = icono;
+		this.descripcion = descripcion;
+		this.responsable = responsable;
+		this.miembros = miembros;
+		this.tareas = tareas;
+	}
 
 	public void update() {
 		
@@ -39,15 +48,6 @@ public class Proyecto {
 		
 	}
 	
-	public void read() throws SQLException {
-		daoProyecto.read(this);
-	}
-	
-
-	public void readAll() throws SQLException {
-		daoProyecto.readAll();
-	}
-	
 	public void readTareas() {
 		
 	}
@@ -55,11 +55,6 @@ public class Proyecto {
 	public void readMiembros() {
 		
 	}
-	
-	public void readIcon() throws SQLException {
-		daoProyecto.readIcon(this);
-	}
-	
 	
 	//////////// Getters y setters //////////////
 	public String getNombre() {
@@ -102,18 +97,6 @@ public class Proyecto {
 		this.responsable = responsable;
 	}
 
-	public DAOProyecto getDaoProyecto() {
-		return daoProyecto;
-	}
-
-	public void setDaoProyecto(DAOProyecto daoProyecto) {
-		this.daoProyecto = daoProyecto;
-	}
-
-	public int getId() {
-		return id;
-	}
-
 	public ArrayList<Usuario> getMiembros() {
 		return miembros;
 	}
@@ -130,7 +113,6 @@ public class Proyecto {
 		this.descripcion = descripcion;
 	}
 
-	
 	public String toString() {
 		return nombre;
 	}
