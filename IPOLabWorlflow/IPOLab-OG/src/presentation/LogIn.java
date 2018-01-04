@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import dominio.AuthenticationException;
 import dominio.Usuario;
+import persistencia.Storage;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -172,7 +173,7 @@ public class LogIn extends JFrame {
 	private class BtnLoginActionListener implements ActionListener {
 		@SuppressWarnings("unused")
 		public void actionPerformed(ActionEvent arg0) {
-			Usuario u = new Usuario(txtUsuario.getText());
+			Storage st = Storage.getInstance();
 			try {
 				u.logIn();
 				if(!u.getPassword().equals(String.valueOf(passwordField.getPassword()))) throw new AuthenticationException();

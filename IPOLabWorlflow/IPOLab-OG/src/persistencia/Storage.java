@@ -8,16 +8,17 @@ public class Storage {
 	
 	private ArrayList<Proyecto> listaProyectos = new ArrayList<Proyecto>();
 	private ArrayList<Usuario> listaUsuarios =  new ArrayList<Usuario>();
-	
-	private Storage storagement;
+	private ArrayList<Tarea> listaTareas = new ArrayList<Tarea>();
+
+	private static Storage storagement;
 	
 	private Storage() {
 		initialize();
 	}
 	
 	// Patron Singleton
-	public Storage getInstance() {
-		if(this ==  null)
+	public static Storage getInstance() {
+		if(storagement ==  null)
 			storagement = new Storage();
 		return storagement;
 	}
@@ -33,5 +34,18 @@ public class Storage {
 		
 	
 	}
+
+	public ArrayList<Proyecto> getListaProyectos() {
+		return listaProyectos;
+	}
+
+	public ArrayList<Usuario> getListaUsuarios() {
+		return listaUsuarios;
+	}
+	
+	public ArrayList<Tarea> getListaTareas() {
+		return listaTareas;
+	}
+
 	
 }
