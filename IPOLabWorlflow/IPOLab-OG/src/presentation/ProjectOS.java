@@ -22,9 +22,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JList;
 import javax.swing.border.TitledBorder;
 
-import dominio.DAOProyecto;
 import dominio.Proyecto;
 import dominio.Usuario;
+import persistencia.Storage;
 import presentation.renders.ListaProjectosRender;
 import presentation.renders.ComboResponsablesRender;
 
@@ -70,7 +70,6 @@ public class ProjectOS extends JFrame {
 	private final JList listUsuarios = new JList();
 	private final JLabel lblltimaConexin = new JLabel("\u00DAltima conexi\u00F3n:");
 	private final JLabel lblHora = new JLabel("hora");
-	
 
 	/**
 	 * Launch the application.
@@ -250,14 +249,14 @@ public class ProjectOS extends JFrame {
 		gbc_lblUsuario.gridy = 0;
 		lblUsuario.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/user.png")));
 		pnlUser.add(lblUsuario, gbc_lblUsuario);
-		
+
 		GridBagConstraints gbc_lblltimaConexin = new GridBagConstraints();
 		gbc_lblltimaConexin.anchor = GridBagConstraints.EAST;
 		gbc_lblltimaConexin.insets = new Insets(0, 0, 0, 5);
 		gbc_lblltimaConexin.gridx = 0;
 		gbc_lblltimaConexin.gridy = 1;
 		pnlUser.add(lblltimaConexin, gbc_lblltimaConexin);
-		
+
 		GridBagConstraints gbc_lblHora = new GridBagConstraints();
 		gbc_lblHora.gridwidth = 2;
 		gbc_lblHora.anchor = GridBagConstraints.WEST;
@@ -265,7 +264,6 @@ public class ProjectOS extends JFrame {
 		gbc_lblHora.gridy = 1;
 		pnlUser.add(lblHora, gbc_lblHora);
 		setHora();
-		
 
 		frmProyectos.getContentPane().add(pnlAjustes, BorderLayout.SOUTH);
 		GridBagLayout gbl_pnlAjustes = new GridBagLayout();
@@ -305,7 +303,7 @@ public class ProjectOS extends JFrame {
 		////////////////////////////////////////////
 		frmProyectos.setVisible(true);
 	}
-	
+
 	public void setHora() {
 		Random rd = new Random(System.currentTimeMillis());
 		Calendar cal = Calendar.getInstance();
@@ -314,82 +312,79 @@ public class ProjectOS extends JFrame {
 		hora = Math.abs((hora - rd.nextInt()) % 24);
 		minutos = Math.abs((minutos - rd.nextInt()) % 60);
 		String hoyayer = (cal.get(Calendar.HOUR_OF_DAY) < hora && cal.get(Calendar.MINUTE) < minutos) ? "Ayer" : "Hoy";
-		lblHora.setText(hoyayer + " a las " + ((hora<10) ? "0" : "")+ hora + ":"+ ((minutos<10) ? "0" : "") + minutos);
+		lblHora.setText(
+				hoyayer + " a las " + ((hora < 10) ? "0" : "") + hora + ":" + ((minutos < 10) ? "0" : "") + minutos);
 	}
-	
+
 	public String getUsuarioLogin() {
 		return lblNombreUsuarioLogin.getText();
 	}
 
 	@SuppressWarnings("unchecked")
 	private void loadProyectos() {
-		Proyecto p = new Proyecto();
-		try {
-			p.readAll();
-			Iterator<Proyecto> it = p.getDaoProyecto().getProyectList().iterator();
-			DefaultListModel<Proyecto> modeloProyectos = new DefaultListModel<Proyecto>();
-			while (it.hasNext()) {
-				Proyecto proyectoLeido = it.next();
-				modeloProyectos.addElement(proyectoLeido);
-			}
-			listProjects.setModel(modeloProyectos);
-			listProjects.setCellRenderer(new ListaProjectosRender());
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+		Storage st = Storage.getInstance();
+		Iterator<Proyecto> it = st.getListaProyectos().iterator();
+		DefaultListModel<Proyecto> modeloProyectos = new DefaultListModel<Proyecto>();
+		while (it.hasNext()) {
+			Proyecto proyectoLeido = it.next();
+			modeloProyectos.addElement(proyectoLeido);
 		}
+		listProjects.setModel(modeloProyectos);
+		listProjects.setCellRenderer(new ListaProjectosRender());
 	}
 
 	@SuppressWarnings("unchecked")
 	private void loadUsuarios() {
-		Usuario u = new Usuario();
-		try {
-			u.readAll();
-			Iterator<Usuario> it = u.getDaoUsuario().getUserList().iterator();
+			Storage st = Storage.getInstance();
+			Iterator<Usuario> it = st.getListaUsuarios().iterator();
 			DefaultListModel<String> modeloUsuarios = new DefaultListModel<String>();
 			ArrayList<String> listaResponsables = new ArrayList<String>();
 			while (it.hasNext()) {
 				Usuario usuarioLeido = it.next();
-				usuarioLeido.readName();
 				modeloUsuarios.addElement(usuarioLeido.getDNI());
 				listaResponsables.add(usuarioLeido.getNombre());
 			}
 			listUsuarios.setModel(modeloUsuarios);
-			//ComboResponsablesRender render = new ComboResponsablesRender(listaResponsables);
+			// ComboResponsablesRender render = new
+			// ComboResponsablesRender(listaResponsables);
 			//////////////// COMENTARIO RENDER /////////////////////////
-			//pnlInformacionProjectos.getCbResponsable().setRenderer(render);
+			// pnlInformacionProjectos.getCbResponsable().setRenderer(render);
 			////////////////////////////////////////////////////////////
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
 	}
+
 	private class ListProjectsListSelectionListener implements ListSelectionListener {
 		public void valueChanged(ListSelectionEvent arg0) {
-			Proyecto p = new Proyecto(listProjects.getSelectedValue().toString());
-			try {
-				p.read();
-				pnlInformacionProjectos.setInformacionProyecto(p);
-			} catch (SQLException e) {
-				e.printStackTrace();
+			Storage st = Storage.getInstance();
+			Iterator<Proyecto> itp = st.getListaProyectos().iterator();
+			Proyecto p = null;
+			while(itp.hasNext()) {
+				p = itp.next();
+				if(listProjects.getSelectedValue().toString().equals(p.getNombre())) 
+					break;
 			}
+			pnlInformacionProjectos.setInformacionProyecto(p);
 		}
 	}
+
 	private class ListUsuariosListSelectionListener implements ListSelectionListener {
 		public void valueChanged(ListSelectionEvent arg0) {
-			Usuario u = new Usuario(listUsuarios.getSelectedValue().toString());
-			try {
-				u.read();
-				pnlInformacionUsuarios.setInformacionUsuario(u);
-			} catch (SQLException e) {
-				e.printStackTrace();
+			Storage st = Storage.getInstance();
+			Iterator<Usuario> itu = st.getListaUsuarios().iterator();
+			Usuario u = null;
+			while(itu.hasNext()) {
+				u = itu.next();
+				if(listUsuarios.getSelectedValue().toString().equals(u.getDNI()))
+					break;
 			}
+			pnlInformacionUsuarios.setInformacionUsuario(u);
 		}
 	}
-	
-	//Código para añadir un nuevo proyecto
+
+	// Código para añadir un nuevo proyecto
 	private class LblAddProjectIconMouseListener extends MouseAdapter {
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
-			
+
 		}
 	}
 
