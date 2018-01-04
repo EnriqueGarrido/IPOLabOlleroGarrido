@@ -34,6 +34,25 @@ public class Storage {
 		listaProyectos.add(p1);
 		listaProyectos.add(p2);
 		listaProyectos.add(p3);
+		ArrayList <Subtarea> subtareas1 = new ArrayList<Subtarea>();
+		Subtarea subtarea11= new Subtarea("Primer Hito", "Descripción general");
+		Subtarea subtarea12= new Subtarea("Segundo Hito", "Realización");
+		Subtarea subtarea13= new Subtarea("Tercer Hito", "Finalización");
+		subtareas1.add(subtarea11);
+		subtareas1.add(subtarea12);
+		subtareas1.add(subtarea13);
+		Tarea t1= new Tarea("Hacer trabajo", "23/07/2017", "17/08/2018", 2, "Tarea a realizar", subtareas1);
+		ArrayList <Subtarea> subtareas2 = new ArrayList<Subtarea>();
+		Subtarea subtarea21= new Subtarea("Cted", "Hacer videos Julie");
+		Subtarea subtarea22= new Subtarea("Hollolens", "Realizado");
+		subtareas2.add(subtarea21);
+		subtareas2.add(subtarea22);
+		Tarea t2= new Tarea("Trabajar", "26/07/2017", "17/09/2018", 3, "Tareas", subtareas1);
+		listaTareas.add(t1);
+		listaTareas.add(t2);
+		
+		
+		
 		//Inicializar varios proyectos
 			//Inicializar varias tareas para cada proyecto
 		

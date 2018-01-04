@@ -10,10 +10,9 @@ public class Tarea {
 	private int prioridad;
 	private String descripcion;
 	private ArrayList<Subtarea> subtareas;
-	private ArrayList<Usuario> miembrosTarea;
 	
 	public Tarea(String nombre, String fechaInicial, String fechaFinal, int prioridad, String descripcion,
-			ArrayList<Subtarea> subtareas, ArrayList<Usuario> miembrosTarea) {
+			ArrayList<Subtarea> subtareas) {
 		super();
 		this.nombre = nombre;
 		this.fechaInicial = fechaInicial;
@@ -21,7 +20,6 @@ public class Tarea {
 		this.prioridad = prioridad;
 		this.descripcion = descripcion;
 		this.subtareas = subtareas;
-		this.miembrosTarea = miembrosTarea;
 	}
 
 	public void update() {
@@ -92,10 +90,6 @@ public class Tarea {
 
 	public ArrayList<Subtarea> getSubtareas() {
 		return subtareas;
-	}
-
-	public ArrayList<Usuario> getMiembrosTarea() {
-		return miembrosTarea;
 	}
 
 }
