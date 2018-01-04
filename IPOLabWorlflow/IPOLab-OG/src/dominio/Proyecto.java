@@ -11,7 +11,16 @@ public class Proyecto {
 	private String icono;
 	private String descripcion;
 	private Usuario responsable;
+	private int estado; //0-pendiente 1-en realizacion 2-realizado
 	
+	public int getEstado() {
+		return estado;
+	}
+
+	public void setEstado(int estado) {
+		this.estado = estado;
+	}
+
 	private ArrayList<Usuario> miembros;
 	private ArrayList<Tarea> tareas;
 	
@@ -25,7 +34,7 @@ public class Proyecto {
 	}
 	
 	public Proyecto(String nombre, String fechaInicio, String fechaFinal, String icono, String descripcion,
-			Usuario responsable, ArrayList<Usuario> miembros, ArrayList<Tarea> tareas) {
+			Usuario responsable, ArrayList<Usuario> miembros, ArrayList<Tarea> tareas, int estado) {
 		this.nombre = nombre;
 		this.fechaInicio = fechaInicio;
 		this.fechaFinal = fechaFinal;
@@ -34,6 +43,7 @@ public class Proyecto {
 		this.responsable = responsable;
 		this.miembros = miembros;
 		this.tareas = tareas;
+		this.estado = estado;
 	}
 
 	public void update() {

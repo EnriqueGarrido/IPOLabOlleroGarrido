@@ -311,7 +311,7 @@ public class ProjectOS extends JFrame {
 		int minutos = cal.get(Calendar.MINUTE);
 		hora = Math.abs((hora - rd.nextInt()) % 24);
 		minutos = Math.abs((minutos - rd.nextInt()) % 60);
-		String hoyayer = (cal.get(Calendar.HOUR_OF_DAY) < hora && cal.get(Calendar.MINUTE) < minutos) ? "Ayer" : "Hoy";
+		String hoyayer = (cal.get(Calendar.HOUR_OF_DAY) <= hora && cal.get(Calendar.MINUTE) < minutos) ? "Ayer" : "Hoy";
 		lblHora.setText(
 				hoyayer + " a las " + ((hora < 10) ? "0" : "") + hora + ":" + ((minutos < 10) ? "0" : "") + minutos);
 	}
@@ -384,7 +384,15 @@ public class ProjectOS extends JFrame {
 	private class LblAddProjectIconMouseListener extends MouseAdapter {
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
-
+			Proyecto p = new Proyecto();
+			p.setNombre("Proyecto"+listProjects.getModel().getSize());
+			p.setIcono("/presentation/Icons/proyecto01.png");
+			pnlInformacionProjectos.setInformacionProyecto(p);
+			Storage.getInstance().getListaProyectos().add(p);
+			try {
+				loadProyectos();
+			}catch(Exception e) {
+			}
 		}
 	}
 
