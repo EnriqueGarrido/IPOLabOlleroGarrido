@@ -22,6 +22,7 @@ public class Usuario {
 		this.foto = foto;
 		this.password = password;
 	}
+	
 	/////////////////// getters y setters /////////////////////////
 	public String getDNI() {
 		return DNI;

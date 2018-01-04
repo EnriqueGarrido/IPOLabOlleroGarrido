@@ -175,12 +175,16 @@ public class LogIn extends JFrame {
 		public void actionPerformed(ActionEvent arg0) {
 			Storage st = Storage.getInstance();
 			try {
-				u.logIn();
-				if(!u.getPassword().equals(String.valueOf(passwordField.getPassword()))) throw new AuthenticationException();
+				String passReal ="";
+				for(int i = 0; i<st.getListaUsuarios().size(); i++) {
+					if(st.getListaUsuarios().get(i).getDNI().equals(txtUsuario.getText())) {
+						passReal = st.getListaUsuarios().get(i).getPassword();
+						break;
+					}
+				}			
+				if(passReal.equals(String.valueOf(passwordField.getPassword()))) throw new AuthenticationException();
 				ProjectOS projectos = new ProjectOS();
 				dispose();
-			}catch(SQLException eSql) {
-				lblInformacion.setText("Error. SQL exception");
 			}catch(AuthenticationException authE) {
 				lblInformacion.setText("Error de autenticación");
 				lblInformacion.setForeground(Color.RED);
