@@ -41,13 +41,15 @@ public class Storage {
 		subtareas1.add(subtarea11);
 		subtareas1.add(subtarea12);
 		subtareas1.add(subtarea13);
-		Tarea t1= new Tarea("Hacer trabajo", "23/07/2017", "17/08/2018", 2, "Tarea a realizar", subtareas1);
+		Tarea t1= new Tarea("Hacer deberes", "23/07/2017", "17/08/2018", 2, "Tarea a realizar", subtareas1);
 		ArrayList <Subtarea> subtareas2 = new ArrayList<Subtarea>();
-		Subtarea subtarea21= new Subtarea("Cted", "Hacer videos Julie");
-		Subtarea subtarea22= new Subtarea("Hollolens", "Realizado");
+		Subtarea subtarea21= new Subtarea("Primer Hito", "Hacer videos Julie");
+		Subtarea subtarea22= new Subtarea("Segundo Hito", "Editarlo");
+		Subtarea subtarea23= new Subtarea("Tercet Hito", "Finalizado");
 		subtareas2.add(subtarea21);
 		subtareas2.add(subtarea22);
-		Tarea t2= new Tarea("Trabajar", "26/07/2017", "17/09/2018", 3, "Tareas", subtareas1);
+		subtareas2.add(subtarea23);
+		Tarea t2= new Tarea("Trabajar", "26/07/2017", "17/09/2018", 3, "Tareas", subtareas2);
 		listaTareas.add(t1);
 		listaTareas.add(t2);
 		
