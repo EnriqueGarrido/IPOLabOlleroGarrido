@@ -54,7 +54,7 @@ public class ProjectOS extends JFrame {
 	private final JScrollPane scrollPaneProjects = new JScrollPane();
 	private final JList listProjects = new JList();
 	private final JTabbedPane pnlTabSmall = new JTabbedPane(JTabbedPane.TOP);
-	private final PanelInformacionProyecto pnlInformacionProjectos = new PanelInformacionProyecto();
+	private PanelInformacionProyecto pnlInformacionProjectos = new PanelInformacionProyecto();;
 	private final JPanel pnlTareas = new PanelTareas();
 	private final JLabel lblAyuda = new JLabel("");
 	private final JLabel lblAjustes = new JLabel("");
@@ -140,6 +140,7 @@ public class ProjectOS extends JFrame {
 		gbc_lblRemoveProjectIcon.gridx = 3;
 		gbc_lblRemoveProjectIcon.gridy = 1;
 		lblRemoveProjectIcon.addMouseListener(new IconMouseListener(lblRemoveProjectIcon));
+		lblRemoveProjectIcon.addMouseListener(new LblRemoveProjectIconMouseListener());
 		lblRemoveProjectIcon.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/trash-can.png")));
 		pnlProjects.add(lblRemoveProjectIcon, gbc_lblRemoveProjectIcon);
 
@@ -297,6 +298,7 @@ public class ProjectOS extends JFrame {
 		gbc_lblLogo.gridy = 0;
 		lblLogo.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/logox32.png")));
 		pnlAjustes.add(lblLogo, gbc_lblLogo);
+		pnlInformacionProjectos.setProOS(this);
 		///////////// Metodos de carga //////////////
 		loadProyectos();
 		loadUsuarios();
@@ -321,7 +323,7 @@ public class ProjectOS extends JFrame {
 	}
 
 	@SuppressWarnings("unchecked")
-	private void loadProyectos() {
+	public void loadProyectos() {
 		Storage st = Storage.getInstance();
 		Iterator<Proyecto> it = st.getListaProyectos().iterator();
 		DefaultListModel<Proyecto> modeloProyectos = new DefaultListModel<Proyecto>();
@@ -350,6 +352,10 @@ public class ProjectOS extends JFrame {
 			//////////////// COMENTARIO RENDER /////////////////////////
 			// pnlInformacionProjectos.getCbResponsable().setRenderer(render);
 			////////////////////////////////////////////////////////////
+	}
+	
+	public JList getlistProjects() {
+		return listProjects;
 	}
 
 	private class ListProjectsListSelectionListener implements ListSelectionListener {
@@ -395,5 +401,19 @@ public class ProjectOS extends JFrame {
 			}
 		}
 	}
+	
+	private class LblRemoveProjectIconMouseListener extends MouseAdapter {
+		@Override
+		public void mouseClicked(MouseEvent arg0) {
+			try {
+				Storage.getInstance().getListaProyectos().remove(listProjects.getSelectedIndex());
+				pnlInformacionProjectos.clearFields();
+				loadProyectos();
+			}catch(Exception e) {
+			}
+		}
+	}
+	
+	
 
 }
