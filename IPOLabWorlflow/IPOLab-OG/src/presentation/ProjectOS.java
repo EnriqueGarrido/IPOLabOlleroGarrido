@@ -60,16 +60,18 @@ public class ProjectOS extends JFrame {
 	private final JLabel lblAjustes = new JLabel("");
 	private final JLabel lblLogo = new JLabel("");
 	private final JLabel lblUsuario = new JLabel("");
-	private final JLabel lblNombreUsuarioLogin = new JLabel("Alvario Noli");
+	private final JLabel lblNombreUsuarioLogin = new JLabel("");
 	private final JLabel lblUsuarios = new JLabel("Usuarios:");
 	private final JLabel lblAddUser = new JLabel("");
 	private final JLabel lblRemoveUser = new JLabel("");
 	private final PanelInformacionUsuario pnlInformacionUsuarios = new PanelInformacionUsuario();
-	private final JPanel pnlChat = new PanelChat(lblNombreUsuarioLogin.getText());
+	private JPanel pnlChat = null;
 	private final JScrollPane scrollPaneUsers = new JScrollPane();
 	private final JList listUsuarios = new JList();
 	private final JLabel lblltimaConexin = new JLabel("\u00DAltima conexi\u00F3n:");
 	private final JLabel lblHora = new JLabel("hora");
+	
+	private Usuario loggedUser;
 
 	/**
 	 * Launch the application.
@@ -78,7 +80,9 @@ public class ProjectOS extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ProjectOS window = new ProjectOS();
+					Usuario u = Storage.getInstance().getListaUsuarios().get(0);
+					
+					ProjectOS window = new ProjectOS(u);
 					frmProyectos.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -90,7 +94,8 @@ public class ProjectOS extends JFrame {
 	/**
 	 * Create the application.
 	 */
-	public ProjectOS() {
+	public ProjectOS(Usuario u) {
+		loggedUser = u;
 		initialize();
 	}
 
@@ -188,6 +193,7 @@ public class ProjectOS extends JFrame {
 		gbc_lblAddUser.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAddUser.gridx = 2;
 		gbc_lblAddUser.gridy = 0;
+		lblAddUser.addMouseListener(new LblAddUserMouseListener());
 		lblAddUser.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/addition-sign.png")));
 		lblAddUser.addMouseListener(new IconMouseListener(lblAddUser));
 		pnlUsers.add(lblAddUser, gbc_lblAddUser);
@@ -197,6 +203,7 @@ public class ProjectOS extends JFrame {
 		gbc_lblRemoveUser.insets = new Insets(0, 0, 5, 5);
 		gbc_lblRemoveUser.gridx = 3;
 		gbc_lblRemoveUser.gridy = 0;
+		lblRemoveUser.addMouseListener(new LblRemoveUserMouseListener());
 		lblRemoveUser.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/trash-can.png")));
 		lblRemoveUser.addMouseListener(new IconMouseListener(lblRemoveUser));
 		pnlUsers.add(lblRemoveUser, gbc_lblRemoveUser);
@@ -224,13 +231,11 @@ public class ProjectOS extends JFrame {
 		gbc_pnlChat.fill = GridBagConstraints.BOTH;
 		gbc_pnlChat.gridx = 7;
 		gbc_pnlChat.gridy = 1;
-		pnlChat.setBorder(
-				new TitledBorder(null, "Mensajes con ...", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		pnlUsers.add(pnlChat, gbc_pnlChat);
+		
 
 		frmProyectos.getContentPane().add(pnlUser, BorderLayout.NORTH);
 		GridBagLayout gbl_pnlUser = new GridBagLayout();
-		gbl_pnlUser.columnWidths = new int[] { 0, 0, 31, 0 };
+		gbl_pnlUser.columnWidths = new int[] { 0, 68, 35, 0 };
 		gbl_pnlUser.rowHeights = new int[] { 23, 0, 0 };
 		gbl_pnlUser.columnWeights = new double[] { 1.0, 0.0, 0.0, Double.MIN_VALUE };
 		gbl_pnlUser.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
@@ -242,6 +247,7 @@ public class ProjectOS extends JFrame {
 		gbc_lblNombre.gridx = 1;
 		gbc_lblNombre.gridy = 0;
 		pnlUser.add(lblNombreUsuarioLogin, gbc_lblNombre);
+		
 
 		GridBagConstraints gbc_lblUsuario = new GridBagConstraints();
 		gbc_lblUsuario.anchor = GridBagConstraints.SOUTHWEST;
@@ -279,6 +285,7 @@ public class ProjectOS extends JFrame {
 		gbc_lblAyuda.insets = new Insets(0, 0, 0, 5);
 		gbc_lblAyuda.gridx = 0;
 		gbc_lblAyuda.gridy = 0;
+		lblAyuda.addMouseListener(new LblAyudaMouseListener());
 		lblAyuda.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/question (2).png")));
 		lblAyuda.addMouseListener(new IconMouseListener(lblAyuda));
 		pnlAjustes.add(lblAyuda, gbc_lblAyuda);
@@ -288,6 +295,7 @@ public class ProjectOS extends JFrame {
 		gbc_lblAjustes.insets = new Insets(0, 0, 0, 5);
 		gbc_lblAjustes.gridx = 1;
 		gbc_lblAjustes.gridy = 0;
+		lblAjustes.addMouseListener(new LblAjustesMouseListener());
 		lblAjustes.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/gear (1).png")));
 		lblAjustes.addMouseListener(new IconMouseListener(lblAjustes));
 		pnlAjustes.add(lblAjustes, gbc_lblAjustes);
@@ -299,6 +307,18 @@ public class ProjectOS extends JFrame {
 		lblLogo.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/logox32.png")));
 		pnlAjustes.add(lblLogo, gbc_lblLogo);
 		pnlInformacionProjectos.setProOS(this);
+		pnlInformacionUsuarios.setProos(this);
+		/////////////////////////////////
+		//System.out.println(loggedUser);
+		
+		lblNombreUsuarioLogin.setText(loggedUser.getNombre());
+		pnlChat = new PanelChat(lblNombreUsuarioLogin.getText());
+		pnlChat.setBorder(
+				new TitledBorder(null, "Mensajes con ...", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		pnlUsers.add(pnlChat, gbc_pnlChat);
+		
+		/////////////////////////////////
+		
 		///////////// Metodos de carga //////////////
 		loadProyectos();
 		loadUsuarios();
@@ -336,26 +356,30 @@ public class ProjectOS extends JFrame {
 	}
 
 	@SuppressWarnings("unchecked")
-	private void loadUsuarios() {
-			Storage st = Storage.getInstance();
-			Iterator<Usuario> it = st.getListaUsuarios().iterator();
-			DefaultListModel<String> modeloUsuarios = new DefaultListModel<String>();
-			ArrayList<String> listaResponsables = new ArrayList<String>();
-			while (it.hasNext()) {
-				Usuario usuarioLeido = it.next();
-				modeloUsuarios.addElement(usuarioLeido.getDNI());
-				listaResponsables.add(usuarioLeido.getNombre());
-			}
-			listUsuarios.setModel(modeloUsuarios);
-			// ComboResponsablesRender render = new
-			// ComboResponsablesRender(listaResponsables);
-			//////////////// COMENTARIO RENDER /////////////////////////
-			// pnlInformacionProjectos.getCbResponsable().setRenderer(render);
-			////////////////////////////////////////////////////////////
+	public void loadUsuarios() {
+		Storage st = Storage.getInstance();
+		Iterator<Usuario> it = st.getListaUsuarios().iterator();
+		DefaultListModel<String> modeloUsuarios = new DefaultListModel<String>();
+		ArrayList<String> listaResponsables = new ArrayList<String>();
+		while (it.hasNext()) {
+			Usuario usuarioLeido = it.next();
+			modeloUsuarios.addElement(usuarioLeido.getDNI());
+			listaResponsables.add(usuarioLeido.getNombre());
+		}
+		listUsuarios.setModel(modeloUsuarios);
+		// ComboResponsablesRender render = new
+		// ComboResponsablesRender(listaResponsables);
+		//////////////// COMENTARIO RENDER /////////////////////////
+		// pnlInformacionProjectos.getCbResponsable().setRenderer(render);
+		////////////////////////////////////////////////////////////
 	}
-	
+
 	public JList getlistProjects() {
 		return listProjects;
+	}
+	
+	public JList getListUsuarios() {
+		return listUsuarios;
 	}
 
 	private class ListProjectsListSelectionListener implements ListSelectionListener {
@@ -363,9 +387,9 @@ public class ProjectOS extends JFrame {
 			Storage st = Storage.getInstance();
 			Iterator<Proyecto> itp = st.getListaProyectos().iterator();
 			Proyecto p = null;
-			while(itp.hasNext()) {
+			while (itp.hasNext()) {
 				p = itp.next();
-				if(listProjects.getSelectedValue().toString().equals(p.getNombre())) 
+				if (listProjects.getSelectedValue().toString().equals(p.getNombre()))
 					break;
 			}
 			pnlInformacionProjectos.setInformacionProyecto(p);
@@ -377,9 +401,9 @@ public class ProjectOS extends JFrame {
 			Storage st = Storage.getInstance();
 			Iterator<Usuario> itu = st.getListaUsuarios().iterator();
 			Usuario u = null;
-			while(itu.hasNext()) {
+			while (itu.hasNext()) {
 				u = itu.next();
-				if(listUsuarios.getSelectedValue().toString().equals(u.getDNI()))
+				if (listUsuarios.getSelectedValue().toString().equals(u.getDNI()))
 					break;
 			}
 			pnlInformacionUsuarios.setInformacionUsuario(u);
@@ -391,17 +415,17 @@ public class ProjectOS extends JFrame {
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
 			Proyecto p = new Proyecto();
-			p.setNombre("Proyecto"+listProjects.getModel().getSize());
-			p.setIcono("/presentation/Icons/proyecto01.png");
+			p.setNombre("Proyecto" + (listProjects.getModel().getSize()+1));
+			p.setIcono(0);
 			pnlInformacionProjectos.setInformacionProyecto(p);
 			Storage.getInstance().getListaProyectos().add(p);
 			try {
 				loadProyectos();
-			}catch(Exception e) {
+			} catch (Exception e) {
 			}
 		}
 	}
-	
+
 	private class LblRemoveProjectIconMouseListener extends MouseAdapter {
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
@@ -409,11 +433,45 @@ public class ProjectOS extends JFrame {
 				Storage.getInstance().getListaProyectos().remove(listProjects.getSelectedIndex());
 				pnlInformacionProjectos.clearFields();
 				loadProyectos();
-			}catch(Exception e) {
+			} catch (Exception e) {
 			}
 		}
 	}
-	
-	
+
+	private class LblAyudaMouseListener extends MouseAdapter {
+		@Override
+		public void mouseClicked(MouseEvent arg0) {
+			DialogoAyuda da = new DialogoAyuda();
+		}
+	}
+
+	private class LblAddUserMouseListener extends MouseAdapter {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			Usuario u = new Usuario();
+			u.setNombre("Nuevo Usuario "+ (listUsuarios.getModel().getSize()+1));
+			u.setDNI("00000000A");
+			pnlInformacionUsuarios.setInformacionUsuario(u);
+			Storage.getInstance().getListaUsuarios().add(u);
+			try {
+				loadUsuarios();
+			}catch(Exception ex) {
+			}
+		}
+	}
+	private class LblRemoveUserMouseListener extends MouseAdapter {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			Storage.getInstance().getListaUsuarios().remove(listUsuarios.getSelectedIndex());
+			pnlInformacionUsuarios.clearFields();
+			loadUsuarios();
+		}
+	}
+	private class LblAjustesMouseListener extends MouseAdapter {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			ConfiguracionVentana cv = new ConfiguracionVentana();
+		}
+	}
 
 }

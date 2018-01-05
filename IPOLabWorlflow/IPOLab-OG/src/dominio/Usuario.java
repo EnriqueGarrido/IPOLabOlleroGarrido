@@ -11,6 +11,8 @@ public class Usuario {
 	private String foto;
 	private String password;
 	
+	public Usuario() {}
+	
 	public Usuario(String dNI, String nombre, String rol, String conocimientos, String contacto, String foto,
 			String password) {
 		super();

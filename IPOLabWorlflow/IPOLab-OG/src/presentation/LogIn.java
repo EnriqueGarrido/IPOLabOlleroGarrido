@@ -176,14 +176,15 @@ public class LogIn extends JFrame {
 			Storage st = Storage.getInstance();
 			try {
 				String passReal ="";
-				for(int i = 0; i<st.getListaUsuarios().size(); i++) {
+				int i;
+				for(i = 0; i<st.getListaUsuarios().size(); i++) {
 					if(st.getListaUsuarios().get(i).getDNI().equals(txtUsuario.getText())) {
 						passReal = st.getListaUsuarios().get(i).getPassword();
 						break;
 					}
-				}			
-				if(passReal.equals(String.valueOf(passwordField.getPassword()))) throw new AuthenticationException();
-				ProjectOS projectos = new ProjectOS();
+				}
+				if(!passReal.equals(String.valueOf(passwordField.getPassword()))) throw new AuthenticationException();
+				ProjectOS projectos = new ProjectOS(st.getListaUsuarios().get(i));
 				dispose();
 			}catch(AuthenticationException authE) {
 				lblInformacion.setText("Error de autenticación");

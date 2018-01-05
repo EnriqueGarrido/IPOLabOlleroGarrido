@@ -8,7 +8,7 @@ public class Proyecto {
 	private String nombre;
 	private String fechaInicio;
 	private String fechaFinal;
-	private String icono;
+	private int icono;
 	private String descripcion;
 	private Usuario responsable;
 	private int estado; //0-pendiente 1-en realizacion 2-realizado
@@ -33,7 +33,7 @@ public class Proyecto {
 		
 	}
 	
-	public Proyecto(String nombre, String fechaInicio, String fechaFinal, String icono, String descripcion,
+	public Proyecto(String nombre, String fechaInicio, String fechaFinal, int icono, String descripcion,
 			Usuario responsable, ArrayList<Usuario> miembros, ArrayList<Tarea> tareas, int estado) {
 		this.nombre = nombre;
 		this.fechaInicio = fechaInicio;
@@ -91,11 +91,21 @@ public class Proyecto {
 		this.fechaFinal = fechaFinal;
 	}
 
-	public String getIcono() {
+	public int getIcono() {
 		return icono;
 	}
+	
+	public String getIconoPath() {
+		String pathIcon = "/presentation/Icons/proyecto";
+		if (icono+1 <= 9)
+			pathIcon += "0" + (icono+1);
+		else
+			pathIcon += icono+1;
+		pathIcon += ".png";
+		return pathIcon;
+	}
 
-	public void setIcono(String icono) {
+	public void setIcono(int icono) {
 		this.icono = icono;
 	}
 

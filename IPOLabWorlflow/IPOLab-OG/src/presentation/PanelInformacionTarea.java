@@ -34,9 +34,6 @@ public class PanelInformacionTarea extends JPanel {
 	private final JComboBox comboBoxResponsable = new JComboBox();
 	private final JLabel lblDescripcion = new JLabel("Descripci\u00F3n:");
 	private final JTextArea txtAreaDescripcion = new JTextArea();
-	private final JLabel lblMiembros = new JLabel("Miembros:");
-	private final JScrollPane scrollPaneMiembtos = new JScrollPane();
-	private final JTable tableMiembros = new JTable();
 	private final JButton btnAadirSubtarea = new JButton("A\u00F1adir Subtarea");
 	private final JButton btnGuardar = new JButton("");
 	private final JFormattedTextField ftxtFechaFinal = new JFormattedTextField();
@@ -74,14 +71,6 @@ public class PanelInformacionTarea extends JPanel {
 		gbc_txtNombre.gridy = 0;
 		add(txtNombre, gbc_txtNombre);
 		
-		GridBagConstraints gbc_lblMiembros = new GridBagConstraints();
-		gbc_lblMiembros.anchor = GridBagConstraints.SOUTHWEST;
-		gbc_lblMiembros.insets = new Insets(0, 0, 5, 5);
-		gbc_lblMiembros.gridx = 5;
-		gbc_lblMiembros.gridy = 0;
-		lblMiembros.setEnabled(false);
-		add(lblMiembros, gbc_lblMiembros);
-		
 		GridBagConstraints gbc_lblFechaIn = new GridBagConstraints();
 		gbc_lblFechaIn.anchor = GridBagConstraints.EAST;
 		gbc_lblFechaIn.insets = new Insets(0, 0, 5, 5);
@@ -96,17 +85,21 @@ public class PanelInformacionTarea extends JPanel {
 		gbc_ftxtFechaInicial.gridy = 1;
 		add(ftxtFechaInicial, gbc_ftxtFechaInicial);
 		
-		GridBagConstraints gbc_scrollPaneMiembtos = new GridBagConstraints();
-		gbc_scrollPaneMiembtos.gridheight = 4;
-		gbc_scrollPaneMiembtos.gridwidth = 4;
-		gbc_scrollPaneMiembtos.insets = new Insets(0, 0, 5, 5);
-		gbc_scrollPaneMiembtos.fill = GridBagConstraints.BOTH;
-		gbc_scrollPaneMiembtos.gridx = 5;
-		gbc_scrollPaneMiembtos.gridy = 1;
-		scrollPaneMiembtos.setEnabled(false);
-		add(scrollPaneMiembtos, gbc_scrollPaneMiembtos);
+		GridBagConstraints gbc_lblEditorImagen = new GridBagConstraints();
+		gbc_lblEditorImagen.anchor = GridBagConstraints.WEST;
+		gbc_lblEditorImagen.insets = new Insets(0, 0, 5, 5);
+		gbc_lblEditorImagen.gridx = 5;
+		gbc_lblEditorImagen.gridy = 1;
+		add(lblEditorImagen, gbc_lblEditorImagen);
 		
-		scrollPaneMiembtos.setViewportView(tableMiembros);
+		GridBagConstraints gbc_lblEditImagen = new GridBagConstraints();
+		gbc_lblEditImagen.insets = new Insets(0, 0, 5, 5);
+		gbc_lblEditImagen.gridx = 8;
+		gbc_lblEditImagen.gridy = 1;
+		lblEditImagen.addMouseListener(new LblEditImagenMouseListener());
+		lblEditImagen.setIcon(new ImageIcon(PanelInformacionTarea.class.getResource("/presentation/Icons/pencil-edit-button.png")));
+		lblEditImagen.addMouseListener(new IconMouseListener(lblEditImagen));
+		add(lblEditImagen, gbc_lblEditImagen);
 		
 		GridBagConstraints gbc_lblFechaFinal = new GridBagConstraints();
 		gbc_lblFechaFinal.anchor = GridBagConstraints.EAST;
@@ -151,7 +144,7 @@ public class PanelInformacionTarea extends JPanel {
 		add(lblPrioridad, gbc_lblPrioridad);
 		
 		GridBagConstraints gbc_sliderPrioridad = new GridBagConstraints();
-		gbc_sliderPrioridad.gridwidth = 3;
+		gbc_sliderPrioridad.gridwidth = 2;
 		gbc_sliderPrioridad.fill = GridBagConstraints.HORIZONTAL;
 		gbc_sliderPrioridad.insets = new Insets(0, 0, 5, 5);
 		gbc_sliderPrioridad.gridx = 2;
@@ -170,22 +163,6 @@ public class PanelInformacionTarea extends JPanel {
 		gbc_lblDescripcion.gridy = 5;
 		add(lblDescripcion, gbc_lblDescripcion);
 		
-		GridBagConstraints gbc_lblEditorImagen = new GridBagConstraints();
-		gbc_lblEditorImagen.anchor = GridBagConstraints.WEST;
-		gbc_lblEditorImagen.insets = new Insets(0, 0, 5, 5);
-		gbc_lblEditorImagen.gridx = 5;
-		gbc_lblEditorImagen.gridy = 5;
-		add(lblEditorImagen, gbc_lblEditorImagen);
-		
-		GridBagConstraints gbc_lblEditImagen = new GridBagConstraints();
-		gbc_lblEditImagen.insets = new Insets(0, 0, 5, 5);
-		gbc_lblEditImagen.gridx = 8;
-		gbc_lblEditImagen.gridy = 5;
-		lblEditImagen.addMouseListener(new LblEditImagenMouseListener());
-		lblEditImagen.setIcon(new ImageIcon(PanelInformacionTarea.class.getResource("/presentation/Icons/pencil-edit-button.png")));
-		lblEditImagen.addMouseListener(new IconMouseListener(lblEditImagen));
-		add(lblEditImagen, gbc_lblEditImagen);
-		
 		GridBagConstraints gbc_txtAreaDescripcion = new GridBagConstraints();
 		gbc_txtAreaDescripcion.gridwidth = 4;
 		gbc_txtAreaDescripcion.insets = new Insets(0, 0, 5, 5);
@@ -196,11 +173,12 @@ public class PanelInformacionTarea extends JPanel {
 		add(txtAreaDescripcion, gbc_txtAreaDescripcion);
 		
 		GridBagConstraints gbc_scrollPaneImagen = new GridBagConstraints();
+		gbc_scrollPaneImagen.gridheight = 5;
 		gbc_scrollPaneImagen.gridwidth = 4;
 		gbc_scrollPaneImagen.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPaneImagen.fill = GridBagConstraints.BOTH;
 		gbc_scrollPaneImagen.gridx = 5;
-		gbc_scrollPaneImagen.gridy = 6;
+		gbc_scrollPaneImagen.gridy = 2;
 		add(scrollPaneImagen, gbc_scrollPaneImagen);
 		
 		scrollPaneImagen.setViewportView(pnlImagen);

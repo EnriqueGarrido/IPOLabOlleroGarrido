@@ -24,11 +24,14 @@ public class Storage {
 	}
 	
 	private void initialize() {
-		Usuario u1= new Usuario("12345678p", "Adrián", "Diseñador", "UML", "email@mail.me", null, "1234");
-		Usuario u2= new Usuario("98765432o", "Enrique", "Programador", "Java", "mi@contacto.es", null, "9876");
-		Proyecto p1= new Proyecto("Armov", "12/02/2017", "02/03/2018", "/presentation/Icons/proyecto04.png","arrrrrrrrrrrrrrrr", u1, listaUsuarios, listaTareas, 0);
-		Proyecto p2= new Proyecto("That thing", "11/03/2017", "05/05/2018", "/presentation/Icons/proyecto06.png","oorrrrrrrrrrrrrrr", u2, listaUsuarios, listaTareas, 2);
-		Proyecto p3= new Proyecto("Wow", "06/07/2017", "24/06/2018", "/presentation/Icons/proyecto10.png","urrrrrrrrrrrrrrr", u2, listaUsuarios, listaTareas, 1);
+		Usuario u1= new Usuario("12345678P", "Adrián Ollero", "Diseñador", "UML", "email@mail.me", null, "1234");
+		Usuario u2= new Usuario("98765432Q", "Enrique Garrido", "Programador", "Java", "mi@contacto.es", null, "9876");
+		Usuario u3=new Usuario("11223344B", "Alvaro Noli", "Analista", "C++", "alvarito@noli.es", null, "1122");
+		ArrayList<Usuario> miembrosp1 = new ArrayList<Usuario>();
+		miembrosp1.add(u3);
+		Proyecto p1= new Proyecto("Armov", "12/02/2017", "02/03/2018", 3,"arrrrrrrrrrrrrrrr", u1, miembrosp1, listaTareas, 0);
+		Proyecto p2= new Proyecto("That thing", "11/03/2017", "05/05/2018", 5,"oorrrrrrrrrrrrrrr", u2, listaUsuarios, listaTareas, 2);
+		Proyecto p3= new Proyecto("Wow", "06/07/2017", "24/06/2018", 9,"urrrrrrrrrrrrrrr", u2, listaUsuarios, listaTareas, 1);
 		listaUsuarios.add(u1);
 		listaUsuarios.add(u2);
 		listaProyectos.add(p1);

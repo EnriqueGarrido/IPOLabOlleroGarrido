@@ -255,7 +255,7 @@ public class PanelInformacionProyecto extends JPanel {
 
 		crearIconos();
 		//////////////////// COMENTARIO DEL RENDER //////////////////////
-		// cbIconoProyecto.setRenderer(new ComboBox_projectIcon_render(iconosProyecto));
+		 cbIconoProyecto.setRenderer(new ComboBox_projectIcon_render(iconosProyecto));
 
 	}
 
@@ -289,7 +289,7 @@ public class PanelInformacionProyecto extends JPanel {
 			rdbtnEnRealizacin.setSelected(true);
 		if (p.getEstado() == 2)
 			rdbtnCompletado.setSelected(true);
-
+		cbIconoProyecto.setSelectedIndex(p.getIcono());
 	}
 
 	public void clearFields() {
@@ -317,13 +317,7 @@ public class PanelInformacionProyecto extends JPanel {
 				p.setDescripcion(txtDescripcion.getText());
 				p.setFechaFinal(ftxtFechaFinal.getText());
 				p.setFechaInicio(ftxtFechaInicial.getText());
-				String pathIcon = "/presentation/Icons/proyecto";
-				// if (cbIconoProyecto.getSelectedIndex() <= 9)
-				// pathIcon += "0" + cbIconoProyecto.getSelectedIndex();
-				// else
-				// pathIcon += cbIconoProyecto.getSelectedIndex();
-				// pathIcon += ".png";
-				// p.setIcono(pathIcon);
+				p.setIcono(cbIconoProyecto.getSelectedIndex());
 				p.setNombre(txtNombre.getText());
 				if (rdbtnPendiente.isSelected())
 					p.setEstado(0);

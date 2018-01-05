@@ -34,7 +34,7 @@ public class ListaProjectosRender extends DefaultListCellRenderer {
 			if (obj.toString().equals(p.getNombre()))
 				break;
 		}
-		iconpath = p.getIcono();
+		iconpath = p.getIconoPath();
 		return iconpath;
 
 	}
