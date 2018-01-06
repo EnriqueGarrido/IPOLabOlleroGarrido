@@ -225,7 +225,12 @@ public class PanelInformacionProyecto extends JPanel {
 		gbc_cbResponsable.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cbResponsable.gridx = 2;
 		gbc_cbResponsable.gridy = 5;
-		cbResponsable.setModel(new DefaultComboBoxModel(new String[] { "Adri\u00E1n", "Enrique" }));
+		ArrayList<Usuario> todosUsers =  Storage.getInstance().getListaUsuarios();
+		String [] modeloComboResponsable = new String[todosUsers.size()];
+		for(int i = 0; i<modeloComboResponsable.length; i++) {
+			modeloComboResponsable[i] = todosUsers.get(i).getNombre();
+		}
+		cbResponsable.setModel(new DefaultComboBoxModel(modeloComboResponsable));
 		add(cbResponsable, gbc_cbResponsable);
 
 		GridBagConstraints gbc_lblDescripcin = new GridBagConstraints();
@@ -253,9 +258,11 @@ public class PanelInformacionProyecto extends JPanel {
 		btnGuardar.setIcon(new ImageIcon(PanelInformacionProyecto.class.getResource("/presentation/Icons/save.png")));
 		add(btnGuardar, gbc_btnGuardar);
 
+		loadTodosMiembros();
+
 		crearIconos();
 		//////////////////// COMENTARIO DEL RENDER //////////////////////
-		 cbIconoProyecto.setRenderer(new ComboBox_projectIcon_render(iconosProyecto));
+		// cbIconoProyecto.setRenderer(new ComboBox_projectIcon_render(iconosProyecto));
 
 	}
 
@@ -276,6 +283,16 @@ public class PanelInformacionProyecto extends JPanel {
 		}
 	}
 
+	private void loadTodosMiembros() {
+		ModeloTablaMiembros model = new ModeloTablaMiembros();
+		tableMiembros.setModel(model);
+		ArrayList<Usuario> users = Storage.getInstance().getListaUsuarios();
+		for (int i = 0; i < users.size(); i++) {
+			Object[] row = { false, users.get(i).getNombre() };
+			model.addFila(row);
+		}
+	}
+
 	public void setInformacionProyecto(Proyecto p) {
 		txtNombre.setText(p.getNombre());
 		ftxtFechaInicial.setText(p.getFechaInicio());
@@ -290,6 +307,7 @@ public class PanelInformacionProyecto extends JPanel {
 		if (p.getEstado() == 2)
 			rdbtnCompletado.setSelected(true);
 		cbIconoProyecto.setSelectedIndex(p.getIcono());
+		loadMiembrosProyecto(p);
 	}
 
 	public void clearFields() {
@@ -297,6 +315,20 @@ public class PanelInformacionProyecto extends JPanel {
 		ftxtFechaInicial.setText("");
 		ftxtFechaFinal.setText("");
 		txtDescripcion.setText("");
+	}
+
+	private void loadMiembrosProyecto(Proyecto p) {
+		ArrayList<Usuario> miembros = p.getMiembros();
+		for(int i = 0; i<tableMiembros.getRowHeight(); i++) {
+			tableMiembros.getModel().setValueAt(false, i, 0);
+		}
+		for (int i = 0; i < tableMiembros.getRowCount(); i++) {
+			for (int j = 0; j < miembros.size(); j++) {
+				if (miembros.get(j).getNombre().equals(tableMiembros.getModel().getValueAt(i, 1))) {
+					tableMiembros.getModel().setValueAt(true, i, 0);
+				}
+			}
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -325,11 +357,28 @@ public class PanelInformacionProyecto extends JPanel {
 					p.setEstado(1);
 				if (rdbtnCompletado.isSelected())
 					p.setEstado(2);
-				// p.setResponsable(Storage.);
+				ArrayList<Usuario> miembros = new ArrayList<Usuario>();
+				for(int i = 0; i<tableMiembros.getRowCount(); i++) {
+					if(tableMiembros.getModel().getValueAt(i, 0).equals(true)) {
+						Usuario u = getUsuarioConNombre(tableMiembros.getModel().getValueAt(i, 1).toString());
+						miembros.add(u);
+					}
+				}
+				p.setMiembros(miembros);
+				p.setResponsable(getUsuarioConNombre(cbResponsable.getSelectedItem().toString()));
 
 				proOS.loadProyectos();
 			} catch (Exception e) {
 			}
+		}
+		public Usuario getUsuarioConNombre(String nombre) {
+			Iterator<Usuario> it = Storage.getInstance().getListaUsuarios().iterator();
+			while(it.hasNext()) {
+				Usuario u = it.next();
+				if(u.getNombre().equals(nombre))
+					return u;
+			}
+			return null;
 		}
 	}
 }

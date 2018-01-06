@@ -12,6 +12,8 @@ public class Proyecto {
 	private String descripcion;
 	private Usuario responsable;
 	private int estado; //0-pendiente 1-en realizacion 2-realizado
+	private ArrayList<Usuario> miembros;
+	private ArrayList<Tarea> tareas;
 	
 	public int getEstado() {
 		return estado;
@@ -21,8 +23,7 @@ public class Proyecto {
 		this.estado = estado;
 	}
 
-	private ArrayList<Usuario> miembros;
-	private ArrayList<Tarea> tareas;
+	
 	
 
 	public Proyecto(String nombre) {
@@ -30,7 +31,7 @@ public class Proyecto {
 	}
 
 	public Proyecto() {
-		
+		miembros = new ArrayList<Usuario>();
 	}
 	
 	public Proyecto(String nombre, String fechaInicio, String fechaFinal, int icono, String descripcion,
@@ -135,6 +136,10 @@ public class Proyecto {
 
 	public String toString() {
 		return nombre;
+	}
+
+	public void setMiembros(ArrayList<Usuario> miembros) {
+		this.miembros = miembros;
 	}
 	
 	
