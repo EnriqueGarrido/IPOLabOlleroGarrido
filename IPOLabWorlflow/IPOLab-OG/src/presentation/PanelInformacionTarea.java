@@ -42,12 +42,12 @@ public class PanelInformacionTarea extends JPanel {
 	private final JButton btnGuardar = new JButton("");
 	private JFormattedTextField ftxtFechaFinal = null;
 	private JFormattedTextField ftxtFechaInicial = null;
-	private final JLabel lblEditorImagen = new JLabel("Editor Imagen:");
+	private static JLabel lblEditorImagen = new JLabel("Editor Imagen:");
 	private final JScrollPane scrollPaneImagen = new JScrollPane();
-	private final JPanel pnlImagen = new JPanel();
 	private final JLabel lblEditImagen = new JLabel("");
 
 	private PanelTareas pTar;
+	public static JLabel lblDibujo = new JLabel("");
 
 	/**
 	 * Create the panel.
@@ -192,8 +192,8 @@ public class PanelInformacionTarea extends JPanel {
 		gbc_scrollPaneImagen.gridx = 5;
 		gbc_scrollPaneImagen.gridy = 2;
 		add(scrollPaneImagen, gbc_scrollPaneImagen);
-
-		scrollPaneImagen.setViewportView(pnlImagen);
+		
+		scrollPaneImagen.setViewportView(lblDibujo);
 
 		GridBagConstraints gbc_btnGuardar = new GridBagConstraints();
 		gbc_btnGuardar.gridwidth = 2;
@@ -226,6 +226,7 @@ public class PanelInformacionTarea extends JPanel {
 		txtNombre.setText(t.getNombre());
 		sliderPrioridad.setValue(t.getPrioridad());
 	}
+	
 
 	public void clearFields() {
 		txtAreaDescripcion.setText("");

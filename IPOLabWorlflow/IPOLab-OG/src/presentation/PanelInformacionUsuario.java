@@ -6,9 +6,12 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.border.BevelBorder;
 import javax.swing.text.MaskFormatter;
@@ -16,6 +19,7 @@ import javax.swing.text.MaskFormatter;
 import dominio.Proyecto;
 import dominio.Usuario;
 import persistencia.Storage;
+import presentation.renders.ListaProjectosRender;
 
 import java.awt.Component;
 import javax.swing.JList;
@@ -30,7 +34,7 @@ public class PanelInformacionUsuario extends JPanel {
 	private final JLabel lblRol = new JLabel("Rol:");
 	private final JLabel lblConocimientos = new JLabel("Conocimientos:");
 	private final JLabel lblContacto = new JLabel("Contacto:");
-	private final JLabel lblTareas = new JLabel("Tareas:");
+	private final JLabel lblProyectos = new JLabel("Proyectos:");
 	private final JTextField txtNombre = new JTextField();
 	private final JTextField txtRol = new JTextField();
 	private final JTextField txtConocimientos = new JTextField();
@@ -147,12 +151,12 @@ public class PanelInformacionUsuario extends JPanel {
 		gbc_txtContacto.gridy = 5;
 		add(txtContacto, gbc_txtContacto);
 		
-		GridBagConstraints gbc_lblTareas = new GridBagConstraints();
-		gbc_lblTareas.anchor = GridBagConstraints.EAST;
-		gbc_lblTareas.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTareas.gridx = 1;
-		gbc_lblTareas.gridy = 6;
-		add(lblTareas, gbc_lblTareas);
+		GridBagConstraints gbc_lblProyectos = new GridBagConstraints();
+		gbc_lblProyectos.anchor = GridBagConstraints.EAST;
+		gbc_lblProyectos.insets = new Insets(0, 0, 5, 5);
+		gbc_lblProyectos.gridx = 1;
+		gbc_lblProyectos.gridy = 6;
+		add(lblProyectos, gbc_lblProyectos);
 		
 		GridBagConstraints gbc_scrollPaneTareasUsuario = new GridBagConstraints();
 		gbc_scrollPaneTareasUsuario.gridwidth = 4;
@@ -192,6 +196,7 @@ public class PanelInformacionUsuario extends JPanel {
 		txtContacto.setText(u.getContacto());
 		txtRol.setText(u.getRol());
 		ftxtDNI.setText(u.getDNI());
+		loadProyectos(u);
 	}
 
 	private class BtnGuardarActionListener implements ActionListener {
@@ -209,5 +214,21 @@ public class PanelInformacionUsuario extends JPanel {
 			}catch(Exception ex) {
 			}
 		}
+	}
+	
+	public void loadProyectos(Usuario u) {
+		Storage st = Storage.getInstance();
+		Iterator<Proyecto> it = st.getListaProyectos().iterator();
+		//Iterator<Usuario> it1 = st.getListaUsuarios().iterator();
+		DefaultListModel<Proyecto> modeloProyectos = new DefaultListModel<Proyecto>();
+		while (it.hasNext()) {
+				Proyecto proyectoLeido = it.next();
+				ArrayList<Usuario> usuarios=proyectoLeido.getMiembros();
+				if (usuarios.contains(u)) {
+					modeloProyectos.addElement(proyectoLeido);
+				}		
+		}
+		listTareas.setModel(modeloProyectos);
+		listTareas.setCellRenderer(new ListaProjectosRender());
 	}
 }

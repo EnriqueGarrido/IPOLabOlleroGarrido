@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.EventQueue;
+import java.awt.Graphics2D;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,6 +14,7 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.GridBagConstraints;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -30,11 +32,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.image.BufferedImage;
+
+import presentation.PanelInformacionTarea;
 
 public class EditorImagenes extends JFrame {
 
 	private JPanel contentPane;
-	private MiAreaDibujo miAreaDibujo;
+	public MiAreaDibujo miAreaDibujo;
 	private ImageIcon imagen;
 	int modo =-1;
 	private final int TEXTO=2;
@@ -104,11 +109,10 @@ public class EditorImagenes extends JFrame {
 		BtnComentario.setIcon(new ImageIcon(EditorImagenes.class.getResource("/presentation/Icons/aniadirAnotacion.png")));
 		toolBarEtiquetas.add(BtnComentario);
 		
-		JButton btnNewButton_3 = new JButton("New button");
-		toolBarEtiquetas.add(btnNewButton_3);
-		
-		JButton btnNewButton_4 = new JButton("New button");
-		toolBarEtiquetas.add(btnNewButton_4);
+		JButton btnSave = new JButton("");
+		btnSave.addActionListener(new BtnSaveActionListener());
+		btnSave.setIcon(new ImageIcon(EditorImagenes.class.getResource("/presentation/Icons/save.png")));
+		toolBarEtiquetas.add(btnSave);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, BorderLayout.CENTER);
@@ -190,5 +194,20 @@ public class EditorImagenes extends JFrame {
 				miAreaDibujo.repaint();
 				}
 		}
+	}
+	private class BtnSaveActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			PanelInformacionTarea.lblDibujo.setIcon(imagen);
+			
+		}
+	}
+	private BufferedImage createImage(MiAreaDibujo miAreaDibujo2) {
+
+	    int w = miAreaDibujo2.getWidth();
+	    int h = miAreaDibujo2.getHeight();
+	    BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+	    Graphics2D g = bi.createGraphics();
+	    miAreaDibujo2.paint(g);
+	    return bi;
 	}
 }
