@@ -37,6 +37,11 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
+import javax.swing.JPopupMenu;
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JMenuItem;
 
 public class PanelInformacionProyecto extends JPanel {
 	private final JLabel lblNombre = new JLabel("Nombre:");
@@ -66,6 +71,9 @@ public class PanelInformacionProyecto extends JPanel {
 	private final JRadioButton rdbtnCompletado = new JRadioButton("Completado");
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private final JLabel lblEstado = new JLabel("Estado:");
+	private final JPopupMenu popupMenu = new JPopupMenu();
+	private final JMenuItem mntmSeleccionarTodos = new JMenuItem("Seleccionar Todos");
+	private final JMenuItem mntmDeseleccionarTodos = new JMenuItem("Deseleccionar Todos");
 
 	/**
 	 * Create the panel.
@@ -120,11 +128,10 @@ public class PanelInformacionProyecto extends JPanel {
 		ftxtFechaInicial = null;
 		try {
 			MaskFormatter formatoFecha = new MaskFormatter("##/##/####");
-			formatoFecha.setPlaceholderCharacter('#');
+			formatoFecha.setPlaceholderCharacter('*');
 			ftxtFechaInicial = new JFormattedTextField(formatoFecha);
 			add(ftxtFechaInicial, gbc_ftxtFechaInicial);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -145,11 +152,10 @@ public class PanelInformacionProyecto extends JPanel {
 		ftxtFechaFinal = null;
 		try {
 			MaskFormatter formatoFecha = new MaskFormatter("##/##/####");
-			formatoFecha.setPlaceholderCharacter('#');
+			formatoFecha.setPlaceholderCharacter('*');
 			ftxtFechaFinal = new JFormattedTextField(formatoFecha);
 			add(ftxtFechaFinal, gbc_ftxtFechaFinal);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -191,6 +197,14 @@ public class PanelInformacionProyecto extends JPanel {
 		gbc_rdbtnCompletado.gridy = 3;
 		buttonGroup.add(rdbtnCompletado);
 		add(rdbtnCompletado, gbc_rdbtnCompletado);
+		
+		addPopup(scrollPane, popupMenu);
+		mntmSeleccionarTodos.addActionListener(new MntmSeleccionarTodosActionListener());
+		
+		popupMenu.add(mntmSeleccionarTodos);
+		mntmDeseleccionarTodos.addActionListener(new MntmDeseleccionarTodosActionListener());
+		
+		popupMenu.add(mntmDeseleccionarTodos);
 
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.gridheight = 5;
@@ -199,16 +213,14 @@ public class PanelInformacionProyecto extends JPanel {
 		gbc_scrollPane.gridx = 6;
 		gbc_scrollPane.gridy = 3;
 		add(scrollPane, gbc_scrollPane);
-		tableMiembros.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "S/N", "Nombre" }) {
-			Class[] columnTypes = new Class[] { Boolean.class, String.class };
-
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
-		tableMiembros.getColumnModel().getColumn(0).setResizable(false);
-		tableMiembros.getColumnModel().getColumn(0).setPreferredWidth(29);
-		tableMiembros.getColumnModel().getColumn(1).setResizable(false);
+//		tableMiembros.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "S/N", "Nombre" }) {
+//			Class[] columnTypes = new Class[] { Boolean.class, String.class };
+//
+//			public Class getColumnClass(int columnIndex) {
+//				return columnTypes[columnIndex];
+//			}
+//		});
+		
 
 		scrollPane.setViewportView(tableMiembros);
 
@@ -262,7 +274,7 @@ public class PanelInformacionProyecto extends JPanel {
 
 		crearIconos();
 		//////////////////// COMENTARIO DEL RENDER //////////////////////
-		// cbIconoProyecto.setRenderer(new ComboBox_projectIcon_render(iconosProyecto));
+		//cbIconoProyecto.setRenderer(new ComboBox_projectIcon_render(iconosProyecto));
 
 	}
 
@@ -286,6 +298,10 @@ public class PanelInformacionProyecto extends JPanel {
 	private void loadTodosMiembros() {
 		ModeloTablaMiembros model = new ModeloTablaMiembros();
 		tableMiembros.setModel(model);
+		tableMiembros.getColumnModel().getColumn(0).setResizable(false);
+		tableMiembros.getColumnModel().getColumn(0).setPreferredWidth(30);
+		tableMiembros.getColumnModel().getColumn(0).setMaxWidth(30);
+		tableMiembros.getColumnModel().getColumn(1).setResizable(false);
 		ArrayList<Usuario> users = Storage.getInstance().getListaUsuarios();
 		for (int i = 0; i < users.size(); i++) {
 			Object[] row = { false, users.get(i).getNombre() };
@@ -297,7 +313,6 @@ public class PanelInformacionProyecto extends JPanel {
 		txtNombre.setText(p.getNombre());
 		ftxtFechaInicial.setText(p.getFechaInicio());
 		ftxtFechaFinal.setText(p.getFechaFinal());
-		// cbIconoProyecto.setSelectedIndex(proOS.getlistProjects());
 		cbResponsable.setSelectedIndex(Storage.getInstance().getListaUsuarios().indexOf(p.getResponsable()));
 		txtDescripcion.setText(p.getDescripcion());
 		if (p.getEstado() == 0)
@@ -380,5 +395,34 @@ public class PanelInformacionProyecto extends JPanel {
 			}
 			return null;
 		}
+	}
+	private class MntmSeleccionarTodosActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			for(int i = 0; i<=tableMiembros.getModel().getColumnCount(); i++)
+				tableMiembros.getModel().setValueAt(true, i, 0);
+		}
+	}
+	private class MntmDeseleccionarTodosActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			for(int i = 0; i<=tableMiembros.getModel().getColumnCount(); i++)
+				tableMiembros.getModel().setValueAt(false, i, 0);
+		}
+	}
+	private static void addPopup(Component component, final JPopupMenu popup) {
+		component.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			private void showMenu(MouseEvent e) {
+				popup.show(e.getComponent(), e.getX(), e.getY());
+			}
+		});
 	}
 }

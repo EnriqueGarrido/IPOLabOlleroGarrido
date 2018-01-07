@@ -22,31 +22,11 @@ public class Tarea {
 		this.subtareas = subtareas;
 	}
 
-	public void update() {
-
+	public Tarea(String string) {
+		subtareas = new ArrayList<Subtarea>();
+		this.nombre = string;
 	}
 
-	public void delete() {
-
-	}
-
-	public void insert() {
-
-	}
-
-	public void read() {
-
-	}
-
-	public void readSubtareas() {
-		
-	}
-	
-	public void readMiembros() {
-		
-	}
-	
-	
 	////////////Getters y setters //////////////
 	public String getNombre() {
 		return nombre;
@@ -90,6 +70,10 @@ public class Tarea {
 
 	public ArrayList<Subtarea> getSubtareas() {
 		return subtareas;
+	}
+	
+	public String toString() {
+		return nombre;
 	}
 
 }

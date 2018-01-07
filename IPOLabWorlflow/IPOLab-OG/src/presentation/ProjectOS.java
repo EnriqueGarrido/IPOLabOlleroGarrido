@@ -39,6 +39,11 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JPopupMenu;
+import java.awt.Component;
+import javax.swing.JMenuItem;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ProjectOS extends JFrame {
 
@@ -55,7 +60,7 @@ public class ProjectOS extends JFrame {
 	private final JList listProjects = new JList();
 	private final JTabbedPane pnlTabSmall = new JTabbedPane(JTabbedPane.TOP);
 	private PanelInformacionProyecto pnlInformacionProjectos = new PanelInformacionProyecto();;
-	private final JPanel pnlTareas = new PanelTareas();
+	private final PanelTareas pnlTareas = new PanelTareas();
 	private final JLabel lblAyuda = new JLabel("");
 	private final JLabel lblAjustes = new JLabel("");
 	private final JLabel lblLogo = new JLabel("");
@@ -72,6 +77,12 @@ public class ProjectOS extends JFrame {
 	private final JLabel lblHora = new JLabel("hora");
 	
 	private Usuario loggedUser;
+	private final JPopupMenu popupMenu = new JPopupMenu();
+	private final JMenuItem mntmAadirProyecto = new JMenuItem("A\u00F1adir Proyecto");
+	private final JMenuItem mntmEliminarProyecto = new JMenuItem("Eliminar Proyecto Seleccionado");
+	private final JPopupMenu popupMenu_1 = new JPopupMenu();
+	private final JMenuItem mntmAadirUsuario = new JMenuItem("A\u00F1adir Usuario");
+	private final JMenuItem mntmEliminarUsuarioSeleccionado = new JMenuItem("Eliminar Usuario Seleccionado");
 
 	/**
 	 * Launch the application.
@@ -118,32 +129,33 @@ public class ProjectOS extends JFrame {
 				pnlProjects, null);
 		GridBagLayout gbl_pnlProjects = new GridBagLayout();
 		gbl_pnlProjects.columnWidths = new int[] { 10, 0, 175, 0, 0, 0, 0, 0 };
-		gbl_pnlProjects.rowHeights = new int[] { 8, 0, 0, 5, 0 };
+		gbl_pnlProjects.rowHeights = new int[] { 38, 0, 5, 0 };
 		gbl_pnlProjects.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
-		gbl_pnlProjects.rowWeights = new double[] { 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
+		gbl_pnlProjects.rowWeights = new double[] { 0.0, 1.0, 0.0, Double.MIN_VALUE };
 		pnlProjects.setLayout(gbl_pnlProjects);
 
 		GridBagConstraints gbc_lblProyectos = new GridBagConstraints();
+		gbc_lblProyectos.anchor = GridBagConstraints.SOUTH;
 		gbc_lblProyectos.insets = new Insets(0, 0, 5, 5);
 		gbc_lblProyectos.gridx = 1;
-		gbc_lblProyectos.gridy = 1;
+		gbc_lblProyectos.gridy = 0;
 		pnlProjects.add(lblProyectos, gbc_lblProyectos);
 
 		GridBagConstraints gbc_lblAddProjectIcon = new GridBagConstraints();
-		gbc_lblAddProjectIcon.anchor = GridBagConstraints.EAST;
+		gbc_lblAddProjectIcon.anchor = GridBagConstraints.SOUTHEAST;
 		gbc_lblAddProjectIcon.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAddProjectIcon.gridx = 2;
-		gbc_lblAddProjectIcon.gridy = 1;
+		gbc_lblAddProjectIcon.gridy = 0;
 		lblAddProjectIcon.addMouseListener(new LblAddProjectIconMouseListener());
 		lblAddProjectIcon.addMouseListener(new IconMouseListener(lblAddProjectIcon));
 		lblAddProjectIcon.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/addition-sign.png")));
 		pnlProjects.add(lblAddProjectIcon, gbc_lblAddProjectIcon);
 
 		GridBagConstraints gbc_lblRemoveProjectIcon = new GridBagConstraints();
-		gbc_lblRemoveProjectIcon.anchor = GridBagConstraints.WEST;
+		gbc_lblRemoveProjectIcon.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_lblRemoveProjectIcon.insets = new Insets(0, 0, 5, 5);
 		gbc_lblRemoveProjectIcon.gridx = 3;
-		gbc_lblRemoveProjectIcon.gridy = 1;
+		gbc_lblRemoveProjectIcon.gridy = 0;
 		lblRemoveProjectIcon.addMouseListener(new IconMouseListener(lblRemoveProjectIcon));
 		lblRemoveProjectIcon.addMouseListener(new LblRemoveProjectIconMouseListener());
 		lblRemoveProjectIcon.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/trash-can.png")));
@@ -154,7 +166,7 @@ public class ProjectOS extends JFrame {
 		gbc_scrollPaneProjects.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPaneProjects.fill = GridBagConstraints.BOTH;
 		gbc_scrollPaneProjects.gridx = 1;
-		gbc_scrollPaneProjects.gridy = 2;
+		gbc_scrollPaneProjects.gridy = 1;
 		pnlProjects.add(scrollPaneProjects, gbc_scrollPaneProjects);
 		listProjects.addListSelectionListener(new ListProjectsListSelectionListener());
 
@@ -164,7 +176,7 @@ public class ProjectOS extends JFrame {
 		gbc_pnlTabSmall.insets = new Insets(0, 0, 5, 5);
 		gbc_pnlTabSmall.fill = GridBagConstraints.BOTH;
 		gbc_pnlTabSmall.gridx = 5;
-		gbc_pnlTabSmall.gridy = 2;
+		gbc_pnlTabSmall.gridy = 1;
 		pnlProjects.add(pnlTabSmall, gbc_pnlTabSmall);
 
 		pnlTabSmall.addTab("Informaci\u00F3n", null, pnlInformacionProjectos, null);
@@ -274,7 +286,7 @@ public class ProjectOS extends JFrame {
 
 		frmProyectos.getContentPane().add(pnlAjustes, BorderLayout.SOUTH);
 		GridBagLayout gbl_pnlAjustes = new GridBagLayout();
-		gbl_pnlAjustes.columnWidths = new int[] { 57, 0, 0, 96, 0 };
+		gbl_pnlAjustes.columnWidths = new int[] { 32, 0, 0, 96, 0 };
 		gbl_pnlAjustes.rowHeights = new int[] { 0, 0 };
 		gbl_pnlAjustes.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
 		gbl_pnlAjustes.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
@@ -318,6 +330,23 @@ public class ProjectOS extends JFrame {
 		pnlUsers.add(pnlChat, gbc_pnlChat);
 		
 		/////////////////////////////////
+
+		addPopup(listUsuarios, popupMenu_1);
+		mntmAadirUsuario.addActionListener(new MntmAadirUsuarioActionListener());
+		
+		popupMenu_1.add(mntmAadirUsuario);
+		mntmEliminarUsuarioSeleccionado.addActionListener(new MntmEliminarUsuarioSeleccionadoActionListener());
+		
+		popupMenu_1.add(mntmEliminarUsuarioSeleccionado);
+		
+		addPopup(listProjects, popupMenu);
+		mntmAadirProyecto.addActionListener(new MntmAadirProyectoActionListener());
+		
+		popupMenu.add(mntmAadirProyecto);
+		mntmEliminarProyecto.addActionListener(new MntmEliminarProyectoActionListener());
+		
+		
+		popupMenu.add(mntmEliminarProyecto);
 		
 		///////////// Metodos de carga //////////////
 		loadProyectos();
@@ -353,6 +382,8 @@ public class ProjectOS extends JFrame {
 		}
 		listProjects.setModel(modeloProyectos);
 		listProjects.setCellRenderer(new ListaProjectosRender());
+		
+
 	}
 
 	@SuppressWarnings("unchecked")
@@ -367,6 +398,7 @@ public class ProjectOS extends JFrame {
 			listaResponsables.add(usuarioLeido.getNombre());
 		}
 		listUsuarios.setModel(modeloUsuarios);
+		
 		// ComboResponsablesRender render = new
 		// ComboResponsablesRender(listaResponsables);
 		//////////////// COMENTARIO RENDER /////////////////////////
@@ -393,6 +425,7 @@ public class ProjectOS extends JFrame {
 					break;
 			}
 			pnlInformacionProjectos.setInformacionProyecto(p);
+			pnlTareas.cargarArbol(p);
 		}
 	}
 
@@ -473,5 +506,59 @@ public class ProjectOS extends JFrame {
 			ConfiguracionVentana cv = new ConfiguracionVentana();
 		}
 	}
+	private class MntmAadirUsuarioActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			LblAddUserMouseListener listener = new LblAddUserMouseListener();
+			try {
+				listener.mouseClicked(null);
+			}catch(Exception e1) {
+			}
+		}
+	}
+	private class MntmEliminarUsuarioSeleccionadoActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			LblRemoveUserMouseListener listener = new LblRemoveUserMouseListener();
+			try {
+				listener.mouseClicked(null);
+			}catch(Exception e1) {
+			}
+		}
+	}
+	private class MntmAadirProyectoActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			LblAddProjectIconMouseListener listener = new LblAddProjectIconMouseListener();
+			try {
+				listener.mouseClicked(null);
+			}catch(Exception e1) {
+			}
+		}
+	}
+	private class MntmEliminarProyectoActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			LblRemoveProjectIconMouseListener listener = new LblRemoveProjectIconMouseListener();
+			try {
+				listener.mouseClicked(null);
+			}catch(Exception e1) {
+			}
+		}
+	}
 
+
+	private static void addPopup(Component component, final JPopupMenu popup) {
+		component.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			private void showMenu(MouseEvent e) {
+				popup.show(e.getComponent(), e.getX(), e.getY());
+			}
+		});
+	}
 }

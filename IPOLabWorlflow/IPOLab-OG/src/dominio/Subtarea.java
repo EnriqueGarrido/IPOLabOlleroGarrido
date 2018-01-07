@@ -12,23 +12,6 @@ public class Subtarea {
 		this.descripcion = descripcion;
 	}
 
-	public void update() {
-		
-	}
-	
-	public void delete() {
-		
-	}
-	
-	public void insert() {
-		
-	}
-	
-	public void read() {
-		
-	}
-	
-	
 	///////////// getters y setters ///////////////
 
 	public String getNombre() {
@@ -47,7 +30,9 @@ public class Subtarea {
 		this.descripcion = descripcion;
 	}
 
-	
+	public String toString() {
+		return nombre;
+	}
 	
 
 }

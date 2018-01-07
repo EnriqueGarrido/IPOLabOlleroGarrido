@@ -23,15 +23,15 @@ public class Proyecto {
 		this.estado = estado;
 	}
 
-	
-	
-
 	public Proyecto(String nombre) {
 		this.nombre = nombre;
+		tareas = new ArrayList<Tarea>();
+		miembros = new ArrayList<Usuario>();
 	}
 
 	public Proyecto() {
 		miembros = new ArrayList<Usuario>();
+		tareas = new ArrayList<Tarea>();
 	}
 	
 	public Proyecto(String nombre, String fechaInicio, String fechaFinal, int icono, String descripcion,
@@ -45,26 +45,6 @@ public class Proyecto {
 		this.miembros = miembros;
 		this.tareas = tareas;
 		this.estado = estado;
-	}
-
-	public void update() {
-		
-	}
-	
-	public void delete() {
-		
-	}
-	
-	public void insert() {
-		
-	}
-	
-	public void readTareas() {
-		
-	}
-	
-	public void readMiembros() {
-		
 	}
 	
 	//////////// Getters y setters //////////////
