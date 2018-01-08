@@ -42,6 +42,7 @@ import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JMenuItem;
+import java.awt.Dimension;
 
 public class PanelInformacionProyecto extends JPanel {
 	private final JLabel lblNombre = new JLabel(MessagesProjectOSInter.getString("PanelInformacionProyecto.lblNombre.text")); //$NON-NLS-1$
@@ -110,6 +111,8 @@ public class PanelInformacionProyecto extends JPanel {
 		gbc_cbIconoProyecto.insets = new Insets(0, 0, 5, 5);
 		gbc_cbIconoProyecto.gridx = 4;
 		gbc_cbIconoProyecto.gridy = 0;
+		cbIconoProyecto.setPreferredSize(new Dimension(40, 26));
+		cbIconoProyecto.setSize(new Dimension(26, 26));
 		add(cbIconoProyecto, gbc_cbIconoProyecto);
 
 		GridBagConstraints gbc_lblFechaInicio = new GridBagConstraints();
@@ -274,7 +277,7 @@ public class PanelInformacionProyecto extends JPanel {
 
 		crearIconos();
 		//////////////////// COMENTARIO DEL RENDER //////////////////////
-		// cbIconoProyecto.setRenderer(new ComboBox_projectIcon_render(iconosProyecto));
+		cbIconoProyecto.setRenderer(new ComboBox_projectIcon_render(iconosProyecto));
 
 	}
 

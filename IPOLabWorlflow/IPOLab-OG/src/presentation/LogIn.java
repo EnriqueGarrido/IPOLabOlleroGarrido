@@ -103,6 +103,7 @@ public class LogIn extends JFrame {
 		panel.add(lblIngles, gbc_lblIngles);
 		
 		JLabel lblEspaña = new JLabel(MessagesProjectOSInter.getString("LogIn.8")); //$NON-NLS-1$
+		lblEspaña.addMouseListener(new LblEspañaMouseListener());
 		lblEspaña.setIcon(new ImageIcon(LogIn.class.getResource(MessagesProjectOSInter.getString("LogIn.9")))); //$NON-NLS-1$
 		GridBagConstraints gbc_lblEspaña = new GridBagConstraints();
 		gbc_lblEspaña.insets = new Insets(0, 0, 5, 5);
@@ -224,7 +225,7 @@ public class LogIn extends JFrame {
 	private class LblInglesMouseListener extends MouseAdapter {
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
-			MessagesProjectOSInter.setIdioma(MessagesProjectOSInter.getString("LogIn.17")); //$NON-NLS-1$
+			MessagesProjectOSInter.setIdioma("inglés"); //$NON-NLS-1$
 			LogIn ventana = new LogIn();
 			ventana.setVisible(true);
 			dispose();
@@ -241,6 +242,15 @@ public class LogIn extends JFrame {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			DialogoAyuda da = new DialogoAyuda();
+		}
+	}
+	private class LblEspañaMouseListener extends MouseAdapter {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			MessagesProjectOSInter.setIdioma("es"); //$NON-NLS-1$
+			LogIn ventana = new LogIn();
+			ventana.setVisible(true);
+			dispose();
 		}
 	}
 

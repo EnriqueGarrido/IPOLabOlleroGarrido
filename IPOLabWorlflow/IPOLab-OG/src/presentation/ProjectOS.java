@@ -185,8 +185,6 @@ public class ProjectOS extends JFrame {
 		gbc_pnlTabSmall.gridy = 1;
 		pnlProjects.add(pnlTabSmall, gbc_pnlTabSmall);
 
-		pnlTabSmall.addTab(MessagesProjectOSInter.getString("ProjectOS.6"), null, pnlTareas, null); //$NON-NLS-1$
-
 		pnlTabMain.addTab(MessagesProjectOSInter.getString("ProjectOS.7"), //$NON-NLS-1$
 				new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/multiple-users-silhouette.png")), //$NON-NLS-1$
 				pnlUsers, null);
@@ -343,6 +341,8 @@ public class ProjectOS extends JFrame {
 				pnlTabSmall.addTab(MessagesProjectOSInter.getString("ProjectOS.pnlInformacionProjectos.title"), null, pnlInformacionProjectos, null); //$NON-NLS-1$ //$NON-NLS-1$
 				pnlInformacionProjectos.setProOS(this);
 				pnlInformacionUsuarios.setpinfPro(pnlInformacionProjectos);
+				
+						pnlTabSmall.addTab(MessagesProjectOSInter.getString("ProjectOS.6"), null, pnlTareas, null); //$NON-NLS-1$
 		/////////////////////////////////
 		//System.out.println(loggedUser);
 		
