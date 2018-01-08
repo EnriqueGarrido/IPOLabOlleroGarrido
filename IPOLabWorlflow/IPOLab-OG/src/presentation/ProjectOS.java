@@ -570,7 +570,6 @@ public class ProjectOS extends JFrame {
 		public void mouseClicked(MouseEvent e) {
 			frmProyectos.setVisible(false);
 			MessagesProjectOSInter.setIdioma("inglés"); //$NON-NLS-1$
-			Messages.setIdioma("ingles");
 			ProjectOS ventana = new ProjectOS(loggedUser);
 			ventana.getFrmProyectos().setVisible(true);
 			dispose();
