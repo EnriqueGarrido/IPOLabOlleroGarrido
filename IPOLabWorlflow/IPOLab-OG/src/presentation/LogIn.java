@@ -34,9 +34,9 @@ public class LogIn extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtUsuario;
-	private final JLabel lblConfig = new JLabel("");
+	private final JLabel lblConfig = new JLabel(MessagesProjectOSInter.getString("LogIn.0")); //$NON-NLS-1$
 	private JPasswordField passwordField;
-	JLabel lblInformacion = new JLabel("");
+	JLabel lblInformacion = new JLabel(MessagesProjectOSInter.getString("LogIn.1")); //$NON-NLS-1$
 	JPanel pnlInformacion = new JPanel();
 
 
@@ -61,11 +61,11 @@ public class LogIn extends JFrame {
 	 * Create the frame.
 	 */
 	public LogIn() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(LogIn.class.getResource("/presentation/Icons/icon.png")));
-		setTitle("ProjectOS (Login)");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(LogIn.class.getResource(MessagesProjectOSInter.getString("LogIn.2")))); //$NON-NLS-1$
+		setTitle(MessagesProjectOSInter.getString("LogIn.3")); //$NON-NLS-1$
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 367, 212);
+		setBounds(100, 100, 392, 215);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -74,14 +74,14 @@ public class LogIn extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{0, 101, 66, -23, 67, 0, 0, 0};
+		gbl_panel.columnWidths = new int[]{0, 101, 66, 23, 0, 32, 0, 0, 0};
 		gbl_panel.rowHeights = new int[]{27, 21, 0, 0, 0, 0, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
-		JLabel lblPhoto = new JLabel("");
-		lblPhoto.setIcon(new ImageIcon(LogIn.class.getResource("/presentation/Icons/logox64.png")));
+		JLabel lblPhoto = new JLabel(MessagesProjectOSInter.getString("LogIn.4")); //$NON-NLS-1$
+		lblPhoto.setIcon(new ImageIcon(LogIn.class.getResource(MessagesProjectOSInter.getString("LogIn.5")))); //$NON-NLS-1$
 		lblPhoto.setBackground(Color.WHITE);
 		GridBagConstraints gbc_lblPhoto = new GridBagConstraints();
 		gbc_lblPhoto.gridwidth = 2;
@@ -92,24 +92,42 @@ public class LogIn extends JFrame {
 		gbc_lblPhoto.gridy = 1;
 		panel.add(lblPhoto, gbc_lblPhoto);
 		
+		JLabel lblIngles = new JLabel(MessagesProjectOSInter.getString("LogIn.6")); //$NON-NLS-1$
+		lblIngles.addMouseListener(new LblInglesMouseListener());
+		lblIngles.setIcon(new ImageIcon(LogIn.class.getResource(MessagesProjectOSInter.getString("LogIn.7")))); //$NON-NLS-1$
+		GridBagConstraints gbc_lblIngles = new GridBagConstraints();
+		gbc_lblIngles.anchor = GridBagConstraints.EAST;
+		gbc_lblIngles.insets = new Insets(0, 0, 5, 5);
+		gbc_lblIngles.gridx = 3;
+		gbc_lblIngles.gridy = 1;
+		panel.add(lblIngles, gbc_lblIngles);
+		
+		JLabel lblEspaña = new JLabel(MessagesProjectOSInter.getString("LogIn.8")); //$NON-NLS-1$
+		lblEspaña.setIcon(new ImageIcon(LogIn.class.getResource(MessagesProjectOSInter.getString("LogIn.9")))); //$NON-NLS-1$
+		GridBagConstraints gbc_lblEspaña = new GridBagConstraints();
+		gbc_lblEspaña.insets = new Insets(0, 0, 5, 5);
+		gbc_lblEspaña.gridx = 4;
+		gbc_lblEspaña.gridy = 1;
+		panel.add(lblEspaña, gbc_lblEspaña);
+		
 		GridBagConstraints gbc_lblConfig = new GridBagConstraints();
 		gbc_lblConfig.anchor = GridBagConstraints.EAST;
 		gbc_lblConfig.insets = new Insets(0, 0, 5, 5);
-		gbc_lblConfig.gridx = 4;
+		gbc_lblConfig.gridx = 5;
 		gbc_lblConfig.gridy = 1;
-		lblConfig.setIcon(new ImageIcon(LogIn.class.getResource("/presentation/Icons/gear (1).png")));
+		lblConfig.setIcon(new ImageIcon(LogIn.class.getResource(MessagesProjectOSInter.getString("LogIn.10")))); //$NON-NLS-1$
 		panel.add(lblConfig, gbc_lblConfig);
 		
-		JLabel lblHelp = new JLabel("");
-		lblHelp.setIcon(new ImageIcon(LogIn.class.getResource("/presentation/Icons/question (2).png")));
+		JLabel lblHelp = new JLabel(MessagesProjectOSInter.getString("LogIn.11")); //$NON-NLS-1$
+		lblHelp.setIcon(new ImageIcon(LogIn.class.getResource(MessagesProjectOSInter.getString("LogIn.12")))); //$NON-NLS-1$
 		GridBagConstraints gbc_lblHelp = new GridBagConstraints();
 		gbc_lblHelp.anchor = GridBagConstraints.EAST;
 		gbc_lblHelp.insets = new Insets(0, 0, 5, 5);
-		gbc_lblHelp.gridx = 5;
+		gbc_lblHelp.gridx = 6;
 		gbc_lblHelp.gridy = 1;
 		panel.add(lblHelp, gbc_lblHelp);
 		
-		JLabel lblUsuario = new JLabel("Usuario:");
+		JLabel lblUsuario = new JLabel(MessagesProjectOSInter.getString("LogIn.lblUsuario.text")); //$NON-NLS-1$
 		GridBagConstraints gbc_lblUsuario = new GridBagConstraints();
 		gbc_lblUsuario.insets = new Insets(0, 0, 5, 5);
 		gbc_lblUsuario.anchor = GridBagConstraints.EAST;
@@ -120,7 +138,7 @@ public class LogIn extends JFrame {
 		txtUsuario = new JTextField();
 		txtUsuario.addMouseListener(new TxtUsuarioMouseListener());
 		GridBagConstraints gbc_txtUsuario = new GridBagConstraints();
-		gbc_txtUsuario.gridwidth = 3;
+		gbc_txtUsuario.gridwidth = 4;
 		gbc_txtUsuario.insets = new Insets(0, 0, 5, 5);
 		gbc_txtUsuario.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtUsuario.gridx = 3;
@@ -128,7 +146,7 @@ public class LogIn extends JFrame {
 		panel.add(txtUsuario, gbc_txtUsuario);
 		txtUsuario.setColumns(10);
 		
-		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
+		JLabel lblContrasea = new JLabel(MessagesProjectOSInter.getString("LogIn.lblContrasea.text")); //$NON-NLS-1$
 		GridBagConstraints gbc_lblContrasea = new GridBagConstraints();
 		gbc_lblContrasea.insets = new Insets(0, 0, 5, 5);
 		gbc_lblContrasea.anchor = GridBagConstraints.EAST;
@@ -140,20 +158,20 @@ public class LogIn extends JFrame {
 		passwordField.addActionListener(new PasswordFieldActionListener());
 		passwordField.addMouseListener(new TxtUsuarioMouseListener());
 		GridBagConstraints gbc_passwordField = new GridBagConstraints();
-		gbc_passwordField.gridwidth = 3;
+		gbc_passwordField.gridwidth = 4;
 		gbc_passwordField.insets = new Insets(0, 0, 5, 5);
 		gbc_passwordField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_passwordField.gridx = 3;
 		gbc_passwordField.gridy = 3;
 		panel.add(passwordField, gbc_passwordField);
 		
-		JButton btnLogin = new JButton("Login");
+		JButton btnLogin = new JButton(MessagesProjectOSInter.getString("LogIn.13")); //$NON-NLS-1$
 		btnLogin.addActionListener(new BtnLoginActionListener());
 		GridBagConstraints gbc_btnLogin = new GridBagConstraints();
 		gbc_btnLogin.anchor = GridBagConstraints.EAST;
 		gbc_btnLogin.gridwidth = 2;
 		gbc_btnLogin.insets = new Insets(0, 0, 5, 5);
-		gbc_btnLogin.gridx = 4;
+		gbc_btnLogin.gridx = 5;
 		gbc_btnLogin.gridy = 4;
 		panel.add(btnLogin, gbc_btnLogin);
 		
@@ -168,7 +186,7 @@ public class LogIn extends JFrame {
 		public void actionPerformed(ActionEvent arg0) {
 			Storage st = Storage.getInstance();
 			try {
-				String passReal ="";
+				String passReal =MessagesProjectOSInter.getString("LogIn.14"); //$NON-NLS-1$
 				int i;
 				for(i = 0; i<st.getListaUsuarios().size(); i++) {
 					if(st.getListaUsuarios().get(i).getDNI().equals(txtUsuario.getText())) {
@@ -180,7 +198,7 @@ public class LogIn extends JFrame {
 				ProjectOS projectos = new ProjectOS(st.getListaUsuarios().get(i));
 				dispose();
 			}catch(AuthenticationException authE) {
-				lblInformacion.setText("Error de autenticación");
+				lblInformacion.setText(MessagesProjectOSInter.getString("LogIn.TituloErrorPane")); //$NON-NLS-1$
 				lblInformacion.setForeground(Color.RED);
 				passwordField.setBackground(Color.RED);
 				txtUsuario.setBackground(Color.RED);
@@ -190,7 +208,7 @@ public class LogIn extends JFrame {
 	private class TxtUsuarioMouseListener extends MouseAdapter {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			passwordField.setText("");
+			passwordField.setText(MessagesProjectOSInter.getString("LogIn.16")); //$NON-NLS-1$
 			txtUsuario.setBackground(Color.WHITE);
 			passwordField.setBackground(Color.WHITE);
 		}
@@ -199,6 +217,16 @@ public class LogIn extends JFrame {
 		public void actionPerformed(ActionEvent arg0) {
 			BtnLoginActionListener listener = new BtnLoginActionListener();
 			listener.actionPerformed(null);
+		}
+	}
+	private class LblInglesMouseListener extends MouseAdapter {
+		@Override
+		public void mouseClicked(MouseEvent arg0) {
+			MessagesProjectOSInter.setIdioma(MessagesProjectOSInter.getString("LogIn.17")); //$NON-NLS-1$
+			LogIn ventana = new LogIn();
+			ventana.setVisible(true);
+			dispose();
+
 		}
 	}
 

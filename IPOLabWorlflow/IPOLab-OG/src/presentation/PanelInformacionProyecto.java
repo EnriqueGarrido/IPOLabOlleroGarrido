@@ -44,16 +44,16 @@ import java.awt.event.MouseEvent;
 import javax.swing.JMenuItem;
 
 public class PanelInformacionProyecto extends JPanel {
-	private final JLabel lblNombre = new JLabel("Nombre:");
+	private final JLabel lblNombre = new JLabel(MessagesProjectOSInter.getString("PanelInformacionProyecto.lblNombre.text")); //$NON-NLS-1$
 	private final JTextField txtNombre = new JTextField();
-	private final JLabel lblFechaInicio = new JLabel("Fecha Inicio:");
+	private final JLabel lblFechaInicio = new JLabel(MessagesProjectOSInter.getString("PanelInformacionProyecto.lblFechaInicio.text")); //$NON-NLS-1$
 	private JFormattedTextField ftxtFechaInicial;
-	private final JLabel lblFechaFinal = new JLabel("Fecha Final:");
+	private final JLabel lblFechaFinal = new JLabel(MessagesProjectOSInter.getString("PanelInformacionProyecto.lblFechaFinal.text")); //$NON-NLS-1$
 	private JFormattedTextField ftxtFechaFinal;
-	private final JLabel lblResponsable = new JLabel("Responsable:");
-	private final JLabel lblDescripcin = new JLabel("Descripción");
+	private final JLabel lblResponsable = new JLabel(MessagesProjectOSInter.getString("PanelInformacionProyecto.lblResponsable.text")); //$NON-NLS-1$
+	private final JLabel lblDescripcin = new JLabel(MessagesProjectOSInter.getString("PanelInformacionProyecto.lblDescripcin.text")); //$NON-NLS-1$
 	private final JTextArea txtDescripcion = new JTextArea();
-	private final JLabel lblMiembros = new JLabel("Miembros");
+	private final JLabel lblMiembros = new JLabel(MessagesProjectOSInter.getString("PanelInformacionProyecto.lblMiembros.text")); //$NON-NLS-1$
 	private final JScrollPane scrollPane = new JScrollPane();
 	private final JTable tableMiembros = new JTable();
 	private final JButton btnGuardar = new JButton("");
@@ -66,14 +66,14 @@ public class PanelInformacionProyecto extends JPanel {
 
 	// referencia a la ventana principal
 	private ProjectOS proOS;
-	private final JRadioButton rdbtnPendiente = new JRadioButton("Pendiente");
-	private final JRadioButton rdbtnEnRealizacin = new JRadioButton("En realizaci\u00F3n");
-	private final JRadioButton rdbtnCompletado = new JRadioButton("Completado");
+	private final JRadioButton rdbtnPendiente = new JRadioButton(MessagesProjectOSInter.getString("PanelInformacionProyecto.rdbtnPendiente.text")); //$NON-NLS-1$
+	private final JRadioButton rdbtnEnRealizacin = new JRadioButton(MessagesProjectOSInter.getString("PanelInformacionProyecto.rdbtnEnRealizacin.text")); //$NON-NLS-1$
+	private final JRadioButton rdbtnCompletado = new JRadioButton(MessagesProjectOSInter.getString("PanelInformacionProyecto.rdbtnCompletado.text")); //$NON-NLS-1$
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private final JLabel lblEstado = new JLabel("Estado:");
+	private final JLabel lblEstado = new JLabel(MessagesProjectOSInter.getString("PanelInformacionProyecto.lblEstado.text")); //$NON-NLS-1$
 	private final JPopupMenu popupMenu = new JPopupMenu();
-	private final JMenuItem mntmSeleccionarTodos = new JMenuItem("Seleccionar Todos");
-	private final JMenuItem mntmDeseleccionarTodos = new JMenuItem("Deseleccionar Todos");
+	private final JMenuItem mntmSeleccionarTodos = new JMenuItem(MessagesProjectOSInter.getString("PanelInformacionProyecto.mntmSeleccionarTodos.text")); //$NON-NLS-1$
+	private final JMenuItem mntmDeseleccionarTodos = new JMenuItem(MessagesProjectOSInter.getString("PanelInformacionProyecto.mntmDeseleccionarTodos.text")); //$NON-NLS-1$
 
 	/**
 	 * Create the panel.

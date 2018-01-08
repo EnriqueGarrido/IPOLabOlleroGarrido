@@ -23,7 +23,7 @@ public class DialogoAyuda {
 	private JFrame frame;
 	private final JPanel panelDialogo = new JPanel();
 	private final JLabel DialogoLabel = new JLabel(
-			"Toda la ayuda que necesites la podr\u00E1s encontrar en el siguiente enlace:");
+	MessagesProjectOSInter.getString("DialogoAyuda.DialogoLabel.text")); //$NON-NLS-1$
 	private final JLabel lblInformation = new JLabel("https://github.com/adrian-ollero/IPOLabOlleroGarrido/wiki\r\n");
 	private final JPanel buttonPane = new JPanel();
 	private final JButton okButton = new JButton("OK");
@@ -40,12 +40,12 @@ public class DialogoAyuda {
 		frame = new JFrame();
 		frame.setMinimumSize(new Dimension(400, 200));
 		frame.setResizable(false);
-		frame.setBounds(100, 100, 370, 139);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(100, 100, 418, 190);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		frame.getContentPane().add(panelDialogo, BorderLayout.CENTER);
 		panelDialogo.setLayout(null);
-		DialogoLabel.setBounds(20, 41, 352, 23);
+		DialogoLabel.setBounds(20, 41, 410, 23);
 
 		panelDialogo.add(DialogoLabel);
 		lblInformation.setFont(new Font("Tahoma", Font.PLAIN, 11));

@@ -24,11 +24,11 @@ import java.awt.event.ActionEvent;
 public class FrameSubtarea extends JFrame {
 
 	private JPanel contentPane;
-	private final JLabel lblSubtarea = new JLabel("Subtarea:");
+	private final JLabel lblSubtarea = new JLabel(MessagesProjectOSInter.getString("FrameSubtarea.lblSubtarea.text")); //$NON-NLS-1$
 	private final JTextField txtSubtarea = new JTextField();
-	private final JLabel lblDetalles = new JLabel("Detalles:");
+	private final JLabel lblDetalles = new JLabel(MessagesProjectOSInter.getString("FrameSubtarea.lblDetalles.text")); //$NON-NLS-1$
 	private final JTextArea txtaDetalles = new JTextArea();
-	private final JButton btnSave = new JButton("Guardar");
+	private final JButton btnSave = new JButton(MessagesProjectOSInter.getString("FrameSubtarea.btnSave.text")); //$NON-NLS-1$
 
 	private Subtarea subtarea;
 	private PanelTareas pTar;
@@ -53,7 +53,7 @@ public class FrameSubtarea extends JFrame {
 	 * Create the frame.
 	 */
 	public FrameSubtarea() {
-		setTitle("Detalles de la subtarea");
+		setTitle(MessagesProjectOSInter.getString("FrameSubtarea.this.title")); //$NON-NLS-1$
 		txtSubtarea.setColumns(10);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

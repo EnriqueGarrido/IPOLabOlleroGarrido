@@ -95,7 +95,7 @@ public class EditorImagenes extends JFrame {
 		gbc_toolBarEtiquetas.gridy = 0;
 		pnlBarraHerramientas.add(toolBarEtiquetas, gbc_toolBarEtiquetas);
 		
-		JButton btnCargarMapa = new JButton("Cargar Imagen");
+		JButton btnCargarMapa = new JButton(MessagesProjectOSInter.getString("EditorImagenes.btnCargarMapa.text")); //$NON-NLS-1$
 		btnCargarMapa.addActionListener(new BtnCargarMapaActionListener());
 		toolBarEtiquetas.add(btnCargarMapa);
 		

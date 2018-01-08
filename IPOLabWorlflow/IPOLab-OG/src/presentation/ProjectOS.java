@@ -47,42 +47,44 @@ import java.awt.event.ActionEvent;
 
 public class ProjectOS extends JFrame {
 
-	private static JFrame frmProyectos;
+	public static JFrame frmProyectos;
 	private final JTabbedPane pnlTabMain = new JTabbedPane(JTabbedPane.TOP);
 	private final JPanel pnlUser = new JPanel();
 	private final JPanel pnlAjustes = new JPanel();
 	private final JPanel pnlProjects = new JPanel();
 	private final JPanel pnlUsers = new JPanel();
-	private final JLabel lblProyectos = new JLabel("Proyectos:");
-	private final JLabel lblAddProjectIcon = new JLabel("");
-	private final JLabel lblRemoveProjectIcon = new JLabel("");
+	private final JLabel lblProyectos = new JLabel(MessagesProjectOSInter.getString("ProjectOS.lblProyectos.text")); //$NON-NLS-1$
+	private final JLabel lblAddProjectIcon = new JLabel(""); //$NON-NLS-1$
+	private final JLabel lblRemoveProjectIcon = new JLabel(""); //$NON-NLS-1$
 	private final JScrollPane scrollPaneProjects = new JScrollPane();
 	private final JList listProjects = new JList();
 	private final JTabbedPane pnlTabSmall = new JTabbedPane(JTabbedPane.TOP);
 	private PanelInformacionProyecto pnlInformacionProjectos = new PanelInformacionProyecto();;
 	private final PanelTareas pnlTareas = new PanelTareas();
-	private final JLabel lblAyuda = new JLabel("");
-	private final JLabel lblAjustes = new JLabel("");
-	private final JLabel lblLogo = new JLabel("");
-	private final JLabel lblUsuario = new JLabel("");
-	private final JLabel lblNombreUsuarioLogin = new JLabel("");
-	private final JLabel lblUsuarios = new JLabel("Usuarios:");
-	private final JLabel lblAddUser = new JLabel("");
-	private final JLabel lblRemoveUser = new JLabel("");
+	private final JLabel lblAyuda = new JLabel(""); //$NON-NLS-1$
+	private final JLabel lblAjustes = new JLabel(""); //$NON-NLS-1$
+	private final JLabel lblLogo = new JLabel(""); //$NON-NLS-1$
+	private final JLabel lblUsuario = new JLabel(""); //$NON-NLS-1$
+	private final JLabel lblNombreUsuarioLogin = new JLabel(""); //$NON-NLS-1$
+	private final JLabel lblUsuarios = new JLabel(MessagesProjectOSInter.getString("ProjectOS.lblUsuarios.text")); //$NON-NLS-1$
+	private final JLabel lblAddUser = new JLabel(""); //$NON-NLS-1$
+	private final JLabel lblRemoveUser = new JLabel(""); //$NON-NLS-1$
 	private final PanelInformacionUsuario pnlInformacionUsuarios = new PanelInformacionUsuario();
 	private JPanel pnlChat = null;
 	private final JScrollPane scrollPaneUsers = new JScrollPane();
 	private final JList listUsuarios = new JList();
-	private final JLabel lblltimaConexin = new JLabel("\u00DAltima conexi\u00F3n:");
-	private final JLabel lblHora = new JLabel("hora");
+	private final JLabel lblltimaConexin = new JLabel(MessagesProjectOSInter.getString("ProjectOS.lblltimaConexin.text")); //$NON-NLS-1$
+	private final JLabel lblHora = new JLabel(MessagesProjectOSInter.getString("ProjectOS.8")); //$NON-NLS-1$
 	
 	private Usuario loggedUser;
 	private final JPopupMenu popupMenu = new JPopupMenu();
-	private final JMenuItem mntmAadirProyecto = new JMenuItem("A\u00F1adir Proyecto");
-	private final JMenuItem mntmEliminarProyecto = new JMenuItem("Eliminar Proyecto Seleccionado");
+	private final JMenuItem mntmAadirProyecto = new JMenuItem(MessagesProjectOSInter.getString("ProjectOS.mntmAadirProyecto.text")); //$NON-NLS-1$
+	private final JMenuItem mntmEliminarProyecto = new JMenuItem(MessagesProjectOSInter.getString("ProjectOS.mntmEliminarProyecto.text")); //$NON-NLS-1$
 	private final JPopupMenu popupMenu_1 = new JPopupMenu();
-	private final JMenuItem mntmAadirUsuario = new JMenuItem("A\u00F1adir Usuario");
-	private final JMenuItem mntmEliminarUsuarioSeleccionado = new JMenuItem("Eliminar Usuario Seleccionado");
+	private final JMenuItem mntmAadirUsuario = new JMenuItem(MessagesProjectOSInter.getString("ProjectOS.mntmAadirUsuario.text")); //$NON-NLS-1$
+	private final JMenuItem mntmEliminarUsuarioSeleccionado = new JMenuItem(MessagesProjectOSInter.getString("ProjectOS.mntmEliminarUsuarioSeleccionado.text")); //$NON-NLS-1$
+	private final JLabel lblEspaña = new JLabel(""); //$NON-NLS-1$
+	private final JLabel lblIngles = new JLabel(""); //$NON-NLS-1$
 
 	/**
 	 * Launch the application.
@@ -109,6 +111,10 @@ public class ProjectOS extends JFrame {
 		loggedUser = u;
 		initialize();
 	}
+	
+	public ProjectOS() {
+		initialize();
+	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -116,16 +122,16 @@ public class ProjectOS extends JFrame {
 	private void initialize() {
 		frmProyectos = new JFrame();
 		frmProyectos.setIconImage(
-				Toolkit.getDefaultToolkit().getImage(ProjectOS.class.getResource("/presentation/Icons/icon.png")));
-		frmProyectos.setTitle("ProyectOS");
+				Toolkit.getDefaultToolkit().getImage(ProjectOS.class.getResource("/presentation/Icons/icon.png"))); //$NON-NLS-1$
+		frmProyectos.setTitle("ProyectOS"); //$NON-NLS-1$
 		frmProyectos.setBounds(100, 100, 1125, 753);
 		frmProyectos.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmProyectos.getContentPane().setLayout(new BorderLayout(0, 0));
 
 		frmProyectos.getContentPane().add(pnlTabMain, BorderLayout.CENTER);
 
-		pnlTabMain.addTab("Proyectos",
-				new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/business-presentation.png")),
+		pnlTabMain.addTab(MessagesProjectOSInter.getString("ProjectOS.9"), //$NON-NLS-1$
+				new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/business-presentation.png")), //$NON-NLS-1$
 				pnlProjects, null);
 		GridBagLayout gbl_pnlProjects = new GridBagLayout();
 		gbl_pnlProjects.columnWidths = new int[] { 10, 0, 175, 0, 0, 0, 0, 0 };
@@ -148,7 +154,7 @@ public class ProjectOS extends JFrame {
 		gbc_lblAddProjectIcon.gridy = 0;
 		lblAddProjectIcon.addMouseListener(new LblAddProjectIconMouseListener());
 		lblAddProjectIcon.addMouseListener(new IconMouseListener(lblAddProjectIcon));
-		lblAddProjectIcon.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/addition-sign.png")));
+		lblAddProjectIcon.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/addition-sign.png"))); //$NON-NLS-1$
 		pnlProjects.add(lblAddProjectIcon, gbc_lblAddProjectIcon);
 
 		GridBagConstraints gbc_lblRemoveProjectIcon = new GridBagConstraints();
@@ -158,7 +164,7 @@ public class ProjectOS extends JFrame {
 		gbc_lblRemoveProjectIcon.gridy = 0;
 		lblRemoveProjectIcon.addMouseListener(new IconMouseListener(lblRemoveProjectIcon));
 		lblRemoveProjectIcon.addMouseListener(new LblRemoveProjectIconMouseListener());
-		lblRemoveProjectIcon.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/trash-can.png")));
+		lblRemoveProjectIcon.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/trash-can.png"))); //$NON-NLS-1$
 		pnlProjects.add(lblRemoveProjectIcon, gbc_lblRemoveProjectIcon);
 
 		GridBagConstraints gbc_scrollPaneProjects = new GridBagConstraints();
@@ -179,12 +185,10 @@ public class ProjectOS extends JFrame {
 		gbc_pnlTabSmall.gridy = 1;
 		pnlProjects.add(pnlTabSmall, gbc_pnlTabSmall);
 
-		pnlTabSmall.addTab("Informaci\u00F3n", null, pnlInformacionProjectos, null);
+		pnlTabSmall.addTab(MessagesProjectOSInter.getString("ProjectOS.6"), null, pnlTareas, null); //$NON-NLS-1$
 
-		pnlTabSmall.addTab("Tareas", null, pnlTareas, null);
-
-		pnlTabMain.addTab("Usuarios",
-				new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/multiple-users-silhouette.png")),
+		pnlTabMain.addTab(MessagesProjectOSInter.getString("ProjectOS.7"), //$NON-NLS-1$
+				new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/multiple-users-silhouette.png")), //$NON-NLS-1$
 				pnlUsers, null);
 		GridBagLayout gbl_pnlUsers = new GridBagLayout();
 		gbl_pnlUsers.columnWidths = new int[] { 10, 0, 144, 0, 2, 236, 0, 244, 0, 0 };
@@ -206,7 +210,7 @@ public class ProjectOS extends JFrame {
 		gbc_lblAddUser.gridx = 2;
 		gbc_lblAddUser.gridy = 0;
 		lblAddUser.addMouseListener(new LblAddUserMouseListener());
-		lblAddUser.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/addition-sign.png")));
+		lblAddUser.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/addition-sign.png"))); //$NON-NLS-1$
 		lblAddUser.addMouseListener(new IconMouseListener(lblAddUser));
 		pnlUsers.add(lblAddUser, gbc_lblAddUser);
 
@@ -216,7 +220,7 @@ public class ProjectOS extends JFrame {
 		gbc_lblRemoveUser.gridx = 3;
 		gbc_lblRemoveUser.gridy = 0;
 		lblRemoveUser.addMouseListener(new LblRemoveUserMouseListener());
-		lblRemoveUser.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/trash-can.png")));
+		lblRemoveUser.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/trash-can.png"))); //$NON-NLS-1$
 		lblRemoveUser.addMouseListener(new IconMouseListener(lblRemoveUser));
 		pnlUsers.add(lblRemoveUser, gbc_lblRemoveUser);
 
@@ -266,7 +270,7 @@ public class ProjectOS extends JFrame {
 		gbc_lblUsuario.insets = new Insets(0, 0, 5, 0);
 		gbc_lblUsuario.gridx = 2;
 		gbc_lblUsuario.gridy = 0;
-		lblUsuario.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/user.png")));
+		lblUsuario.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/user.png"))); //$NON-NLS-1$
 		pnlUser.add(lblUsuario, gbc_lblUsuario);
 
 		GridBagConstraints gbc_lblltimaConexin = new GridBagConstraints();
@@ -286,9 +290,9 @@ public class ProjectOS extends JFrame {
 
 		frmProyectos.getContentPane().add(pnlAjustes, BorderLayout.SOUTH);
 		GridBagLayout gbl_pnlAjustes = new GridBagLayout();
-		gbl_pnlAjustes.columnWidths = new int[] { 32, 0, 0, 67, 0 };
+		gbl_pnlAjustes.columnWidths = new int[] { 32, 0, 0, 0, 0, 67, 0 };
 		gbl_pnlAjustes.rowHeights = new int[] { 0, 0 };
-		gbl_pnlAjustes.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
+		gbl_pnlAjustes.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
 		gbl_pnlAjustes.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 		pnlAjustes.setLayout(gbl_pnlAjustes);
 
@@ -298,7 +302,7 @@ public class ProjectOS extends JFrame {
 		gbc_lblAyuda.gridx = 0;
 		gbc_lblAyuda.gridy = 0;
 		lblAyuda.addMouseListener(new LblAyudaMouseListener());
-		lblAyuda.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/question (2).png")));
+		lblAyuda.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/question (2).png"))); //$NON-NLS-1$
 		lblAyuda.addMouseListener(new IconMouseListener(lblAyuda));
 		pnlAjustes.add(lblAyuda, gbc_lblAyuda);
 
@@ -308,26 +312,44 @@ public class ProjectOS extends JFrame {
 		gbc_lblAjustes.gridx = 1;
 		gbc_lblAjustes.gridy = 0;
 		lblAjustes.addMouseListener(new LblAjustesMouseListener());
-		lblAjustes.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/gear (1).png")));
+		lblAjustes.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/gear (1).png"))); //$NON-NLS-1$
 		lblAjustes.addMouseListener(new IconMouseListener(lblAjustes));
 		pnlAjustes.add(lblAjustes, gbc_lblAjustes);
+		
+		GridBagConstraints gbc_lblEspaña = new GridBagConstraints();
+		gbc_lblEspaña.insets = new Insets(0, 0, 0, 5);
+		gbc_lblEspaña.gridx = 2;
+		gbc_lblEspaña.gridy = 0;
+		lblEspaña.addMouseListener(new LblEspañaMouseListener());
+		lblEspaña.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/banderaEsp.gif"))); //$NON-NLS-1$
+		pnlAjustes.add(lblEspaña, gbc_lblEspaña);
+		
+		GridBagConstraints gbc_lblIngles = new GridBagConstraints();
+		gbc_lblIngles.insets = new Insets(0, 0, 0, 5);
+		gbc_lblIngles.gridx = 3;
+		gbc_lblIngles.gridy = 0;
+		lblIngles.addMouseListener(new LblInglesMouseListener());
+		lblIngles.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/banderaIng.gif"))); //$NON-NLS-1$
+		pnlAjustes.add(lblIngles, gbc_lblIngles);
 
 		GridBagConstraints gbc_lblLogo = new GridBagConstraints();
 		gbc_lblLogo.anchor = GridBagConstraints.WEST;
-		gbc_lblLogo.gridx = 3;
+		gbc_lblLogo.gridx = 5;
 		gbc_lblLogo.gridy = 0;
-		lblLogo.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/logox32.png")));
+		lblLogo.setIcon(new ImageIcon(ProjectOS.class.getResource("/presentation/Icons/logox32.png"))); //$NON-NLS-1$
 		pnlAjustes.add(lblLogo, gbc_lblLogo);
-		pnlInformacionProjectos.setProOS(this);
 		pnlInformacionUsuarios.setProos(this);
-		pnlInformacionUsuarios.setpinfPro(pnlInformacionProjectos);
+		
+				pnlTabSmall.addTab(MessagesProjectOSInter.getString("ProjectOS.pnlInformacionProjectos.title"), null, pnlInformacionProjectos, null); //$NON-NLS-1$ //$NON-NLS-1$
+				pnlInformacionProjectos.setProOS(this);
+				pnlInformacionUsuarios.setpinfPro(pnlInformacionProjectos);
 		/////////////////////////////////
 		//System.out.println(loggedUser);
 		
 		lblNombreUsuarioLogin.setText(loggedUser.getNombre());
 		pnlChat = new PanelChat(lblNombreUsuarioLogin.getText());
 		pnlChat.setBorder(
-				new TitledBorder(null, "Mensajes con ...", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				new TitledBorder(null, MessagesProjectOSInter.getString("ProjectOS.pnlChat.borderTitle"), TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
 		pnlUsers.add(pnlChat, gbc_pnlChat);
 		
 		/////////////////////////////////
@@ -362,9 +384,9 @@ public class ProjectOS extends JFrame {
 		int minutos = cal.get(Calendar.MINUTE);
 		hora = Math.abs((hora - rd.nextInt()) % 24);
 		minutos = Math.abs((minutos - rd.nextInt()) % 60);
-		String hoyayer = (cal.get(Calendar.HOUR_OF_DAY) <= hora && cal.get(Calendar.MINUTE) < minutos) ? "Ayer" : "Hoy";
+		String hoyayer = (cal.get(Calendar.HOUR_OF_DAY) <= hora && cal.get(Calendar.MINUTE) < minutos) ? MessagesProjectOSInter.getString("ProjectOS.0") : MessagesProjectOSInter.getString("ProjectOS.2"); //$NON-NLS-1$ //$NON-NLS-2$
 		lblHora.setText(
-				hoyayer + " a las " + ((hora < 10) ? "0" : "") + hora + ":" + ((minutos < 10) ? "0" : "") + minutos);
+				hoyayer + MessagesProjectOSInter.getString("ProjectOS.1") + ((hora < 10) ? "0" : "") + hora + ":" + ((minutos < 10) ? "0" : "") + minutos); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
 	}
 
 	public String getUsuarioLogin() {
@@ -441,7 +463,7 @@ public class ProjectOS extends JFrame {
 			}
 			pnlInformacionUsuarios.setInformacionUsuario(u);
 			pnlChat.setBorder(
-					new TitledBorder(null, "Mensajes con " + u.getNombre(), TitledBorder.LEADING, TitledBorder.TOP, null, null));
+					new TitledBorder(null, MessagesProjectOSInter.getString("ProjectOS.3") + u.getNombre(), TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
 		}
 	}
 
@@ -450,7 +472,7 @@ public class ProjectOS extends JFrame {
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
 			Proyecto p = new Proyecto();
-			p.setNombre("Proyecto" + (listProjects.getModel().getSize()+1));
+			p.setNombre(MessagesProjectOSInter.getString("ProjectOS.4") + (listProjects.getModel().getSize()+1)); //$NON-NLS-1$
 			p.setIcono(0);
 			pnlInformacionProjectos.setInformacionProyecto(p);
 			Storage.getInstance().getListaProyectos().add(p);
@@ -484,8 +506,8 @@ public class ProjectOS extends JFrame {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			Usuario u = new Usuario();
-			u.setNombre("Nuevo Usuario "+ (listUsuarios.getModel().getSize()+1));
-			u.setDNI("00000000A");
+			u.setNombre(MessagesProjectOSInter.getString("ProjectOS.5")+ (listUsuarios.getModel().getSize()+1)); //$NON-NLS-1$
+			u.setDNI("00000000A"); //$NON-NLS-1$
 			pnlInformacionUsuarios.setInformacionUsuario(u);
 			Storage.getInstance().getListaUsuarios().add(u);
 			try {
@@ -544,6 +566,27 @@ public class ProjectOS extends JFrame {
 			}
 		}
 	}
+	private class LblInglesMouseListener extends MouseAdapter {
+		public void mouseClicked(MouseEvent e) {
+			frmProyectos.setVisible(false);
+			MessagesProjectOSInter.setIdioma("inglés"); //$NON-NLS-1$
+			Messages.setIdioma("ingles");
+			ProjectOS ventana = new ProjectOS(loggedUser);
+			ventana.getFrmProyectos().setVisible(true);
+			dispose();
+			
+		}
+	}
+	private class LblEspañaMouseListener extends MouseAdapter {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			frmProyectos.setVisible(false);
+			MessagesProjectOSInter.setIdioma("es"); //$NON-NLS-1$
+			ProjectOS ventana = new ProjectOS(loggedUser);
+			ventana.getFrmProyectos().setVisible(true);
+			dispose();
+		}
+	}
 
 
 	private static void addPopup(Component component, final JPopupMenu popup) {
@@ -562,5 +605,9 @@ public class ProjectOS extends JFrame {
 				popup.show(e.getComponent(), e.getX(), e.getY());
 			}
 		});
+	}
+	
+	public static JFrame getFrmProyectos() {
+		return frmProyectos;
 	}
 }

@@ -30,31 +30,31 @@ import java.awt.event.MouseEvent;
 import java.text.ParseException;
 
 public class PanelInformacionTarea extends JPanel {
-	private final JLabel lblNombre = new JLabel("Nombre:");
+	private final JLabel lblNombre = new JLabel(MessagesProjectOSInter.getString("PanelInformacionTarea.lblNombre.text")); //$NON-NLS-1$
 	private final JTextField txtNombre = new JTextField();
-	private final JLabel lblFechaIn = new JLabel("Feha Inicial:");
-	private final JLabel lblFechaFinal = new JLabel("Fecha Final:");
-	private final JLabel lblPrioridad = new JLabel("Prioridad:");
+	private final JLabel lblFechaIn = new JLabel(MessagesProjectOSInter.getString("PanelInformacionTarea.lblFechaIn.text")); //$NON-NLS-1$
+	private final JLabel lblFechaFinal = new JLabel(MessagesProjectOSInter.getString("PanelInformacionTarea.lblFechaFinal.text")); //$NON-NLS-1$
+	private final JLabel lblPrioridad = new JLabel(MessagesProjectOSInter.getString("PanelInformacionTarea.lblPrioridad.text")); //$NON-NLS-1$
 	private final JSlider sliderPrioridad = new JSlider();
-	private final JLabel lblDescripcion = new JLabel("Descripci\u00F3n:");
+	private final JLabel lblDescripcion = new JLabel(MessagesProjectOSInter.getString("PanelInformacionTarea.lblDescripcion.text")); //$NON-NLS-1$
 	private final JTextArea txtAreaDescripcion = new JTextArea();
-	private final JButton btnAadirSubtarea = new JButton("A\u00F1adir Subtarea");
-	private final JButton btnGuardar = new JButton("");
+	private final JButton btnAadirSubtarea = new JButton(MessagesProjectOSInter.getString("PanelInformacionTarea.btnAadirSubtarea.text")); //$NON-NLS-1$
+	private final JButton btnGuardar = new JButton(""); //$NON-NLS-1$
 	private JFormattedTextField ftxtFechaFinal = null;
 	private JFormattedTextField ftxtFechaInicial = null;
-	private static JLabel lblEditorImagen = new JLabel("Editor Imagen:");
+	private static JLabel lblEditorImagen = new JLabel(MessagesProjectOSInter.getString("PanelInformacionTarea.lblEditorImagen.text")); //$NON-NLS-1$
 	private final JScrollPane scrollPaneImagen = new JScrollPane();
-	private final JLabel lblEditImagen = new JLabel("");
+	private final JLabel lblEditImagen = new JLabel(""); //$NON-NLS-1$
 
 	private PanelTareas pTar;
-	public static JLabel lblDibujo = new JLabel("");
+	public static JLabel lblDibujo = new JLabel(""); //$NON-NLS-1$
 
 	/**
 	 * Create the panel.
 	 */
 	public PanelInformacionTarea() {
 		try {
-			MaskFormatter formatoFecha = new MaskFormatter("##/##/####");
+			MaskFormatter formatoFecha = new MaskFormatter("##/##/####"); //$NON-NLS-1$
 			formatoFecha.setPlaceholderCharacter('*');
 			ftxtFechaFinal = new JFormattedTextField(formatoFecha);
 			ftxtFechaInicial = new JFormattedTextField(formatoFecha);
@@ -123,7 +123,7 @@ public class PanelInformacionTarea extends JPanel {
 		gbc_lblEditImagen.gridy = 1;
 		lblEditImagen.addMouseListener(new LblEditImagenMouseListener());
 		lblEditImagen.setIcon(
-				new ImageIcon(PanelInformacionTarea.class.getResource("/presentation/Icons/pencil-edit-button.png")));
+				new ImageIcon(PanelInformacionTarea.class.getResource("/presentation/Icons/pencil-edit-button.png"))); //$NON-NLS-1$
 		lblEditImagen.addMouseListener(new IconMouseListener(lblEditImagen));
 		add(lblEditImagen, gbc_lblEditImagen);
 
@@ -144,10 +144,10 @@ public class PanelInformacionTarea extends JPanel {
 		add(ftxtFechaFinal, gbc_ftxtFechaFinal);
 		//// Crear la tabla de las etiquetas personalizadas
 		Hashtable<Integer, JLabel> sliderLabels = new Hashtable<Integer, JLabel>();
-		sliderLabels.put(0, new JLabel("Baja"));
-		sliderLabels.put(1, new JLabel("Media"));
-		sliderLabels.put(2, new JLabel("Alta"));
-		sliderLabels.put(3, new JLabel("Crítica"));
+		sliderLabels.put(0, new JLabel(MessagesProjectOSInter.getString("PanelInformacionTarea.0"))); //$NON-NLS-1$
+		sliderLabels.put(1, new JLabel(MessagesProjectOSInter.getString("PanelInformacionTarea.1"))); //$NON-NLS-1$
+		sliderLabels.put(2, new JLabel(MessagesProjectOSInter.getString("PanelInformacionTarea.2"))); //$NON-NLS-1$
+		sliderLabels.put(3, new JLabel(MessagesProjectOSInter.getString("PanelInformacionTarea.3"))); //$NON-NLS-1$
 
 		GridBagConstraints gbc_lblPrioridad = new GridBagConstraints();
 		gbc_lblPrioridad.insets = new Insets(0, 0, 5, 5);
@@ -211,9 +211,9 @@ public class PanelInformacionTarea extends JPanel {
 		btnAadirSubtarea.addMouseListener(new BtnAadirSubtareaMouseListener());
 		// btnAadirSubtarea.addActionListener(new BtnAadirSubtareaActionListener());
 		btnAadirSubtarea.setIcon(
-				new ImageIcon(PanelInformacionTarea.class.getResource("/presentation/Icons/subtaskgrande.png")));
+				new ImageIcon(PanelInformacionTarea.class.getResource("/presentation/Icons/subtaskgrande.png"))); //$NON-NLS-1$
 		add(btnAadirSubtarea, gbc_btnAadirSubtarea);
-		btnGuardar.setIcon(new ImageIcon(PanelInformacionTarea.class.getResource("/presentation/Icons/save.png")));
+		btnGuardar.setIcon(new ImageIcon(PanelInformacionTarea.class.getResource("/presentation/Icons/save.png"))); //$NON-NLS-1$
 		add(btnGuardar, gbc_btnGuardar);
 
 	}
@@ -229,10 +229,10 @@ public class PanelInformacionTarea extends JPanel {
 	
 
 	public void clearFields() {
-		txtAreaDescripcion.setText("");
-		ftxtFechaFinal.setValue("");
-		ftxtFechaInicial.setValue("");
-		txtNombre.setText("");
+		txtAreaDescripcion.setText(""); //$NON-NLS-1$
+		ftxtFechaFinal.setValue(""); //$NON-NLS-1$
+		ftxtFechaInicial.setValue(""); //$NON-NLS-1$
+		txtNombre.setText(""); //$NON-NLS-1$
 		sliderPrioridad.setValue(0);
 	}
 
@@ -249,7 +249,7 @@ public class PanelInformacionTarea extends JPanel {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			try {
-				Subtarea s = new Subtarea("Nueva Subtarea", "");
+				Subtarea s = new Subtarea(MessagesProjectOSInter.getString("PanelInformacionTarea.4"), ""); //$NON-NLS-1$ //$NON-NLS-2$
 				pTar.getTareaSelecionada().getSubtareas().add(s);
 				FrameSubtarea pnlSub = new FrameSubtarea();
 				pnlSub.setPTar(pTar);

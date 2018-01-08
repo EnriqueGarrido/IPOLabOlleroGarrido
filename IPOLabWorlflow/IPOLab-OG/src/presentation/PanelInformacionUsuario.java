@@ -30,11 +30,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class PanelInformacionUsuario extends JPanel {
-	private final JLabel lblNombre = new JLabel("Nombre:");
-	private final JLabel lblRol = new JLabel("Rol:");
-	private final JLabel lblConocimientos = new JLabel("Conocimientos:");
-	private final JLabel lblContacto = new JLabel("Contacto:");
-	private final JLabel lblProyectos = new JLabel("Proyectos:");
+	private final JLabel lblNombre = new JLabel(MessagesProjectOSInter.getString("PanelInformacionUsuario.lblNombre.text")); //$NON-NLS-1$
+	private final JLabel lblRol = new JLabel(MessagesProjectOSInter.getString("PanelInformacionUsuario.lblRol.text")); //$NON-NLS-1$
+	private final JLabel lblConocimientos = new JLabel(MessagesProjectOSInter.getString("PanelInformacionUsuario.lblConocimientos.text")); //$NON-NLS-1$
+	private final JLabel lblContacto = new JLabel(MessagesProjectOSInter.getString("PanelInformacionUsuario.lblContacto.text")); //$NON-NLS-1$
+	private final JLabel lblProyectos = new JLabel(MessagesProjectOSInter.getString("PanelInformacionUsuario.lblProyectos.text")); //$NON-NLS-1$
 	private final JTextField txtNombre = new JTextField();
 	private final JTextField txtRol = new JTextField();
 	private final JTextField txtConocimientos = new JTextField();
@@ -42,7 +42,7 @@ public class PanelInformacionUsuario extends JPanel {
 	private final JLabel lblFoto = new JLabel("");
 	private final JList listTareas = new JList();
 	private final JScrollPane scrollPaneTareasUsuario = new JScrollPane();
-	private final JLabel lblDni = new JLabel("DNI:");
+	private final JLabel lblDni = new JLabel(MessagesProjectOSInter.getString("PanelInformacionUsuario.lblDni.text")); //$NON-NLS-1$
 	private JFormattedTextField ftxtDNI = null;
 	private final JButton btnGuardar = new JButton("");
 

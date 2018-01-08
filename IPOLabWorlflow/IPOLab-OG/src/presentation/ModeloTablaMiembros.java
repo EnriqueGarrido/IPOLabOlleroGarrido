@@ -5,7 +5,7 @@ import java.util.Vector;
 import javax.swing.table.AbstractTableModel;
 
 public class ModeloTablaMiembros extends AbstractTableModel {
-	private String[] nombreColumnas = { "S/N", "Nombre"};
+	private String[] nombreColumnas = { Messages.getString("ModeloTablaMiembros.0"), Messages.getString("PCNombre")}; //$NON-NLS-1$ //$NON-NLS-2$
 	private Vector datos = new Vector();
 
 	public int getColumnCount() {
