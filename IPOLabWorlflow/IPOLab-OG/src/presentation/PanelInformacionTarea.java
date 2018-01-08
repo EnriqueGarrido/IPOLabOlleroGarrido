@@ -257,7 +257,6 @@ public class PanelInformacionTarea extends JPanel {
 				pnlSub.setVisible(true);
 				pTar.addSubtareaToTree(s);
 			} catch (Exception ex) {
-
 			}
 		}
 	}

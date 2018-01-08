@@ -286,7 +286,7 @@ public class ProjectOS extends JFrame {
 
 		frmProyectos.getContentPane().add(pnlAjustes, BorderLayout.SOUTH);
 		GridBagLayout gbl_pnlAjustes = new GridBagLayout();
-		gbl_pnlAjustes.columnWidths = new int[] { 32, 0, 0, 96, 0 };
+		gbl_pnlAjustes.columnWidths = new int[] { 32, 0, 0, 67, 0 };
 		gbl_pnlAjustes.rowHeights = new int[] { 0, 0 };
 		gbl_pnlAjustes.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
 		gbl_pnlAjustes.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
@@ -320,6 +320,7 @@ public class ProjectOS extends JFrame {
 		pnlAjustes.add(lblLogo, gbc_lblLogo);
 		pnlInformacionProjectos.setProOS(this);
 		pnlInformacionUsuarios.setProos(this);
+		pnlInformacionUsuarios.setpinfPro(pnlInformacionProjectos);
 		/////////////////////////////////
 		//System.out.println(loggedUser);
 		
@@ -344,7 +345,6 @@ public class ProjectOS extends JFrame {
 		
 		popupMenu.add(mntmAadirProyecto);
 		mntmEliminarProyecto.addActionListener(new MntmEliminarProyectoActionListener());
-		
 		
 		popupMenu.add(mntmEliminarProyecto);
 		
@@ -440,6 +440,8 @@ public class ProjectOS extends JFrame {
 					break;
 			}
 			pnlInformacionUsuarios.setInformacionUsuario(u);
+			pnlChat.setBorder(
+					new TitledBorder(null, "Mensajes con " + u.getNombre(), TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		}
 	}
 

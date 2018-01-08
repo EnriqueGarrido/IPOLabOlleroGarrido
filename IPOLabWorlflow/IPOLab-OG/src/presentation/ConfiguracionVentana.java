@@ -65,6 +65,7 @@ public class ConfiguracionVentana extends JFrame {
 		gbc_lblTamaoDeFuente.insets = new Insets(0, 0, 5, 5);
 		gbc_lblTamaoDeFuente.gridx = 3;
 		gbc_lblTamaoDeFuente.gridy = 0;
+		lblTamaoDeFuente.setEnabled(false);
 		contentPane.add(lblTamaoDeFuente, gbc_lblTamaoDeFuente);
 		
 		GridBagConstraints gbc_cbTamano = new GridBagConstraints();
@@ -72,6 +73,7 @@ public class ConfiguracionVentana extends JFrame {
 		gbc_cbTamano.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cbTamano.gridx = 4;
 		gbc_cbTamano.gridy = 0;
+		cbTamano.setEnabled(false);
 		cbTamano.setModel(new DefaultComboBoxModel(new String[] {"Peque\u00F1o", "Mediano", "Grande"}));
 		contentPane.add(cbTamano, gbc_cbTamano);
 		

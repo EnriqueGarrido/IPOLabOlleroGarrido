@@ -26,6 +26,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 @SuppressWarnings("serial")
 public class LogIn extends JFrame {
@@ -135,6 +137,7 @@ public class LogIn extends JFrame {
 		panel.add(lblContrasea, gbc_lblContrasea);
 		
 		passwordField = new JPasswordField();
+		passwordField.addActionListener(new PasswordFieldActionListener());
 		passwordField.addMouseListener(new TxtUsuarioMouseListener());
 		GridBagConstraints gbc_passwordField = new GridBagConstraints();
 		gbc_passwordField.gridwidth = 3;
@@ -153,16 +156,6 @@ public class LogIn extends JFrame {
 		gbc_btnLogin.gridx = 4;
 		gbc_btnLogin.gridy = 4;
 		panel.add(btnLogin, gbc_btnLogin);
-
-		
-		JLabel lblUsuarioManolitoContasea = new JLabel("UsuarioPruebas: 12345678p Contaseña: 1234");
-		lblUsuarioManolitoContasea.setEnabled(false);
-		GridBagConstraints gbc_lblUsuarioManolitoContasea = new GridBagConstraints();
-		gbc_lblUsuarioManolitoContasea.gridwidth = 5;
-		gbc_lblUsuarioManolitoContasea.insets = new Insets(0, 0, 0, 5);
-		gbc_lblUsuarioManolitoContasea.gridx = 1;
-		gbc_lblUsuarioManolitoContasea.gridy = 5;
-		panel.add(lblUsuarioManolitoContasea, gbc_lblUsuarioManolitoContasea);
 		
 		contentPane.add(pnlInformacion, BorderLayout.SOUTH);
 		
@@ -202,5 +195,12 @@ public class LogIn extends JFrame {
 			passwordField.setBackground(Color.WHITE);
 		}
 	}
+	private class PasswordFieldActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			BtnLoginActionListener listener = new BtnLoginActionListener();
+			listener.actionPerformed(null);
+		}
+	}
+
 	
 }

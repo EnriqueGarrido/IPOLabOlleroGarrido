@@ -197,13 +197,13 @@ public class PanelInformacionProyecto extends JPanel {
 		gbc_rdbtnCompletado.gridy = 3;
 		buttonGroup.add(rdbtnCompletado);
 		add(rdbtnCompletado, gbc_rdbtnCompletado);
-		
+
 		addPopup(scrollPane, popupMenu);
 		mntmSeleccionarTodos.addActionListener(new MntmSeleccionarTodosActionListener());
-		
+
 		popupMenu.add(mntmSeleccionarTodos);
 		mntmDeseleccionarTodos.addActionListener(new MntmDeseleccionarTodosActionListener());
-		
+
 		popupMenu.add(mntmDeseleccionarTodos);
 
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
@@ -213,14 +213,14 @@ public class PanelInformacionProyecto extends JPanel {
 		gbc_scrollPane.gridx = 6;
 		gbc_scrollPane.gridy = 3;
 		add(scrollPane, gbc_scrollPane);
-//		tableMiembros.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "S/N", "Nombre" }) {
-//			Class[] columnTypes = new Class[] { Boolean.class, String.class };
-//
-//			public Class getColumnClass(int columnIndex) {
-//				return columnTypes[columnIndex];
-//			}
-//		});
-		
+		// tableMiembros.setModel(new DefaultTableModel(new Object[][] {}, new String[]
+		// { "S/N", "Nombre" }) {
+		// Class[] columnTypes = new Class[] { Boolean.class, String.class };
+		//
+		// public Class getColumnClass(int columnIndex) {
+		// return columnTypes[columnIndex];
+		// }
+		// });
 
 		scrollPane.setViewportView(tableMiembros);
 
@@ -237,9 +237,9 @@ public class PanelInformacionProyecto extends JPanel {
 		gbc_cbResponsable.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cbResponsable.gridx = 2;
 		gbc_cbResponsable.gridy = 5;
-		ArrayList<Usuario> todosUsers =  Storage.getInstance().getListaUsuarios();
-		String [] modeloComboResponsable = new String[todosUsers.size()];
-		for(int i = 0; i<modeloComboResponsable.length; i++) {
+		ArrayList<Usuario> todosUsers = Storage.getInstance().getListaUsuarios();
+		String[] modeloComboResponsable = new String[todosUsers.size()];
+		for (int i = 0; i < modeloComboResponsable.length; i++) {
 			modeloComboResponsable[i] = todosUsers.get(i).getNombre();
 		}
 		cbResponsable.setModel(new DefaultComboBoxModel(modeloComboResponsable));
@@ -274,7 +274,7 @@ public class PanelInformacionProyecto extends JPanel {
 
 		crearIconos();
 		//////////////////// COMENTARIO DEL RENDER //////////////////////
-		//cbIconoProyecto.setRenderer(new ComboBox_projectIcon_render(iconosProyecto));
+		// cbIconoProyecto.setRenderer(new ComboBox_projectIcon_render(iconosProyecto));
 
 	}
 
@@ -295,18 +295,34 @@ public class PanelInformacionProyecto extends JPanel {
 		}
 	}
 
-	private void loadTodosMiembros() {
+	public void loadTodosMiembros() {
 		ModeloTablaMiembros model = new ModeloTablaMiembros();
-		tableMiembros.setModel(model);
-		tableMiembros.getColumnModel().getColumn(0).setResizable(false);
-		tableMiembros.getColumnModel().getColumn(0).setPreferredWidth(30);
-		tableMiembros.getColumnModel().getColumn(0).setMaxWidth(30);
-		tableMiembros.getColumnModel().getColumn(1).setResizable(false);
 		ArrayList<Usuario> users = Storage.getInstance().getListaUsuarios();
 		for (int i = 0; i < users.size(); i++) {
 			Object[] row = { false, users.get(i).getNombre() };
 			model.addFila(row);
 		}
+		tableMiembros.setModel(model);
+		tableMiembros.getColumnModel().getColumn(0).setResizable(false);
+		tableMiembros.getColumnModel().getColumn(0).setPreferredWidth(30);
+		tableMiembros.getColumnModel().getColumn(0).setMaxWidth(30);
+		tableMiembros.getColumnModel().getColumn(1).setResizable(false);
+		// tableMiembros.repaint();
+	}
+
+	public void reloadMiembros() {
+		ModeloTablaMiembros model = new ModeloTablaMiembros();
+		ArrayList<Usuario> users = Storage.getInstance().getListaUsuarios();
+		for (int i = 0; i < users.size(); i++) {
+			Object[] row = { false, users.get(i).getNombre() };
+			model.addFila(row);
+		}
+		tableMiembros.setModel(model);
+		tableMiembros.getColumnModel().getColumn(0).setResizable(false);
+		tableMiembros.getColumnModel().getColumn(0).setPreferredWidth(30);
+		tableMiembros.getColumnModel().getColumn(0).setMaxWidth(30);
+		tableMiembros.getColumnModel().getColumn(1).setResizable(false);
+		tableMiembros.repaint();
 	}
 
 	public void setInformacionProyecto(Proyecto p) {
@@ -334,7 +350,7 @@ public class PanelInformacionProyecto extends JPanel {
 
 	private void loadMiembrosProyecto(Proyecto p) {
 		ArrayList<Usuario> miembros = p.getMiembros();
-		for(int i = 0; i<tableMiembros.getRowHeight(); i++) {
+		for (int i = 0; i < tableMiembros.getRowHeight(); i++) {
 			tableMiembros.getModel().setValueAt(false, i, 0);
 		}
 		for (int i = 0; i < tableMiembros.getRowCount(); i++) {
@@ -356,6 +372,15 @@ public class PanelInformacionProyecto extends JPanel {
 		return cbResponsable;
 	}
 
+	public void setComboResponsable() {
+		ArrayList<Usuario> todosUsers = Storage.getInstance().getListaUsuarios();
+		String[] modeloComboResponsable = new String[todosUsers.size()];
+		for (int i = 0; i < modeloComboResponsable.length; i++) {
+			modeloComboResponsable[i] = todosUsers.get(i).getNombre();
+		}
+		cbResponsable.setModel(new DefaultComboBoxModel(modeloComboResponsable));
+	}
+
 	private class BtnGuardarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			try {
@@ -373,8 +398,8 @@ public class PanelInformacionProyecto extends JPanel {
 				if (rdbtnCompletado.isSelected())
 					p.setEstado(2);
 				ArrayList<Usuario> miembros = new ArrayList<Usuario>();
-				for(int i = 0; i<tableMiembros.getRowCount(); i++) {
-					if(tableMiembros.getModel().getValueAt(i, 0).equals(true)) {
+				for (int i = 0; i < tableMiembros.getRowCount(); i++) {
+					if (tableMiembros.getModel().getValueAt(i, 0).equals(true)) {
 						Usuario u = getUsuarioConNombre(tableMiembros.getModel().getValueAt(i, 1).toString());
 						miembros.add(u);
 					}
@@ -386,28 +411,32 @@ public class PanelInformacionProyecto extends JPanel {
 			} catch (Exception e) {
 			}
 		}
+
 		public Usuario getUsuarioConNombre(String nombre) {
 			Iterator<Usuario> it = Storage.getInstance().getListaUsuarios().iterator();
-			while(it.hasNext()) {
+			while (it.hasNext()) {
 				Usuario u = it.next();
-				if(u.getNombre().equals(nombre))
+				if (u.getNombre().equals(nombre))
 					return u;
 			}
 			return null;
 		}
 	}
+
 	private class MntmSeleccionarTodosActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			for(int i = 0; i<=tableMiembros.getModel().getColumnCount(); i++)
+			for (int i = 0; i <= tableMiembros.getModel().getColumnCount(); i++)
 				tableMiembros.getModel().setValueAt(true, i, 0);
 		}
 	}
+
 	private class MntmDeseleccionarTodosActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			for(int i = 0; i<=tableMiembros.getModel().getColumnCount(); i++)
+			for (int i = 0; i <= tableMiembros.getModel().getColumnCount(); i++)
 				tableMiembros.getModel().setValueAt(false, i, 0);
 		}
 	}
+
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
@@ -415,11 +444,13 @@ public class PanelInformacionProyecto extends JPanel {
 					showMenu(e);
 				}
 			}
+
 			public void mouseReleased(MouseEvent e) {
 				if (e.isPopupTrigger()) {
 					showMenu(e);
 				}
 			}
+
 			private void showMenu(MouseEvent e) {
 				popup.show(e.getComponent(), e.getX(), e.getY());
 			}
