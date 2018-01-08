@@ -115,10 +115,12 @@ public class LogIn extends JFrame {
 		gbc_lblConfig.insets = new Insets(0, 0, 5, 5);
 		gbc_lblConfig.gridx = 5;
 		gbc_lblConfig.gridy = 1;
+		lblConfig.addMouseListener(new LblConfigMouseListener());
 		lblConfig.setIcon(new ImageIcon(LogIn.class.getResource(MessagesProjectOSInter.getString("LogIn.10")))); //$NON-NLS-1$
 		panel.add(lblConfig, gbc_lblConfig);
 		
 		JLabel lblHelp = new JLabel(MessagesProjectOSInter.getString("LogIn.11")); //$NON-NLS-1$
+		lblHelp.addMouseListener(new LblHelpMouseListener());
 		lblHelp.setIcon(new ImageIcon(LogIn.class.getResource(MessagesProjectOSInter.getString("LogIn.12")))); //$NON-NLS-1$
 		GridBagConstraints gbc_lblHelp = new GridBagConstraints();
 		gbc_lblHelp.anchor = GridBagConstraints.EAST;
@@ -227,6 +229,18 @@ public class LogIn extends JFrame {
 			ventana.setVisible(true);
 			dispose();
 
+		}
+	}
+	private class LblConfigMouseListener extends MouseAdapter {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			ConfiguracionVentana cv = new ConfiguracionVentana();
+		}
+	}
+	private class LblHelpMouseListener extends MouseAdapter {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			DialogoAyuda da = new DialogoAyuda();
 		}
 	}
 

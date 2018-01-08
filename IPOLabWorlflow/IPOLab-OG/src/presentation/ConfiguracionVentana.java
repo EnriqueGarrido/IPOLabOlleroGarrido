@@ -56,7 +56,7 @@ public class ConfiguracionVentana extends JFrame {
 		gbc_cbTamano.gridx = 1;
 		gbc_cbTamano.gridy = 0;
 		cbTamano.setEnabled(false);
-		cbTamano.setModel(new DefaultComboBoxModel(new String[] {"Peque\u00F1o", "Mediano", "Grande"}));
+		cbTamano.setModel(new DefaultComboBoxModel(new String[] {"5", "7", "8", "9", "10", "12"}));
 		contentPane.add(cbTamano, gbc_cbTamano);
 		
 		GridBagConstraints gbc_lblFuente = new GridBagConstraints();
